@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>io.github.bastide</groupId>
-	<artifactId>Comptoirs_MVC</artifactId>
+	<artifactId>ProjetTutore_OpenDAMIR</artifactId>
 	<version>1.0</version>
 	<packaging>war</packaging>
 
-	<name>Comptoirs_MVC</name>
+	<name>ProjetTutore_OpenDAMIR</name>
 
 	<properties>
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
