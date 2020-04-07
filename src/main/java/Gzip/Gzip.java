@@ -36,7 +36,8 @@ public class Gzip{
                 ){
                     String line;
                     while ((line = reader.readLine()) !=null) {
-                        processLine(reader.getLineNumber(),line);
+                        processLine(reader.getLineNumber(),line); 
+                        
                         
                     }
                 
