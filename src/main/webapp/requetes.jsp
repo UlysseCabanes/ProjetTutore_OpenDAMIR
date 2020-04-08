@@ -1,20 +1,28 @@
+<%-- 
+    Document   : requetes
+    Created on : 8 avr. 2020, 15:35:40
+    Author     : ulyss
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <title>Page des requetes</title>
-    <link rel="stylesheet" type="text/css" href="requetes.css">
+    <link rel="stylesheet" type="text/css" href="CSS/requetes.css">
 </head>
 <header>
-    <img src="logoAM.jpg" alt="Logo Assurance Maladie" id="logoAM">
+    <img src="images/logoAM.jpg" alt="Logo Assurance Maladie" id="logoAM">
     <h1>OpenDAMIR Explorer</h1>
-    <img src="logoMarianne.jpg" alt="Logo R^épublique Française" id="logoMarianne">
+    <img src="images/logoMarianne.jpg" alt="Logo R^épublique Française" id="logoMarianne">
 </header>
 <body>
     <h2>- Remboursements de l'Assurance Maladie de Septembre 2015, Juin 2016, Février 2017 et Mai 2018</h2>
     <br>
-    <form action="accueil.html">
-           <input type="submit" id="accueil" value="Retour à l'accueil">
+    <form action="index.jsp">
+        <input type="submit" id="accueil" value="Retour à l'accueil">
     </form>
     <br>
     <p>Fichiers téléchargés</p>
