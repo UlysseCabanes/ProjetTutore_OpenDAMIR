@@ -1,0 +1,38 @@
+#logoAM{
+	max-width: 25%;
+	height: auto;
+	border-right: solid #81C135;
+}
+
+h1{
+	color: #2059A6;
+	margin-left: 10px;
+	margin: auto;
+}
+
+#logoMarianne{
+	max-width: 25%;
+	height: auto;
+	border-left: solid #81C135;
+	float: right;
+	padding: 10px;
+}
+
+header{
+	display: flex;
+	border: solid #81C135;
+}
+
+div{
+	display: inline-grid;
+}
+
+#afficherFichiers{
+	padding-right: 25px;
+	border: solid;
+}
+
+input{
+	margin-bottom: 10px;
+	text-align: left;
+}
