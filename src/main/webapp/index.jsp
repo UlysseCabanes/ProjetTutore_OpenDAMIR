@@ -1,6 +1,6 @@
 <%-- 
     Document   : index
-    Created on : 8 avr. 2020, 14:58:47
+    Created on : 10 avr. 2020, 16:23:40
     Author     : ulyss
 --%>
 
@@ -53,7 +53,7 @@
         </div>
         <br>
         <div id="divBouton">
-               <input type="submit" id="okButton" value="OK">
+            <input type="submit" id="okButton" value="OK">
         </div>
     </form>
     <script type="text/javascript" src="js/accueil.js"></script>

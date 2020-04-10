@@ -16,7 +16,7 @@
 <header>
     <img src="images/logoAM.jpg" alt="Logo Assurance Maladie" id="logoAM">
     <h1>OpenDAMIR Explorer</h1>
-    <img src="images/logoMarianne.jpg" alt="Logo R^épublique Française" id="logoMarianne">
+    <img src="images/logoMarianne.jpg" alt="Logo République Française" id="logoMarianne">
 </header>
 <body>
     <h2>- Remboursements de l'Assurance Maladie de Septembre 2015, Juin 2016, Février 2017 et Mai 2018</h2>
@@ -43,6 +43,6 @@
         <input type="button" id="requete4" value="Montant moyen des remboursements par spécialité du médecin exécutant">
         <input type="button" id="requete5" value="Montant des dépenses dans les secteurs privé/public par tranche d'âge">
     </div>
-    <script type="text/javascript" src="requetes.js"></script>
+    <script type="text/javascript" src="js/requetes.js"></script>
 </body>
 </html>
