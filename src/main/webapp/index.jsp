@@ -21,14 +21,14 @@
 <body>
     <h2>- Accueil</h2>
     <br>
+    <p>Choisissez une periode à étudier :</p>
+    <select id="periode">
+        <option value="Un mois" selected>Un mois</option>
+        <option value="Une année">Une année</option>
+        <option value="Plusieurs mois">Plusieurs mois</option>
+    </select>
+    <br><br>
     <form action="requetes.jsp">
-        <p>Choisissez une periode à étudier :</p>
-        <select id="periode">
-            <option value="Un mois" selected>Un mois</option>
-            <option value="Une année">Une année</option>
-            <option value="Plusieurs mois">Plusieurs mois</option>
-        </select>
-        <br><br>
         <div id="divPeriode">
             <select id="listeAnnee">
                 <option value='2015'>2015</option>

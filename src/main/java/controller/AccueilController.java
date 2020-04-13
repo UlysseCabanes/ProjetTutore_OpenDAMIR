@@ -19,7 +19,7 @@ import javax.ws.rs.Path;
 
 @Controller
 @Path("index")
-@View("index.html")
+@View("index.jsp")
 public class AccueilController {
     
     @Inject
