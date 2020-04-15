@@ -7,7 +7,9 @@ package controller;
 
 import javax.mvc.Controller;
 import javax.mvc.View;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
 
 /**
  *
@@ -18,4 +20,8 @@ import javax.ws.rs.Path;
 @View("requetes.jsp")
 public class RequetesController {
     
+    @GET
+    public void show(@QueryParam("listeAnnee") String annee, @QueryParam("listeMois") String mois) {
+        
+    }
 }

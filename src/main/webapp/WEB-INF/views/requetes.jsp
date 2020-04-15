@@ -4,12 +4,13 @@
     Author     : ulyss
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Page des requetes</title>
     <link rel="stylesheet" type="text/css" href="CSS/requetes.css">
 </head>
@@ -21,7 +22,7 @@
 <body>
     <h2>- Remboursements de l'Assurance Maladie de Septembre 2015, Juin 2016, Février 2017 et Mai 2018</h2>
     <br>
-    <form action="index.jsp">
+    <form action="index.html">
         <input type="submit" id="accueil" value="Retour à l'accueil">
     </form>
     <br>
