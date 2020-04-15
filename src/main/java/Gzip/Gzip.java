@@ -41,8 +41,8 @@ public class Gzip{
             Properties props = new Properties ();
         //Donner id de connexion, avec mot de passe
             props.setProperty ("Alex", "/");
-        //Création de la variable connection pour cr
-            Connection connection = DriverManager.getConnection("java:app/comptoirs");
+        //Création de la variable connection pour a partir de l'url de la DB voulue
+            Connection connection = DriverManager.getConnection("java:app/comptoirs"/*,props*/);
             Statement stmt =connection.createStatement();
             
             ////
