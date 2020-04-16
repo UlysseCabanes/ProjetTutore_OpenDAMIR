@@ -20,11 +20,9 @@
 		<img src="${pageContext.request.contextPath}/images/logoMarianne.jpg" alt="Logo République Française" id="logoMarianne">
 	</header>
 	<body>
-		<h2>- Remboursements de l'Assurance Maladie de Septembre 2015, Juin 2016, Février 2017 et Mai 2018</h2>
-		<br>
-		<form action="index.html">
-			<input type="submit" id="accueil" value="Retour à l'accueil">
-		</form>
+            <h2>- Remboursements de l'Assurance Maladie de ${periodeChoisie}</h2>
+                <br>
+		<a href="${pageContext.request.contextPath}/">Retour au menu</a>
 		<br>
 		<p>Fichiers téléchargés</p>
 		<div id="afficherFichiers">
@@ -44,6 +42,5 @@
 			<input type="button" id="requete4" value="Montant moyen des remboursements par spécialité du médecin exécutant">
 			<input type="button" id="requete5" value="Montant des dépenses dans les secteurs privé/public par tranche d'âge">
 		</div>
-		<script type="text/javascript" src="js/requetes.js"></script>
 	</body>
 </html>
