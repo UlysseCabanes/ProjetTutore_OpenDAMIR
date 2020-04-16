@@ -15,9 +15,9 @@
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/requetes.css">
 	</head>
 	<header>
-		<img src="images/logoAM.jpg" alt="Logo Assurance Maladie" id="logoAM">
+		<img src="${pageContext.request.contextPath}/images/logoAM.jpg" alt="Logo Assurance Maladie" id="logoAM">
 		<h1>OpenDAMIR Explorer</h1>
-		<img src="images/logoMarianne.jpg" alt="Logo République Française" id="logoMarianne">
+		<img src="${pageContext.request.contextPath}/images/logoMarianne.jpg" alt="Logo République Française" id="logoMarianne">
 	</header>
 	<body>
 		<h2>- Remboursements de l'Assurance Maladie de Septembre 2015, Juin 2016, Février 2017 et Mai 2018</h2>
