@@ -23,56 +23,52 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Properties;
+
 /* Lire le contenu d'une URL web en format gzip*/
 
-public class Gzip{
+public class Gzip {
 
-	/*
+    /*
 	Lit ligne par ligne
 	@param gzipURL l'url du fichier à lire
+        @param colonnes liste des colonnes de la ligne à lire
 	@throws java.net.MalformedURLException
-	*/
+     */
+    public void readGzipURL(String gzipURL, int[] colonnes) throws MalformedURLException, IOException, Exception {
 
-	public void readGzipURL(String gzipURL, int[] colonnes) throws MalformedURLException, IOException, Exception {
-            
-            URL url = new URL(gzipURL);
-            /* Chargement du driver JDBC pour MySQL */
-    
-		try (
-			InputStream in = url.openStream();
-			GZIPInputStream gzipIn = new GZIPInputStream(in);
-			LineNumberReader reader= new LineNumberReader(new InputStreamReader(gzipIn));
-                ){
-                    String line;
-                    while ((line = reader.readLine()) !=null) {
-                        
-                        processLine(reader.getLineNumber(),line, colonnes); 
-                  
-                    }
-                
-                }
-                    
-                        
+        URL url = new URL(gzipURL);
+        /* Chargement du driver JDBC pour MySQL */
+
+        try (
+                InputStream in = url.openStream();
+                GZIPInputStream gzipIn = new GZIPInputStream(in);
+                LineNumberReader reader = new LineNumberReader(new InputStreamReader(gzipIn));) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+
+                processLine(reader.getLineNumber(), line, colonnes);
+
+            }
+
         }
-        
-        
-        /*
+
+    }
+
+    /*
         traite une ligne lue
         
         @param lineNumber le numéro de la ligne, numéroté à partir de 1
         @param line la ligne lue
-        */
-        protected void processLine(int lineNumber, String line, int[] colonnes) {
-            String SEPARATEUR = ";";
-            String chaine="  Commence chaine  ";
+        @param colonnes liste des colonnes de la ligne à lire
+     */
+    protected void processLine(int lineNumber, String line, int[] colonnes) {
+        String SEPARATEUR = ";";
         String mots[] = line.split(SEPARATEUR);
-         for (int i = 0; i < colonnes.length-1; i++) {
-            
-            chaine= chaine+mots[colonnes[i]]+";";
+        String chaine = mots[colonnes[0]];
+        for (int i = 1; i < colonnes.length; i++) {
+            chaine = chaine + ";" + mots[colonnes[i]];
         }
-         chaine = chaine+mots[colonnes.length];
-        
-            System.out.printf("Ligne n° %d : %n %s %n", lineNumber, chaine);
-             
-        }
+        System.out.printf("Ligne n° %d : %n %s %n", lineNumber, chaine);
+
+    }
 }
