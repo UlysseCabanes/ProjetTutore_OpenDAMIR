@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>io.github.bastide</groupId>
-	<artifactId>ProjetTutore_OpenDAMIR</artifactId>
+	<artifactId>OpenDAMIR</artifactId>
 	<version>1.0</version>
 	<packaging>war</packaging>
 
-	<name>ProjetTutore_OpenDAMIR</name>
+	<name>OpenDAMIR</name>
 
 	<properties>
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -112,7 +112,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>ProjetTutore_OpenDAMIR</finalName>
+		<finalName>OpenDAMIR</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

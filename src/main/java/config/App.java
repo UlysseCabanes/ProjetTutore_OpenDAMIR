@@ -9,7 +9,7 @@ import javax.ws.rs.core.Application;
 /**
  * Default JAX-RS application listening on /mvc
  */
-@ApplicationPath("/mvc")
+@ApplicationPath("/damir")
 public class App extends Application {
 
 	@Override
