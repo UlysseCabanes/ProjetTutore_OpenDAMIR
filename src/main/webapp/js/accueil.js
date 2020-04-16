@@ -20,6 +20,7 @@ function choixPeriode(event) {
 	let listeAnnee = document.createElement('select');
 	listeAnnee.innerHTML = "<option value='2015'>2015</option><option value='2016'>2016</option><option value='2017'>2017</option><option value='2018'>2018</option>";
 	listeAnnee.id = "listeAnnee";
+        listeAnnee.name = "listeAnnee";
  	/*Créer un espace*/
 	let espace = document.createElement('a');
 	espace.textContent= " ";
@@ -28,6 +29,7 @@ function choixPeriode(event) {
 	let listeMois = document.createElement('select');
 	listeMois.innerHTML = "<option value='Janvier'>Janvier</option><option value='Février'>Février</option><option value='Mars'>Mars</option><option value='Avril'>Avril</option><option value='Mai'>Mai</option><option value='Juin'>Juin</option><option value='Juillet'>Juillet</option><option value='Août'>Août</option><option value='Septembre'>Septembre</option><option value='Octobre'>Octobre</option><option value='Novembre'>Novembre</option><option value='Décembre'>Décembre</option>";
 	listeMois.id = "listeMois";
+        listeMois.name = "listeMois";
 /*Afficher les éléments nécessaires pour choisir un seul mois*/
 	if (periode === "Un mois") {
 		/*Ajouter une liste déroulante pour choisir une année*/
