@@ -21,6 +21,7 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Properties;
 /* Lire le contenu d'une URL web en format gzip*/
 
@@ -32,20 +33,11 @@ public class Gzip{
 	@throws java.net.MalformedURLException
 	*/
 
-	public void readGzipURL(String gzipURL) throws MalformedURLException, IOException, Exception {
+	public void readGzipURL(String gzipURL, int[] colonnes) throws MalformedURLException, IOException, Exception {
             
             URL url = new URL(gzipURL);
-            
-            ////
-        //Connexion à la bdd pour pouvoir executer commande SQL
-            Properties props = new Properties ();
-        //Donner id de connexion, avec mot de passe
-            props.setProperty ("Alex", "/");
-        //Création de la variable connection pour a partir de l'url de la DB voulue
-            Connection connection = DriverManager.getConnection("java:app/comptoirs"/*,props*/);
-            Statement stmt =connection.createStatement();
-            
-            ////
+            /* Chargement du driver JDBC pour MySQL */
+    
 		try (
 			InputStream in = url.openStream();
 			GZIPInputStream gzipIn = new GZIPInputStream(in);
@@ -53,18 +45,9 @@ public class Gzip{
                 ){
                     String line;
                     while ((line = reader.readLine()) !=null) {
-                        processLine(reader.getLineNumber(),line); 
-                       
-                            
-                    ////        
-                // Load the data
-                String filename = gzipURL;
-                String tablename = "AGE_BEN_SNDS_CLAIR";
-                stmt.execute("LOAD DATA INFILE \"" + filename + "\" INTO TABLE " + tablename);
-                    ////
-
                         
-                        
+                        processLine(reader.getLineNumber(),line, colonnes); 
+                  
                     }
                 
                 }
@@ -79,8 +62,17 @@ public class Gzip{
         @param lineNumber le numéro de la ligne, numéroté à partir de 1
         @param line la ligne lue
         */
-        protected void processLine(int lineNumber, String line) {
-            System.out.printf("Ligne n° %d : %n %s %n", lineNumber, line);
+        protected void processLine(int lineNumber, String line, int[] colonnes) {
+            String SEPARATEUR = ";";
+            String chaine="  Commence chaine  ";
+        String mots[] = line.split(SEPARATEUR);
+         for (int i = 0; i < colonnes.length-1; i++) {
+            
+            chaine= chaine+mots[colonnes[i]]+";";
+        }
+         chaine = chaine+mots[colonnes.length];
+        
+            System.out.printf("Ligne n° %d : %n %s %n", lineNumber, chaine);
              
         }
 }
