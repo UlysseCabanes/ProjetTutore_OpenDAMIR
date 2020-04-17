@@ -26,17 +26,7 @@ public class RequetesController {
     Models models;
     
     @GET
-    public void show(@QueryParam("periode") String periode, @QueryParam("listeAnnee") String annee, @QueryParam("listeMois") String mois) {
-        String periodeChoisie = null;
-        if (periode.equals("Un mois")) {
-           periodeChoisie = mois + " " + annee;
-        }
-        if (periode.equals("Une année")) {
-           periodeChoisie = annee;
-        }
-        if (periode.equals("Plusieurs mois")) {
-           
-        }
+    public void show(@QueryParam("periodeChoisie") String periodeChoisie) {
         models.put("periodeChoisie", periodeChoisie);
     }
 }

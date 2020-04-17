@@ -15,7 +15,7 @@
     <br>
     Exemple : <a href="damir/prsnat">Liste PRS Nat</a>
     <p>Choisissez une periode à étudier :</p>
-    <form action="damir/requetes" method="GET">
+    <form id="formPeriode" onsubmit="return false">
         <select id="periode" name="periode">
             <option value="Un mois" selected>Un mois</option>
             <option value="Une année">Une année</option>
@@ -45,6 +45,7 @@
             </select>
         </div>
         <br>
+        <input type="hidden" id="periodeChoisie" name="periodeChoisie">
         <div id="divBouton">
             <input type="submit" id="okButton" value="OK">
         </div>

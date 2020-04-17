@@ -19,8 +19,9 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException, Exception {
+        
         Gzip downloader=new Gzip();
-        downloader.readGzipURL(DAMIR_201812_SMALL);
+        //downloader.readGzipURL(DAMIR_201812_SMALL);
     }
     
 }

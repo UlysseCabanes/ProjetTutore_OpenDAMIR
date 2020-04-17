@@ -67,7 +67,7 @@ function choixPeriode(event) {
 	}
 }
 /*Compteur des boutons "+/-"*/
-let nbButton = 1;
+let nbButton = 0;
 /*Fonction pour ajouter une ligne de "choix plusieurs mois"
 - Déclenchée par un click sur le bouton "+"*/
 function ajouterMois(event) {
@@ -136,40 +136,30 @@ function retirerMois(event) {
 	/*Décrémenter le compteur des boutons +/- */
 	nbButton -= 1;
 }
-/*
-// Site data.gouv où se trouve les fichiers OpenDamir
-const url = "https://www.data.gouv.fr/fr/datasets/open-damir-base-complete-sur-les-depenses-dassurance-maladie-inter-regimes/#_";
+document.getElementById("formPeriode").addEventListener("submit", periodeChoisie);
 
-// Télécharger les données du site
-fetch(url, "GET")
-.then( (response) => { 
-	return response.json()
-})
-.then( (dataJSON) => { // dataJSON= les données renvoyées
-	//Créer une liste de tous les fichiers de remboursements mensuels
-	let listeFichiers = dataJSON.getElementsByClassName("resources-list").ChildNodes;
-	//Variable contenant la période d'analyse choisie précédemment par l'utilisateur
-	let periodeAnalyse = listeAnnee.value + listeMois.value;
-	//Parcourir la liste des fichiers
-	for (f of listeFichiers) {
-		//Cibler le fichier correspondant à la période souhaitée
-		if (f.value == "Fichier OpenDamir A" + periodeAnalyse + ".csv.gz") {
-			//Récupérer l'url pour télécharger ce fichier
-			let urlFichiers = listeFichiers.getElementsByClassName("btn btn-sm btn-primary").href;
-			//Télécharger ce fichier
-			fetch(urlFichiers, "GET")
-			.then( (response) => { 
-				return response.json()
-			})
-			.then( (dataJSON) => { // dataJSON= les données renvoyées
-				//Manipuler les données du fichier
-			}
-			.catch( (error) => {  // gestion des erreurs
-				console.log(error)
-		} )
-		}
+function periodeChoisie() {
+	/*Variable qui prend pour valeur le choix sélectionné dans la liste déroulante "période"*/
+	let periode = document.getElementById("periode").value;
+	let periodeChoisie = " ";
+	if (periode === "Un mois") {
+		periodeChoisie += document.getElementById("listeMois").value + " " + document.getElementById("listeAnnee").value;
+		document.getElementById("periodeChoisie").value = periodeChoisie;
 	}
-.catch( (error) => {  // gestion des erreurs
-	console.log(error)
-} )
-*/
+	if (periode === "Une année") {
+		periodeChoisie += document.getElementById("listeAnnee").value;
+		document.getElementById("periodeChoisie").value = periodeChoisie;
+	}
+	if (periode === "Plusieurs mois") {
+		let tab = new Array();
+		tab[0] = document.getElementById("listeMois").value + " " + document.getElementById("listeAnnee").value;
+		for (let i = 1; i <= nbButton; i++) {
+			tab[i] = " " + document.getElementById("listeMois" + i).value + " " + document.getElementById("listeAnnee" + i).value;
+		}
+		document.getElementById("periodeChoisie").value = tab;
+	}
+        
+	document.getElementById("formPeriode").action="damir/requetes";
+        document.getElementById("formPeriode").method="GET";
+        document.getElementById("formPeriode").submit();
+}
