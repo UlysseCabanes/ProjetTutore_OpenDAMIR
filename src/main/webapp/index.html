@@ -23,12 +23,6 @@
         </select>
         <br><br>
         <div id="divPeriode">
-            <select id="listeAnnee" name="listeAnnee">
-                <option value='2015'>2015</option>
-                <option value='2016'>2016</option>
-                <option value='2017'>2017</option>
-                <option value='2018'>2018</option>
-            </select>
             <select id="listeMois" name="listeMois">
                 <option value='Janvier'>Janvier</option>
                 <option value='Février'>Février</option>
@@ -43,9 +37,17 @@
                 <option value='Novembre'>Novembre</option>
                 <option value='Décembre'>Décembre</option>
             </select>
+            <select id="listeAnnee" name="listeAnnee">
+                <option value='2015'>2015</option>
+                <option value='2016'>2016</option>
+                <option value='2017'>2017</option>
+                <option value='2018'>2018</option>
+            </select>
         </div>
         <br>
         <input type="hidden" id="periodeChoisie" name="periodeChoisie">
+        <input type="hidden" id="moisChoisis" name="moisChoisis">
+        <input type="hidden" id="anneesChoisies" name="anneesChoisies">
         <div id="divBouton">
             <input type="submit" id="okButton" value="OK">
         </div>

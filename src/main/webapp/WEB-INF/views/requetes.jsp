@@ -20,18 +20,17 @@
 		<img src="${pageContext.request.contextPath}/images/logoMarianne.jpg" alt="Logo République Française" id="logoMarianne">
 	</header>
 	<body>
-            <h2>- Remboursements de l'Assurance Maladie de ${periodeChoisie}</h2>
-                <br>
+            <h2>- Remboursements de l'Assurance Maladie de${periodeChoisie}</h2>
+            <br>
 		<a href="${pageContext.request.contextPath}/">Retour au menu</a>
 		<br>
 		<p>Fichiers téléchargés</p>
 		<div id="afficherFichiers">
-			<ul>
-				<li>A201509.csv</li>
-				<li>A201606.csv</li>
-				<li>A201702.csv</li>
-				<li>A201805.csv</li>
-			</ul>
+                    <ul>
+                    <c:forEach var="racFic" items="${raccourciFichiers}">
+                        <li>${racFic}</li>
+                    </c:forEach>
+                    </ul>
 		</div>
 		<br><br>
 		<p>Choisissez une requête à effectuer :</p>
