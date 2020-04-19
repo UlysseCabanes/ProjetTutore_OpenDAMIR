@@ -39,9 +39,27 @@ public class Gzip {
             String j = "";
             //Pour chaque ligne du fichier, apelle la fonction processLine()
             while ((line = reader.readLine()) != null) {
-
                 j = j + processLine(reader.getLineNumber(), line, colonnes) + "\n";
+            }
+            return j;
+        }
 
+    }
+    
+    public String readGzipURL(String gzipURL) throws MalformedURLException, IOException, Exception {
+        //convertit l'url (String) saisi en un objet (URL)
+        URL url = new URL(gzipURL);
+        //Lit le fichier ligne par ligne
+        try (
+                //créér la variable @line (String) qui va représenter chaque ligne du fichier
+                InputStream in = url.openStream();
+                GZIPInputStream gzipIn = new GZIPInputStream(in);
+                LineNumberReader reader = new LineNumberReader(new InputStreamReader(gzipIn));) {
+            String line;
+            String j = "";
+            //Pour chaque ligne du fichier, apelle la fonction processLine()
+            while ((line = reader.readLine()) != null) {
+                j = j + line + "\n";
             }
             return j;
         }
@@ -69,4 +87,6 @@ public class Gzip {
         return chaine;
 
     }
+    
+    
 }
