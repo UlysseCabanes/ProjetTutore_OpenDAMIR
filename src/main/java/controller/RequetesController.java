@@ -5,10 +5,7 @@
  */
 package controller;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import javax.inject.Inject;
 import javax.mvc.Controller;
 import javax.mvc.Models;
@@ -30,17 +27,18 @@ public class RequetesController {
     Models models;
     
     @GET
-    public void show(@QueryParam("periodeChoisie") String periodeChoisie, @QueryParam("moisChoisis") String moisChoisis, @QueryParam("anneesChoisies") String anneesChoisies) {
-        
+    public void periode(@QueryParam("periodeChoisie") String periodeChoisie, @QueryParam("moisChoisis") String moisChoisis, @QueryParam("anneesChoisies") String anneesChoisies) {
+        //Envoyer la période choisie à la vue
         models.put("periodeChoisie", periodeChoisie);
-        
+        //Convertir les String années et mois en tableaux de String en utilisant la virgule comme séparateur 
         String[] annees = anneesChoisies.split("\\,");
         String[] mois = moisChoisis.split("\\,");
-       
-        ArrayList<String> raccourciFichiers = new ArrayList<>();
-        
+        //Créer une liste pour y stocker les clés des fichiers correspondant à la période choisie
+        ArrayList<String> clesFichiers = new ArrayList<>();
+        //Parcourir chaque période
         for (int i = 0; i < annees.length; i++) {
             String nbMois = "";
+            //Convertir le mois en toutes lettres en un mois en nombre
             switch(mois[i]) {
                 case "Janvier" :
                     nbMois = "01";
@@ -82,8 +80,17 @@ public class RequetesController {
                     nbMois = "";
                     break;
             }
-            raccourciFichiers.add("DAMIR_" + annees[i] + nbMois + "_SMALL");
+            //Créer la clé correspondante et l'ajouter à la liste
+            clesFichiers.add("DAMIR_" + annees[i] + nbMois + "_SMALL");
         }
-        models.put("raccourciFichiers", raccourciFichiers);
+        //Envoyer la liste à la vue
+        models.put("clesFichiers", clesFichiers);
     }
+    
+    /*
+    @GET
+    public void requetes() {
+        
+    }
+*/
 }
