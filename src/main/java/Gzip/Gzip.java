@@ -17,10 +17,7 @@ import java.util.zip.GZIPInputStream;
  *
  * @author Alex
  */
-
-
 /* Lire le contenu d'une URL web en format gzip*/
-
 public class Gzip {
 
     /*
@@ -29,7 +26,7 @@ public class Gzip {
         @param colonnes liste des colonnes de la ligne à lire
 	@throws java.net.MalformedURLException
      */
-    public void readGzipURL(String gzipURL, int[] colonnes) throws MalformedURLException, IOException, Exception {
+    public String readGzipURL(String gzipURL, int[] colonnes) throws MalformedURLException, IOException, Exception {
         //convertit l'url (String) saisi en un objet (URL)
         URL url = new URL(gzipURL);
         //Lit le fichier ligne par ligne
@@ -38,13 +35,33 @@ public class Gzip {
                 InputStream in = url.openStream();
                 GZIPInputStream gzipIn = new GZIPInputStream(in);
                 LineNumberReader reader = new LineNumberReader(new InputStreamReader(gzipIn));) {
-                String line;
-                //Pour chaque ligne du fichier, apelle la fonction processLine()
-                while ((line = reader.readLine()) != null) {
-                processLine(reader.getLineNumber(), line, colonnes);
-
+            String line;
+            String j = "";
+            //Pour chaque ligne du fichier, apelle la fonction processLine()
+            while ((line = reader.readLine()) != null) {
+                j = j + processLine(reader.getLineNumber(), line, colonnes) + "\n";
             }
+            return j;
+        }
 
+    }
+    
+    public String readGzipURL(String gzipURL) throws MalformedURLException, IOException, Exception {
+        //convertit l'url (String) saisi en un objet (URL)
+        URL url = new URL(gzipURL);
+        //Lit le fichier ligne par ligne
+        try (
+                //créér la variable @line (String) qui va représenter chaque ligne du fichier
+                InputStream in = url.openStream();
+                GZIPInputStream gzipIn = new GZIPInputStream(in);
+                LineNumberReader reader = new LineNumberReader(new InputStreamReader(gzipIn));) {
+            String line;
+            String j = "";
+            //Pour chaque ligne du fichier, apelle la fonction processLine()
+            while ((line = reader.readLine()) != null) {
+                j = j + line + "\n";
+            }
+            return j;
         }
 
     }
@@ -56,7 +73,7 @@ public class Gzip {
         @param line la ligne lue
         @param colonnes liste des colonnes de la ligne à lire
      */
-    protected void processLine(int lineNumber, String line, int[] colonnes) {
+    protected String processLine(int lineNumber, String line, int[] colonnes) {
         //définit le séparateur des éléments de la ligne
         String SEPARATEUR = ";";
         //découpe chaque élément de la ligne en données seul dans un tableau de String
@@ -66,7 +83,10 @@ public class Gzip {
         for (int i = 1; i < colonnes.length; i++) {
             chaine = chaine + ";" + mots[colonnes[i]];
         }
-        System.out.printf("Ligne n° %d : %n %s %n", lineNumber, chaine);
+        //System.out.printf("Ligne n° %d : %n %s %n", lineNumber, chaine);
+        return chaine;
 
     }
+    
+    
 }
