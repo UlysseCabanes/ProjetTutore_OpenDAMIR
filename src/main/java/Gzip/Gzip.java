@@ -5,24 +5,19 @@
  */
 package Gzip;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.LineNumberReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.zip.GZIPInputStream;
+
 /**
  *
  * @author Alex
  */
-import java.sql.Statement;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.zip.GZIPInputStream;
-import java.net.URL;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.LineNumberReader;
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Properties;
+
 
 /* Lire le contenu d'une URL web en format gzip*/
 
@@ -35,17 +30,17 @@ public class Gzip {
 	@throws java.net.MalformedURLException
      */
     public void readGzipURL(String gzipURL, int[] colonnes) throws MalformedURLException, IOException, Exception {
-
+        //convertit l'url (String) saisi en un objet (URL)
         URL url = new URL(gzipURL);
-        /* Chargement du driver JDBC pour MySQL */
-
+        //Lit le fichier ligne par ligne
         try (
+                //créér la variable @line (String) qui va représenter chaque ligne du fichier
                 InputStream in = url.openStream();
                 GZIPInputStream gzipIn = new GZIPInputStream(in);
                 LineNumberReader reader = new LineNumberReader(new InputStreamReader(gzipIn));) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-
+                String line;
+                //Pour chaque ligne du fichier, apelle la fonction processLine()
+                while ((line = reader.readLine()) != null) {
                 processLine(reader.getLineNumber(), line, colonnes);
 
             }
@@ -62,8 +57,11 @@ public class Gzip {
         @param colonnes liste des colonnes de la ligne à lire
      */
     protected void processLine(int lineNumber, String line, int[] colonnes) {
+        //définit le séparateur des éléments de la ligne
         String SEPARATEUR = ";";
-        String mots[] = line.split(SEPARATEUR);
+        //découpe chaque élément de la ligne en données seul dans un tableau de String
+        String[] mots = line.split(SEPARATEUR);
+        //Créer la variable à retourner @chaine correspondants aux éléments de la ligne souhaités du tableau @mots, aux index correpondants a chaque éléments du tableau @colonnes
         String chaine = mots[colonnes[0]];
         for (int i = 1; i < colonnes.length; i++) {
             chaine = chaine + ";" + mots[colonnes[i]];
