@@ -1136,3 +1136,8 @@ INSERT INTO PRS_NAT_CLAIR (NAT_NUM, NAT_CLAIR) VALUES (9999, 'VALEUR INCONNUE')
 
 INSERT INTO PRS_PPU_SEC_CLAIR (SEC_NUM, SEC_CLAIR) VALUES (1, 'PUBLIC')
 INSERT INTO PRS_PPU_SEC_CLAIR (SEC_NUM, SEC_CLAIR) VALUES (2, 'PRIVE')
+
+INSERT INTO FichiersDamir (cleFichier, urlFichier) VALUES ('DAMIR_201812_BIG', 'https://mycore.core-cloud.net/index.php/s/h7hvpgGUlBPRZ9Y/download')
+INSERT INTO FichiersDamir (cleFichier, urlFichier) VALUES ('DAMIR_201812_SMALL', 'https://mycore.core-cloud.net/index.php/s/j9DEDyt2w6FTx6P/download')
+INSERT INTO FichiersDamir (cleFichier, urlFichier) VALUES ('DAMIR_201811_BIG', 'https://mycore.core-cloud.net/index.php/s/uaREzlfHH4ybSxf/download')
+INSERT INTO FichiersDamir (cleFichier, urlFichier) VALUES ('DAMIR_201811_SMALL', 'https://mycore.core-cloud.net/index.php/s/Dk1lPoZG7alhtvw/download')
