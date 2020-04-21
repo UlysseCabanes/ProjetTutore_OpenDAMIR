@@ -5,7 +5,10 @@
  */
 package controller;
 
+import Gzip.Gzip;
+import dao.FichiersdamirFacade;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.inject.Inject;
 import javax.mvc.Controller;
 import javax.mvc.Models;
@@ -23,8 +26,15 @@ import javax.ws.rs.QueryParam;
 @View("requetes.jsp")
 public class RequetesController {
     
+    
+    @Inject // Le DAO généré par netBeans
+    FichiersdamirFacade dao;
+    
     @Inject
     Models models;
+    
+    //Créer une liste pour y stocker les clés des fichiers correspondant à la période choisie
+    ArrayList<String> clesFichiers = new ArrayList<>();
     
     @GET
     public void periode(@QueryParam("periodeChoisie") String periodeChoisie, @QueryParam("moisChoisis") String moisChoisis, @QueryParam("anneesChoisies") String anneesChoisies) {
@@ -33,8 +43,6 @@ public class RequetesController {
         //Convertir les String années et mois en tableaux de String en utilisant la virgule comme séparateur 
         String[] annees = anneesChoisies.split("\\,");
         String[] mois = moisChoisis.split("\\,");
-        //Créer une liste pour y stocker les clés des fichiers correspondant à la période choisie
-        ArrayList<String> clesFichiers = new ArrayList<>();
         //Parcourir chaque période
         for (int i = 0; i < annees.length; i++) {
             String nbMois = "";
@@ -87,10 +95,30 @@ public class RequetesController {
         models.put("clesFichiers", clesFichiers);
     }
     
-    /*
     @GET
-    public void requetes() {
+    @Path("stats")
+    public void stats(@QueryParam("colonnes") String colonnes) throws Exception {
+
+        //Convertir les colonnes (String) en entiers en utilisant la virgule comme séparateur 
+        String[] colonnesTab = colonnes.split("\\,");
+       
+        int[] nbColonnes = new int[colonnesTab.length];
         
+        for (int i = 0; i < nbColonnes.length; i++) {
+            nbColonnes[i] = Integer.parseInt(colonnesTab[i]);
+        }
+
+        ArrayList<String> urlFichiers = new ArrayList<>();
+        
+        for (String c : clesFichiers) {
+            urlFichiers.add(dao.find(c).getUrlfichier());
+        }
+     
+        /*
+        for (String u : urlFichiers) {
+            Gzip downloader = new Gzip();
+            downloader.readGzipURL(u, nbColonnes);
+        }
+        */
     }
-*/
 }

@@ -17,11 +17,12 @@ public class Main {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException, Exception {
-        
+      
+        int[] colonnes = {0,5,8,42};
         Gzip downloader=new Gzip();
-        //downloader.readGzipURL(DAMIR_201812_SMALL);
+        downloader.readGzipURL(DAMIR_201812_SMALL, colonnes);
     }
-    
 }
