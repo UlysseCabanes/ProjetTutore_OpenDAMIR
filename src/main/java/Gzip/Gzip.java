@@ -82,11 +82,10 @@ public class Gzip {
         //découpe chaque élément de la ligne en données seul dans un tableau de String
         String[] mots = line.split(SEPARATEUR);
         //Créer la variable à retourner @chaine correspondants aux éléments de la ligne souhaités du tableau @mots, aux index correpondants a chaque éléments du tableau @colonnes
-        System.out.println(mots[colonnes[0]]);
-        int[] chaine = {};       
-        for (int i = 0; i < colonnes.length-1; i++) {       
+        int[] chaine = new int[colonnes.length];
+        
+        for (int i = 0; i < colonnes.length; i++) {  
             chaine[i]=Integer.parseInt(mots[colonnes[i]]);
-
         } 
         //System.out.printf("Ligne n° %d : %n %s %n", lineNumber, chaine);
         return chaine;
