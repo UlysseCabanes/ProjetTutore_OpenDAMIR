@@ -7,6 +7,7 @@ package Gzip;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -28,7 +29,7 @@ public class Main {
         System.out.println(p);
         ArrayList<int[]> m=downloader.readGzipURL(DAMIR_201812_SMALL, colonnes);
         for(int i=0;i < p;i++){
-            System.out.println(m.get(i).toString());
+            System.out.println(Arrays.toString(m.get(i)));
         }
     }
 }
