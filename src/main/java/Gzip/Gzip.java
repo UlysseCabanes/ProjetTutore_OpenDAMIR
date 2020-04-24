@@ -20,7 +20,6 @@ import java.util.zip.GZIPInputStream;
  */
 /* Lire le contenu d'une URL web en format gzip*/
 public class Gzip {
-
     /*
 	Lit ligne par ligne
 	@param gzipURL l'url du fichier à lire
@@ -28,6 +27,7 @@ public class Gzip {
 	@throws java.net.MalformedURLException
         retourne un ArrayList<int[]> de toutes les lignes, décomposées en élément de type int
      */
+    //(à modifier car float est plus adapte que int)
     public ArrayList<int[]> readGzipURL(String gzipURL, int[] colonnes) throws MalformedURLException, IOException, Exception {
         //convertit l'url (String) saisi en un objet (URL)
         URL url = new URL(gzipURL);
@@ -85,6 +85,7 @@ public class Gzip {
         @param colonnes liste des colonnes de la ligne à lire
         retourne la ligne sous forme de tableau de int avec les colonnes sélectionnées
      */
+    //(à modifier car float est plus adapte que int)
     protected int[] processLine(int lineNumber, String line, int[] colonnes) {
         //définit le séparateur des éléments de la ligne
         String SEPARATEUR = ";";
