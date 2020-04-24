@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.zip.GZIPInputStream;
 
 /**
@@ -26,7 +27,7 @@ public class Gzip {
         @param colonnes liste des colonnes de la ligne à lire
 	@throws java.net.MalformedURLException
      */
-    public String readGzipURL(String gzipURL, int[] colonnes) throws MalformedURLException, IOException, Exception {
+    public  ArrayList<int[]> readGzipURL(String gzipURL, int[] colonnes) throws MalformedURLException, IOException, Exception {
         //convertit l'url (String) saisi en un objet (URL)
         URL url = new URL(gzipURL);
         //Lit le fichier ligne par ligne
@@ -36,10 +37,12 @@ public class Gzip {
                 GZIPInputStream gzipIn = new GZIPInputStream(in);
                 LineNumberReader reader = new LineNumberReader(new InputStreamReader(gzipIn));) {
             String line;
-            String j = "";
+            ArrayList<int[]> j=new ArrayList<int[]>();
             //Pour chaque ligne du fichier, apelle la fonction processLine()
             while ((line = reader.readLine()) != null) {
-                j = j + processLine(reader.getLineNumber(), line, colonnes) + "\n";
+                if (reader.getLineNumber()>1){
+                j.add(processLine(reader.getLineNumber(), line, colonnes));
+                }
             }
             return j;
         }
@@ -57,7 +60,7 @@ public class Gzip {
                 LineNumberReader reader = new LineNumberReader(new InputStreamReader(gzipIn));) {
             String line;
             String j = "";
-            //Pour chaque ligne du fichier, apelle la fonction processLine()
+            //Pour chaque ligne du fichier, 
             while ((line = reader.readLine()) != null) {
                 j = j + line + "\n";
             }
@@ -73,16 +76,18 @@ public class Gzip {
         @param line la ligne lue
         @param colonnes liste des colonnes de la ligne à lire
      */
-    protected String processLine(int lineNumber, String line, int[] colonnes) {
+    protected int[] processLine(int lineNumber, String line, int[] colonnes) {
         //définit le séparateur des éléments de la ligne
         String SEPARATEUR = ";";
         //découpe chaque élément de la ligne en données seul dans un tableau de String
         String[] mots = line.split(SEPARATEUR);
         //Créer la variable à retourner @chaine correspondants aux éléments de la ligne souhaités du tableau @mots, aux index correpondants a chaque éléments du tableau @colonnes
-        String chaine = mots[colonnes[0]];
-        for (int i = 1; i < colonnes.length; i++) {
-            chaine = chaine + ";" + mots[colonnes[i]];
-        }
+        System.out.println(mots[colonnes[0]]);
+        int[] chaine = {};       
+        for (int i = 0; i < colonnes.length-1; i++) {       
+            chaine[i]=Integer.parseInt(mots[colonnes[i]]);
+
+        } 
         //System.out.printf("Ligne n° %d : %n %s %n", lineNumber, chaine);
         return chaine;
 
