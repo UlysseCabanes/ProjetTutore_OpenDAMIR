@@ -25,6 +25,7 @@ public class Main {
       
         int[] colonnes = {0,5,8,42};
         Gzip downloader=new Gzip();
+        //test pour le cas avec les colonnes voulues (à modifier car float est plus adapte que int)
         ArrayList<int[]> m=downloader.readGzipURL(DAMIR_201812_SMALL, colonnes);
         int p = m.size();
         System.out.println(p);
@@ -32,7 +33,7 @@ public class Main {
             System.out.println(Arrays.toString(m.get(i)));
         }
 
-        System.out.println("Gzip.Main.main()");
+        //test pour le cas général
         ArrayList<float[]> x=downloader.readGzipURL(DAMIR_201812_SMALL);
         int w=x.size();
         System.out.println(w);        
