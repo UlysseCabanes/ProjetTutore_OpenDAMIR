@@ -31,5 +31,13 @@ public class Main {
         for(int i=0;i < p;i++){
             System.out.println(Arrays.toString(m.get(i)));
         }
+
+        System.out.println("Gzip.Main.main()");
+        ArrayList<float[]> x=downloader.readGzipURL(DAMIR_201812_SMALL);
+        int w=x.size();
+        System.out.println(w);        
+        for(int i=0;i < w;i++){
+            System.out.println(Arrays.toString(x.get(i)));
+        }
     }
 }
