@@ -8,7 +8,6 @@ package controller;
 import Gzip.Gzip;
 import dao.FichiersdamirFacade;
 import java.util.ArrayList;
-import java.util.Arrays;
 import javax.inject.Inject;
 import javax.mvc.Controller;
 import javax.mvc.Models;
@@ -33,16 +32,20 @@ public class RequetesController {
     @Inject
     Models models;
     
-    //Créer une liste pour y stocker les clés des fichiers correspondant à la période choisie
-    ArrayList<String> clesFichiers = new ArrayList<>();
-    
     @GET
-    public void periode(@QueryParam("periodeChoisie") String periodeChoisie, @QueryParam("moisChoisis") String moisChoisis, @QueryParam("anneesChoisies") String anneesChoisies) {
+    public void periode(@QueryParam("periodeChoisie") String periodeChoisie, 
+    @QueryParam("moisChoisis") String moisChoisis, 
+    @QueryParam("anneesChoisies") String anneesChoisies) throws Exception{
+        dao.setPeriodeChoisie(periodeChoisie);
         //Envoyer la période choisie à la vue
-        models.put("periodeChoisie", periodeChoisie);
+        models.put("periodeChoisie", dao.getPeriodeChoisie());
+       
         //Convertir les String années et mois en tableaux de String en utilisant la virgule comme séparateur 
         String[] annees = anneesChoisies.split("\\,");
         String[] mois = moisChoisis.split("\\,");
+        //Vider la liste des clés des fichiers
+        ArrayList<String> a = new ArrayList<>();
+        dao.setClesFichiers(a);
         //Parcourir chaque période
         for (int i = 0; i < annees.length; i++) {
             String nbMois = "";
@@ -89,16 +92,26 @@ public class RequetesController {
                     break;
             }
             //Créer la clé correspondante et l'ajouter à la liste
-            clesFichiers.add("DAMIR_" + annees[i] + nbMois + "_SMALL");
+            dao.getClesFichiers().add("DAMIR_" + annees[i] + nbMois + "_SMALL");
         }
         //Envoyer la liste à la vue
-        models.put("clesFichiers", clesFichiers);
+        models.put("clesFichiers", dao.getClesFichiers());
+        
+        for (String cle : dao.getClesFichiers()) {
+            dao.getUrlFichiers().add(dao.find(cle).getUrlfichier());
+        }
+        System.out.println(dao.getUrlFichiers());
+        /*
+        for (String url : dao.getUrlFichiers()) {
+            Gzip downloader = new Gzip();
+            System.out.println(downloader.readGzipURL(url));
+        }
+        */
     }
     
     @GET
     @Path("stats")
     public void stats(@QueryParam("colonnes") String colonnes) throws Exception {
-
         //Convertir les colonnes (String) en entiers en utilisant la virgule comme séparateur 
         String[] colonnesTab = colonnes.split("\\,");
        
@@ -106,19 +119,6 @@ public class RequetesController {
         
         for (int i = 0; i < nbColonnes.length; i++) {
             nbColonnes[i] = Integer.parseInt(colonnesTab[i]);
-        }
-
-        ArrayList<String> urlFichiers = new ArrayList<>();
-        
-        for (String c : clesFichiers) {
-            urlFichiers.add(dao.find(c).getUrlfichier());
-        }
-     
-        /*
-        for (String u : urlFichiers) {
-            Gzip downloader = new Gzip();
-            downloader.readGzipURL(u, nbColonnes);
-        }
-        */
+        }  
     }
 }

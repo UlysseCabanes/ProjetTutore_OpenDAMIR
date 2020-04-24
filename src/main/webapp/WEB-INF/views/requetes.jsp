@@ -23,11 +23,11 @@
         <br>
         <a href="${pageContext.request.contextPath}/">Retour au menu</a>
         <br>
-        <h2>- Remboursements de l'Assurance Maladie de${periodeChoisie}</h2>
+        <h2>- Remboursements de l'Assurance Maladie de${Fichiersdamir.periodeChoisie}</h2>
         <p>Fichier(s) téléchargé(s)</p>
         <div id="afficherFichiers">
             <ul>
-            <c:forEach var="clesFic" items="${clesFichiers}">
+            <c:forEach var="clesFic" items="${Fichiersdamir.clesFichiers}">
                 <li>${clesFic}</li>
             </c:forEach>
             </ul>

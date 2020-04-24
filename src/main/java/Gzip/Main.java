@@ -23,6 +23,6 @@ public class Main {
       
         int[] colonnes = {0,5,8,42};
         Gzip downloader=new Gzip();
-        downloader.readGzipURL(DAMIR_201812_SMALL, colonnes);
+        System.out.println(downloader.readGzipURL(DAMIR_201812_SMALL, colonnes));
     }
 }
