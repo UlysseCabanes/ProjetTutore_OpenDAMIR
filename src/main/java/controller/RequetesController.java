@@ -7,7 +7,9 @@ package controller;
 
 import Gzip.Gzip;
 import dao.FichiersdamirFacade;
+import dao.PrestationFacade;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.inject.Inject;
 import javax.mvc.Controller;
 import javax.mvc.Models;
@@ -25,9 +27,12 @@ import javax.ws.rs.QueryParam;
 @View("requetes.jsp")
 public class RequetesController {
     
-    
-    @Inject // Le DAO généré par netBeans
-    FichiersdamirFacade dao;
+    // Les DAO générés par netBeans
+    @Inject 
+    FichiersdamirFacade Fichiersdamir;
+
+    @Inject 
+    PrestationFacade prestation;
     
     @Inject
     Models models;
@@ -36,20 +41,20 @@ public class RequetesController {
     public void periode(@QueryParam("periodeChoisie") String periodeChoisie, 
     @QueryParam("moisChoisis") String moisChoisis, 
     @QueryParam("anneesChoisies") String anneesChoisies) throws Exception{
-        dao.setPeriodeChoisie(periodeChoisie);
+        //Attribuer la période choisie à la variable de session
+        Fichiersdamir.setPeriodeChoisie(periodeChoisie);
         //Envoyer la période choisie à la vue
-        models.put("periodeChoisie", dao.getPeriodeChoisie());
-       
-        //Convertir les String années et mois en tableaux de String en utilisant la virgule comme séparateur 
+        models.put("periodeChoisie", Fichiersdamir.getPeriodeChoisie());
+        //Convertir les String années et mois choisis en tableaux de String en utilisant la virgule comme séparateur 
         String[] annees = anneesChoisies.split("\\,");
         String[] mois = moisChoisis.split("\\,");
-        //Vider la liste des clés des fichiers
+        //Vider la variable de session des clés des fichiers
         ArrayList<String> a = new ArrayList<>();
-        dao.setClesFichiers(a);
+        Fichiersdamir.setClesFichiers(a);
         //Parcourir chaque période
         for (int i = 0; i < annees.length; i++) {
             String nbMois = "";
-            //Convertir le mois en toutes lettres en un mois en nombre
+            //Convertir le mois en toutes lettres en mois en nombre
             switch(mois[i]) {
                 case "Janvier" :
                     nbMois = "01";
@@ -91,20 +96,35 @@ public class RequetesController {
                     nbMois = "";
                     break;
             }
-            //Créer la clé correspondante et l'ajouter à la liste
-            dao.getClesFichiers().add("DAMIR_" + annees[i] + nbMois + "_SMALL");
+            //Créer la clé correspondante et l'ajouter à la variable de session
+            Fichiersdamir.getClesFichiers().add("DAMIR_" + annees[i] + nbMois + "_SMALL");
         }
-        //Envoyer la liste à la vue
-        models.put("clesFichiers", dao.getClesFichiers());
+        //Envoyer la liste des clés à la vue
+        models.put("clesFichiers", Fichiersdamir.getClesFichiers());
+        //Vider la variable de session des url des fichiers
+        ArrayList<String> b = new ArrayList<>();
+        Fichiersdamir.setUrlFichiers(b);
+        //Pour chaque clé de la variable de session
+        for (String cle : Fichiersdamir.getClesFichiers()) {
+            //Récupérer l'url du fichier correspondant à la clé
+            String url = Fichiersdamir.find(cle).getUrlfichier();
+            //Ajouter l'url à la variable de session
+            Fichiersdamir.getUrlFichiers().add(url);
+        }
+        System.out.println(Fichiersdamir.getUrlFichiers());
         
-        for (String cle : dao.getClesFichiers()) {
-            dao.getUrlFichiers().add(dao.find(cle).getUrlfichier());
-        }
-        System.out.println(dao.getUrlFichiers());
-        /*
-        for (String url : dao.getUrlFichiers()) {
+        int[] colonnes = {2,3,20,22,39,40,47};
+        for (String url : Fichiersdamir.getUrlFichiers()) {
             Gzip downloader = new Gzip();
-            System.out.println(downloader.readGzipURL(url));
+            ArrayList<int[]> d = downloader.readGzipURL(url, colonnes);
+            for(int i=0;i < d.size();i++){
+                System.out.println(Arrays.toString(d.get(i)));
+            }
+        } 
+        /*
+        for (int i = 0;i < remboursements.length; i++) {
+            prestation.setIdprestation(i);
+            prestation.setPrsNat(remboursements.get(i).get(nbcolonne PrsNat));
         }
         */
     }
