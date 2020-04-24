@@ -26,8 +26,9 @@ public class Gzip {
 	@param gzipURL l'url du fichier à lire
         @param colonnes liste des colonnes de la ligne à lire
 	@throws java.net.MalformedURLException
+        retourne un ArrayList<int[]> de toutes les lignes, décomposées en élément de type int
      */
-    public  ArrayList<int[]> readGzipURL(String gzipURL, int[] colonnes) throws MalformedURLException, IOException, Exception {
+    public ArrayList<int[]> readGzipURL(String gzipURL, int[] colonnes) throws MalformedURLException, IOException, Exception {
         //convertit l'url (String) saisi en un objet (URL)
         URL url = new URL(gzipURL);
         //Lit le fichier ligne par ligne
@@ -37,19 +38,22 @@ public class Gzip {
                 GZIPInputStream gzipIn = new GZIPInputStream(in);
                 LineNumberReader reader = new LineNumberReader(new InputStreamReader(gzipIn));) {
             String line;
-            ArrayList<int[]> j=new ArrayList<int[]>();
+            //Créer j un ArrayList<int[]> qui va être retourner
+            ArrayList<int[]> j = new ArrayList<>();
             //Pour chaque ligne du fichier, apelle la fonction processLine()
             while ((line = reader.readLine()) != null) {
-                if (reader.getLineNumber()>1){
-                j.add(processLine(reader.getLineNumber(), line, colonnes));
+                //on saute la première ligne correspondants aux titres
+                if (reader.getLineNumber() > 1) {
+                    //on ajoute chaque ligne sous forme de int[] à j
+                    j.add(processLine(reader.getLineNumber(), line, colonnes));
                 }
             }
             return j;
         }
 
     }
-    
-    public String readGzipURL(String gzipURL) throws MalformedURLException, IOException, Exception {
+
+    public ArrayList<float[]> readGzipURL(String gzipURL) throws MalformedURLException, IOException, Exception {
         //convertit l'url (String) saisi en un objet (URL)
         URL url = new URL(gzipURL);
         //Lit le fichier ligne par ligne
@@ -59,10 +63,14 @@ public class Gzip {
                 GZIPInputStream gzipIn = new GZIPInputStream(in);
                 LineNumberReader reader = new LineNumberReader(new InputStreamReader(gzipIn));) {
             String line;
-            String j = "";
+             ArrayList<float[]> j = new ArrayList<float[]>();
             //Pour chaque ligne du fichier, 
             while ((line = reader.readLine()) != null) {
-                j = j + line + "\n";
+               //on ajoute chaque ligne sous forme de int[] à j
+                     if (reader.getLineNumber() > 1) {
+                    //on ajoute chaque ligne sous forme de int[] à j
+                    j.add(processLine(reader.getLineNumber(), line));
+                }
             }
             return j;
         }
@@ -75,6 +83,7 @@ public class Gzip {
         @param lineNumber le numéro de la ligne, numéroté à partir de 1
         @param line la ligne lue
         @param colonnes liste des colonnes de la ligne à lire
+        retourne la ligne sous forme de tableau de int avec les colonnes sélectionnées
      */
     protected int[] processLine(int lineNumber, String line, int[] colonnes) {
         //définit le séparateur des éléments de la ligne
@@ -83,14 +92,36 @@ public class Gzip {
         String[] mots = line.split(SEPARATEUR);
         //Créer la variable à retourner @chaine correspondants aux éléments de la ligne souhaités du tableau @mots, aux index correpondants a chaque éléments du tableau @colonnes
         int[] chaine = new int[colonnes.length];
-        
-        for (int i = 0; i < colonnes.length; i++) {  
-            chaine[i]=Integer.parseInt(mots[colonnes[i]]);
-        } 
+
+        for (int i = 0; i < colonnes.length; i++) {
+            //@chaine se concstitue de int résultants de la conversion des éléments String du tableau mots[]
+            chaine[i] = Integer.parseInt(mots[colonnes[i]]);
+        }
         //System.out.printf("Ligne n° %d : %n %s %n", lineNumber, chaine);
         return chaine;
 
     }
-    
-    
+    protected float[] processLine(int lineNumber, String line) {
+        //définit le séparateur des éléments de la ligne
+        String SEPARATEUR = ";";
+        //découpe chaque élément de la ligne en données seul dans un tableau de String
+        String[] mots = line.split(SEPARATEUR);
+        //Créer la variable à retourner @chaine correspondants aux éléments de la ligne souhaités du tableau @mots, aux index correpondants a chaque éléments du tableau @colonnes
+        float[] chaine = new float[55];
+
+        for (int i = 0; i < 55; i++) {
+            if (mots[i].isEmpty()==true){
+                chaine[i]=0;
+            }
+            else{
+                 //@chaine se concstitue de int résultants de la conversion des éléments String du tableau mots[]
+            chaine[i] = Float.parseFloat(mots[i]);
+            }
+           
+        }
+        //System.out.printf("Ligne n° %d : %n %s %n", lineNumber, chaine);
+        return chaine;
+
+    }
+
 }
