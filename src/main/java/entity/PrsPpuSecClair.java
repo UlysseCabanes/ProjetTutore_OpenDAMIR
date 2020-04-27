@@ -6,6 +6,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -51,6 +52,7 @@ public class PrsPpuSecClair implements Serializable {
 
 	public PrsPpuSecClair(Integer secNum) {
 		this.secNum = secNum;
+                this.prestationList=new ArrayList<Prestation>();
 	}
 
 	public Integer getSecNum() {
@@ -65,8 +67,13 @@ public class PrsPpuSecClair implements Serializable {
 		return secClair;
 	}
 
-	public void setSecClair(String secClair) {
-		this.secClair = secClair;
+	public void setSecClair(int a) {
+            if(a==1){
+		this.secClair = "PUBLIC";
+            }
+            if(a==2){
+		this.secClair = "PRIVE";
+            }
 	}
 
 	@XmlTransient

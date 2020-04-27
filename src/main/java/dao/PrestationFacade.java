@@ -24,6 +24,10 @@ public class PrestationFacade extends AbstractFacade<Prestation> {
 	protected EntityManager getEntityManager() {
 		return em;
 	}
+        
+        public void create(){
+            
+        }
 
 	public PrestationFacade() {
 		super(Prestation.class);

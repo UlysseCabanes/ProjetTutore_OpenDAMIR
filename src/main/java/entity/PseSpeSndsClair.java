@@ -6,6 +6,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -51,6 +52,7 @@ public class PseSpeSndsClair implements Serializable {
 
 	public PseSpeSndsClair(Integer speNum) {
 		this.speNum = speNum;
+                this.executantList=new ArrayList<Executant>();
 	}
 
 	public Integer getSpeNum() {
@@ -65,8 +67,88 @@ public class PseSpeSndsClair implements Serializable {
 		return speClair;
 	}
 
-	public void setSpeClair(String speClair) {
-		this.speClair = speClair;
+	public void setSpeClair(int a) {
+		if (a == 0) {
+            this.speClair = "NON RENSEIGNE";
+        }
+        if (a == 1) {
+            this.speClair = "MEDECINE GENERALE";
+        }
+        if (a == 2) {
+            this.speClair = "ANESTHESIOLOGIE - REANIMATION";
+        }
+        if (a == 3) {
+            this.speClair = "PATHOLOGIE CARDIO-VASCULAIRE";
+        }
+        if (a == 4) {
+            this.speClair = "CHIRURGIE";
+        }
+        if (a == 5) {
+            this.speClair = "DERMATOLOGIE ET VENEROLOGIE";
+        }
+        if (a == 6) {
+            this.speClair = "RADIOLOGIE";
+        }
+        if (a == 7) {
+            this.speClair = "GYNECOLOGIE OBSTETRIQUE";
+        }
+        if (a == 8) {
+            this.speClair = "GASTRO-ENTEROLOGIE ET HEPATOLOGIE";
+        }
+        if (a == 9) {
+            this.speClair = "MEDECINE INTERNE";
+        }
+        if (a == 11) {
+            this.speClair = "OTO RHINO-LARYNGOLOGIE";
+        }
+        if (a == 12) {
+            this.speClair = "PEDIATRIE";
+        }
+        if (a == 13) {
+            this.speClair = "PNEUMOLOGIE";
+        }
+        if (a == 14) {
+            this.speClair = "RHUMATOLOGIE";
+        }
+        if (a == 15) {
+            this.speClair = "OPHTALMOLOGIE";
+        }
+        if (a == 18) {
+            this.speClair = "STOMATOLOGIE";
+        }
+        if (a == 31) {
+            this.speClair = "MEDECINE PHYSIQUE ET DE READAPTATION";
+        }
+        if (a == 32) {
+            this.speClair = "NEUROLOGIE";
+        }
+        if (a == 33) {
+            this.speClair = "PSYCHIATRIE";
+        }
+        if (a == 34) {
+            this.speClair = "GERIATRIE";
+        }
+        if (a ==35) {
+            this.speClair = "NEPHROLOGIE";
+        }
+        if (a ==36) {
+            this.speClair = "CHIRURGIE DENTAIRE (SPECIALISTE O.D.F.)";
+        }
+        if (a ==37) {
+            this.speClair = "ANATOMIE-CYTOLOGIE-PATHOLOGIQUE";
+        }
+        if (a == 38) {
+            this.speClair = "DIRECTEUR LABORATOIRE MEDECIN";
+        }
+        if (a == 42) {
+            this.speClair = "ENDOCRINOLOGIE ET METABOLISMES";
+        }
+        if (a == 80) {
+            this.speClair = "SANTE PUBLIQUE ET MEDECINE SOCIALE";
+        }
+        if (a == 99) {
+            this.speClair = "VALEUR INCONNUE";
+        }
 	}
 
 	@XmlTransient
