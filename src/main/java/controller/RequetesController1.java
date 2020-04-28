@@ -49,7 +49,7 @@ import javax.ws.rs.QueryParam;
  * @author ulyss
  */
 @Controller
-@Path("requetes")
+@Path("requetes1")
 @View("requetes.jsp")
 public class RequetesController1 {
     
@@ -176,25 +176,12 @@ public class RequetesController1 {
         }
         //Afficher les url
         System.out.println(Fichiersdamir.getUrlFichiers());
-        //Tableau contenant les colonnes nécessaires à nos requêtes
-        int[] colonnes = {2,3,20,22,39,40,47};
         //Parcourir chaque url
         for (String url : Fichiersdamir.getUrlFichiers()) {
             Gzip downloader = new Gzip();
-            //Récupérer la liste des tableaux d'entiers de chaque ligne 
-            //contenant les variables désirées pour chaque remboursement
-                    //this.readGzipURL(url);
-            //Afficher chaque tableau d'entiers
-            /*for(int i=0;i < d.size();i++){
-                System.out.println(Arrays.toString(d.get(i)));
-            }*/
+            //Créer les entités correspondantes dans la BDD
+                this.readGzipURL(url);
         } 
-        /*
-        for (int i = 0;i < remboursements.length; i++) {
-            prestation.setIdprestation(i);
-            prestation.setPrsNat(remboursements.get(i).get(nbcolonne PrsNat));
-        }
-        */
     }
     
     @GET
