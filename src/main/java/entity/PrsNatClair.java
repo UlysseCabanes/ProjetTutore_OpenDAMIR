@@ -303,7 +303,7 @@ public class PrsNatClair implements Serializable {
         if( a==1650){this.natClair = 'AIDE A L ACTIVITE   COTRAM'}
         if( a==1651){this.natClair = 'PAIEMENT MAJORATION REMUNERATION ARS   COTRAM'}
         if( a==1652){this.natClair = 'PTMR  -  REMPLACEMENT'}
-        if( a==1653){this.natClair = 'PTMR  - MALADIE){this.natClair = MATERNITE){this.natClair = PATERNITE'}
+        if( a==1653){this.natClair = 'PTMR  - MALADIE,MATERNITE,PATERNITE'}
         if( a==1701){this.natClair = 'CDS  MEDICAL OPTANT FORF DEBUT'}
         if( a==1702){this.natClair = 'CDS MEDICAL OPTANT FORF FIN'}
         if( a==1703){this.natClair = 'CDS MEDICAL OPTANT FORFTACITE'}
@@ -341,7 +341,7 @@ public class PrsNatClair implements Serializable {
         if( a==1812){this.natClair = 'IK MONTAGNE'}
         if( a==1813){this.natClair = 'IK PIED SKI'}
         if( a==1814){this.natClair = 'FRAIS DE DEPLACEMENT VACATION'}
-        if( a==1821){this.natClair = 'ID PARIS LYON MARSEILLE){this.natClair = +100.000 HA){this.natClair = -100.000 HA'}
+        if( a==1821){this.natClair = 'ID PARIS LYON MARSEILLE,+100.000 HA,-100.000 HA'}
         if( a==1841){this.natClair = 'INDEMNITES FORFAITAIRES DE DEPLACEMENT'}
         if( a==1842){this.natClair = 'INDEMNITES FORFAITAIRES DE DEPLACEMENT DES AUXILIAIRES MEDICAUX ET ASSIMILES'}
         if( a==1843){this.natClair = 'INDEMNITES FORFAITAIRES DE DEPLACEMENT MK ORTHOPEDIQUE ET RHUMATOLOGIQUE'}
