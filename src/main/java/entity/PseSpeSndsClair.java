@@ -44,15 +44,12 @@ public class PseSpeSndsClair implements Serializable {
 	@Size(max = 200)
         @Column(name = "SPE_CLAIR")
 	private String speClair;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pseSpeSnds")
-	private List<Executant> executantList;
 
 	public PseSpeSndsClair() {
 	}
 
 	public PseSpeSndsClair(Integer speNum) {
 		this.speNum = speNum;
-                this.executantList=new ArrayList<Executant>();
 	}
 
 	public Integer getSpeNum() {
@@ -149,15 +146,6 @@ public class PseSpeSndsClair implements Serializable {
         if (a == 99) {
             this.speClair = "VALEUR INCONNUE";
         }
-	}
-
-	@XmlTransient
-	public List<Executant> getExecutantList() {
-		return executantList;
-	}
-
-	public void setExecutantList(List<Executant> executantList) {
-		this.executantList = executantList;
 	}
 
 	@Override

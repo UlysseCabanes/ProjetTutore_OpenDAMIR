@@ -271,22 +271,6 @@ public class RequetesController1 {
                     executant.setPrestation(prestation);
                     indicateurs.setPrestation(prestation);
                     
-                    //initialisation des attributs des classes XxClair
-                    ArrayList<Beneficiaire> beneficiaires=new ArrayList<Beneficiaire>();
-                    beneficiaires.add(beneficiaire);
-                    ageBenSndsClair.setBeneficiaireList(beneficiaires);
-                    benResRegClair.setBeneficiaireList(beneficiaires);
-                    
-                    ArrayList<Prestation> prestations=new ArrayList<Prestation>();
-                    prestations.add(prestation);
-                    prsPpuSecClair.setPrestationList(prestations);
-                    prsNatClair.setPrestationList(prestations);
-                    
-                    ArrayList<Executant> executants=new ArrayList<Executant>();
-                    executants.add(executant);
-                    pseSpeSndsClair.setExecutantList(executants);
-                    
-                    
                     System.out.println("Test ok");
                     
                     System.out.println(ageBenSndsClair);

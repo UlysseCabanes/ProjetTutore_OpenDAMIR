@@ -45,15 +45,12 @@ public class AgeBenSndsClair implements Serializable {
     @Size(max = 200)
     @Column(name = "AGE_CLAIR")
     private String ageClair;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ageBenSnds")
-    private List<Beneficiaire> beneficiaireList;
 
     public AgeBenSndsClair() {
     }
 
     public AgeBenSndsClair(Integer ageNum) {
         this.ageNum = ageNum;
-        this.beneficiaireList=new ArrayList<Beneficiaire>();
     }
 
     public Integer getAgeNum() {
@@ -98,14 +95,6 @@ public class AgeBenSndsClair implements Serializable {
         }
     }
 
-    @XmlTransient
-    public List<Beneficiaire> getBeneficiaireList() {
-        return beneficiaireList;
-    }
-
-    public void setBeneficiaireList(List<Beneficiaire> beneficiaireList) {
-        this.beneficiaireList = beneficiaireList;
-    }
 
     @Override
     public int hashCode() {
@@ -129,7 +118,7 @@ public class AgeBenSndsClair implements Serializable {
 
     @Override
     public String toString() {
-        return "AgeBenSndsClair{" + "ageNum=" + ageNum + ", ageClair=" + ageClair + ", beneficiaireList=" + beneficiaireList + '}';
+        return "AgeBenSndsClair{" + "ageNum=" + ageNum + ", ageClair=" + ageClair + ", beneficiaireList="  + '}';
     }
 
    

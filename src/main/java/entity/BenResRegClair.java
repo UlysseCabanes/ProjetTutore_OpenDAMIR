@@ -44,15 +44,12 @@ public class BenResRegClair implements Serializable {
     @Size(max = 200)
     @Column(name = "REG_CLAIR")
     private String regClair;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "benResReg")
-    private List<Beneficiaire> beneficiaireList;
-
+    
     public BenResRegClair() {
     }
 
     public BenResRegClair(Integer regNum) {
         this.regNum = regNum;
-        this.beneficiaireList=new ArrayList<Beneficiaire>();
     }
 
     public Integer getRegNum() {
@@ -112,14 +109,6 @@ public class BenResRegClair implements Serializable {
         }
     }
 
-    @XmlTransient
-    public List<Beneficiaire> getBeneficiaireList() {
-        return beneficiaireList;
-    }
-
-    public void setBeneficiaireList(List<Beneficiaire> beneficiaireList) {
-        this.beneficiaireList = beneficiaireList;
-    }
 
     @Override
     public int hashCode() {

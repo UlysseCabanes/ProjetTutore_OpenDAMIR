@@ -148,7 +148,7 @@ public class Gzip {
                     dateTraitement.setPrestation(prestation);
                     executant.setPrestation(prestation);
                     indicateurs.setPrestation(prestation);
-                    
+                    /*
                     //initialisation des attributs des classes XxClair
                     ArrayList<Beneficiaire> beneficiaires=new ArrayList<Beneficiaire>();
                     beneficiaires.add(beneficiaire);
@@ -162,7 +162,7 @@ public class Gzip {
                     
                     ArrayList<Executant> executants=new ArrayList<Executant>();
                     executants.add(executant);
-                    pseSpeSndsClair.setExecutantList(executants);
+                    pseSpeSndsClair.setExecutantList(executants);*/
                     
                     
                     System.out.println("Test ok");

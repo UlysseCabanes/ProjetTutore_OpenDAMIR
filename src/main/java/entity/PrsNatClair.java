@@ -44,15 +44,12 @@ public class PrsNatClair implements Serializable {
     @Size(max = 200)
     @Column(name = "NAT_CLAIR")
     private String natClair;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "prsNat")
-    private List<Prestation> prestationList;
 
     public PrsNatClair() {
     }
 
     public PrsNatClair(Integer natNum) {
         this.natNum = natNum;
-        this.prestationList=new ArrayList<Prestation>();
     }
 
     public Integer getNatNum() {
@@ -72,14 +69,6 @@ public class PrsNatClair implements Serializable {
         
     }
 
-    @XmlTransient
-    public List<Prestation> getPrestationList() {
-        return prestationList;
-    }
-
-    public void setPrestationList(List<Prestation> prestationList) {
-        this.prestationList = prestationList;
-    }
 
     @Override
     public int hashCode() {

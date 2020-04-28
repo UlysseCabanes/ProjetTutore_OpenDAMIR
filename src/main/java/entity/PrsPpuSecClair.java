@@ -44,15 +44,12 @@ public class PrsPpuSecClair implements Serializable {
 	@Size(max = 200)
         @Column(name = "SEC_CLAIR")
 	private String secClair;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "prsPpuSec")
-	private List<Prestation> prestationList;
 
 	public PrsPpuSecClair() {
 	}
 
 	public PrsPpuSecClair(Integer secNum) {
 		this.secNum = secNum;
-                this.prestationList=new ArrayList<Prestation>();
 	}
 
 	public Integer getSecNum() {
@@ -76,14 +73,6 @@ public class PrsPpuSecClair implements Serializable {
             }
 	}
 
-	@XmlTransient
-	public List<Prestation> getPrestationList() {
-		return prestationList;
-	}
-
-	public void setPrestationList(List<Prestation> prestationList) {
-		this.prestationList = prestationList;
-	}
 
 	@Override
 	public int hashCode() {

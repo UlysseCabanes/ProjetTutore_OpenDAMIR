@@ -23,7 +23,7 @@ import javax.ws.rs.QueryParam;
  * @author ulyss
  */
 @Controller
-@Path("requetes")
+@Path("requetes1")
 @View("requetes.jsp")
 public class RequetesController {
     
@@ -120,11 +120,12 @@ public class RequetesController {
             Gzip downloader = new Gzip();
             //Récupérer la liste des tableaux d'entiers de chaque ligne 
             //contenant les variables désirées pour chaque remboursement
+            /*
             ArrayList<int[]> d = downloader.readGzipURL(url, colonnes);
             //Afficher chaque tableau d'entiers
             for(int i=0;i < d.size();i++){
                 System.out.println(Arrays.toString(d.get(i)));
-            }
+            }*/
         } 
         /*
         for (int i = 0;i < remboursements.length; i++) {
