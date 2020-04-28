@@ -34,7 +34,12 @@ import java.net.URL;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import static javax.xml.bind.DatatypeConverter.parseInteger;
 
 /**
@@ -43,6 +48,41 @@ import static javax.xml.bind.DatatypeConverter.parseInteger;
  */
 /* Lire le contenu d'une URL web en format gzip*/
 public class Gzip {
+
+    PrsPpuSecClairFacade prsPpuSecClairFacade;
+
+    PseSpeSndsClairFacade pseSpeSndsClairFacade;
+
+    PrestationFacade prestationFacade;
+
+    PrsNatClairFacade prsNatClairFacade;
+
+    IndicateursFacade indicateursFacade;
+
+    DateTraitementFacade dateTraitementFacade;
+
+    ExecutantFacade executantFacade;
+
+    BeneficiaireFacade beneficiaireFacade;
+
+    BenResRegClairFacade benResRegClairFacade;
+
+    AgeBenSndsClairFacade ageBenSndsClairFacade;
+/*
+    public Gzip() throws NamingException {
+        this.executantFacade = lookupExecutantFacadeBean();
+        this.ageBenSndsClairFacade = lookupAgeBenSndsClairFacadeBean();
+        this.benResRegClairFacade = lookupBenResRegClairFacadeBean();
+        this.beneficiaireFacade = lookupBeneficiaireFacadeBean();
+        this.dateTraitementFacade = lookupDateTraitementFacadeBean();
+        this.indicateursFacade = lookupIndicateursFacadeBean();
+        this.prsNatClairFacade = lookupPrsNatClairFacadeBean();
+        this.prestationFacade = lookupPrestationFacadeBean();
+        this.pseSpeSndsClairFacade = lookupPseSpeSndsClairFacadeBean();
+        this.prsPpuSecClairFacade= lookupPrsPpuSecClairFacadeBean();
+    }*/
+
+    
 
     /*
 	Lit ligne par ligne
@@ -167,18 +207,8 @@ public class Gzip {
                     
                     System.out.println("Test ok");
                     
-                    AgeBenSndsClairFacade ageBenSndsClairFacade=new AgeBenSndsClairFacade();
                     System.out.println("Test 1");
-                    BenResRegClairFacade benResRegClairFacade=new BenResRegClairFacade();
-                    BeneficiaireFacade beneficiaireFacade=new BeneficiaireFacade();
-                    DateTraitementFacade dateTraitementFacade=new DateTraitementFacade();
-                    ExecutantFacade executantFacade=new ExecutantFacade();
                     System.out.println("Test 2");
-                    IndicateursFacade indicateursFacade= new IndicateursFacade();
-                    PrestationFacade prestationFacade=new PrestationFacade();
-                    PrsNatClairFacade prsNatClairFacade=new PrsNatClairFacade();
-                    PrsPpuSecClairFacade prsPpuSecClairFacade=new PrsPpuSecClairFacade();
-                    PseSpeSndsClairFacade pseSpeSndsClairFacade=new PseSpeSndsClairFacade();
                     System.out.println(ageBenSndsClair);
                     ageBenSndsClairFacade.create(ageBenSndsClair);
                     System.out.println("Test 3");
@@ -251,5 +281,74 @@ public class Gzip {
         return chaine;
 
     }
+/*
+    private AgeBenSndsClairFacade lookupAgeBenSndsClairFacadeBean() throws NamingException {
+       
+            Context c = new InitialContext();
+            return (AgeBenSndsClairFacade) c.lookup("java:global/io.github.bastide_OpenDAMIR_war_1.0/AgeBenSndsClairFacade!dao.AgeBenSndsClairFacade");
+        
+    }
+
+    private BenResRegClairFacade lookupBenResRegClairFacadeBean() throws NamingException {
+        
+            Context c = new InitialContext();
+            return (BenResRegClairFacade) c.lookup("java:global/io.github.bastide_OpenDAMIR_war_1.0/BenResRegClairFacade!dao.BenResRegClairFacade");
+        
+    }
+
+    private BeneficiaireFacade lookupBeneficiaireFacadeBean() throws NamingException {
+       
+            Context c = new InitialContext();
+            return (BeneficiaireFacade) c.lookup("java:global/io.github.bastide_OpenDAMIR_war_1.0/BeneficiaireFacade!dao.BeneficiaireFacade");
+        
+    }
+
+    private ExecutantFacade lookupExecutantFacadeBean() throws NamingException {
+       
+            Context c = new InitialContext();
+            return (ExecutantFacade) c.lookup("java:global/io.github.bastide_OpenDAMIR_war_1.0/ExecutantFacade!dao.ExecutantFacade");
+        
+    }
+
+    private DateTraitementFacade lookupDateTraitementFacadeBean() throws NamingException {
+       
+            Context c = new InitialContext();
+            return (DateTraitementFacade) c.lookup("java:global/io.github.bastide_OpenDAMIR_war_1.0/DateTraitementFacade!dao.DateTraitementFacade");
+        
+    }
+
+    private IndicateursFacade lookupIndicateursFacadeBean() throws NamingException {
+       
+            Context c = new InitialContext();
+            return (IndicateursFacade) c.lookup("java:global/io.github.bastide_OpenDAMIR_war_1.0/IndicateursFacade!dao.IndicateursFacade");
+       
+    }
+
+    private PrsNatClairFacade lookupPrsNatClairFacadeBean() throws NamingException {
+       
+            Context c = new InitialContext();
+            return (PrsNatClairFacade) c.lookup("java:global/io.github.bastide_OpenDAMIR_war_1.0/PrsNatClairFacade!dao.PrsNatClairFacade");
+       
+    }
+
+    private PrestationFacade lookupPrestationFacadeBean() throws NamingException {
+      
+            Context c = new InitialContext();
+            return (PrestationFacade) c.lookup("java:global/io.github.bastide_OpenDAMIR_war_1.0/PrestationFacade!dao.PrestationFacade");
+        
+    }
+
+    private PseSpeSndsClairFacade lookupPseSpeSndsClairFacadeBean() throws NamingException {
+       
+            Context c = new InitialContext();
+            return (PseSpeSndsClairFacade) c.lookup("java:global/io.github.bastide_OpenDAMIR_war_1.0/PseSpeSndsClairFacade!dao.PseSpeSndsClairFacade");
+        
+    }
+
+    private PrsPpuSecClairFacade lookupPrsPpuSecClairFacadeBean() throws NamingException {
+            Context c = new InitialContext();
+            return (PrsPpuSecClairFacade) c.lookup("java:global/io.github.bastide_OpenDAMIR_war_1.0/PrsPpuSecClairFacade!dao.PrsPpuSecClairFacade");
+       
+    }*/
 
 }
