@@ -12,21 +12,21 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author rbastide
+ * @author Alex
  */
 @Stateless
 public class DateTraitementFacade extends AbstractFacade<DateTraitement> {
 
-	@PersistenceContext(unitName = "damir")
-	private EntityManager em;
+    @PersistenceContext(unitName = "damir")
+    private EntityManager em;
 
-	@Override
-	protected EntityManager getEntityManager() {
-		return em;
-	}
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
 
-	public DateTraitementFacade() {
-		super(DateTraitement.class);
-	}
-	
+    public DateTraitementFacade() {
+        super(DateTraitement.class);
+    }
+    
 }

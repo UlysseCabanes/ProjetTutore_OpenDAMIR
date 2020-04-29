@@ -12,21 +12,21 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author rbastide
+ * @author Alex
  */
 @Stateless
 public class BeneficiaireFacade extends AbstractFacade<Beneficiaire> {
 
-	@PersistenceContext(unitName = "damir")
-	private EntityManager em;
+    @PersistenceContext(unitName = "damir")
+    private EntityManager em;
 
-	@Override
-	protected EntityManager getEntityManager() {
-		return em;
-	}
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
 
-	public BeneficiaireFacade() {
-		super(Beneficiaire.class);
-	}
-	
+    public BeneficiaireFacade() {
+        super(Beneficiaire.class);
+    }
+    
 }
