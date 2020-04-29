@@ -6,8 +6,7 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author rbastide
+ * @author Alex
  */
 @Entity
 @Table(name = "BEN_RES_REG_CLAIR")
@@ -44,7 +43,9 @@ public class BenResRegClair implements Serializable {
     @Size(max = 200)
     @Column(name = "REG_CLAIR")
     private String regClair;
-    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "benResReg")
+    private Collection<Beneficiaire> beneficiaireCollection;
+
     public BenResRegClair() {
     }
 
@@ -64,51 +65,18 @@ public class BenResRegClair implements Serializable {
         return regClair;
     }
 
-    public void setRegClair(int a) {
-        if (a == 5) {
-            this.regClair = "Régions et Départements d outre-mer";
-        }
-        if (a == 11) {
-            this.regClair = "Ile-de-France";
-        }
-        if (a == 24) {
-            this.regClair = "Centre-Val de Loire";
-        }
-        if (a == 27) {
-            this.regClair = "Bourgogne-Franche-Comté";
-        }
-        if (a == 28) {
-            this.regClair = "Normandie";
-        }
-        if (a == 32) {
-            this.regClair = "Hauts-de-France - Nord-Pas-de-Calais-Picardie";
-        }
-        if (a == 44) {
-            this.regClair = "Grand Est";
-        }
-        if (a == 52) {
-            this.regClair = "Pays de la Loire";
-        }
-        if (a == 53) {
-            this.regClair = "Bretagne";
-        }
-        if (a == 75) {
-            this.regClair = "Aquitaine-Limousin-Poitou-Charentes";
-        }
-        if (a == 76) {
-            this.regClair = "Languedoc-Roussillon-Midi-Pyrénées";
-        }
-        if (a == 84) {
-            this.regClair = "Auvergne-Rhône-Alpes";
-        }
-        if (a == 93) {
-            this.regClair = "Provence-Alpes-Côte d Azur et Corse";
-        }
-        if (a == 99) {
-            this.regClair = "Inconnu";
-        }
+    public void setRegClair(String regClair) {
+        this.regClair = regClair;
     }
 
+    @XmlTransient
+    public Collection<Beneficiaire> getBeneficiaireCollection() {
+        return beneficiaireCollection;
+    }
+
+    public void setBeneficiaireCollection(Collection<Beneficiaire> beneficiaireCollection) {
+        this.beneficiaireCollection = beneficiaireCollection;
+    }
 
     @Override
     public int hashCode() {
@@ -134,5 +102,5 @@ public class BenResRegClair implements Serializable {
     public String toString() {
         return "entity.BenResRegClair[ regNum=" + regNum + " ]";
     }
-
+    
 }

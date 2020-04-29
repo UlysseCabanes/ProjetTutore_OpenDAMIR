@@ -6,8 +6,7 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,79 +23,84 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author rbastide
+ * @author Alex
  */
 @Entity
 @Table(name = "PRS_PPU_SEC_CLAIR")
 @XmlRootElement
 @NamedQueries({
-	@NamedQuery(name = "PrsPpuSecClair.findAll", query = "SELECT p FROM PrsPpuSecClair p"),
-	@NamedQuery(name = "PrsPpuSecClair.findBySecNum", query = "SELECT p FROM PrsPpuSecClair p WHERE p.secNum = :secNum"),
-	@NamedQuery(name = "PrsPpuSecClair.findBySecClair", query = "SELECT p FROM PrsPpuSecClair p WHERE p.secClair = :secClair")})
+    @NamedQuery(name = "PrsPpuSecClair.findAll", query = "SELECT p FROM PrsPpuSecClair p"),
+    @NamedQuery(name = "PrsPpuSecClair.findBySecNum", query = "SELECT p FROM PrsPpuSecClair p WHERE p.secNum = :secNum"),
+    @NamedQuery(name = "PrsPpuSecClair.findBySecClair", query = "SELECT p FROM PrsPpuSecClair p WHERE p.secClair = :secClair")})
 public class PrsPpuSecClair implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	@Id
-        @Basic(optional = false)
-        @NotNull
-        @Column(name = "SEC_NUM")
-	private Integer secNum;
-	@Size(max = 200)
-        @Column(name = "SEC_CLAIR")
-	private String secClair;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "SEC_NUM")
+    private Integer secNum;
+    @Size(max = 200)
+    @Column(name = "SEC_CLAIR")
+    private String secClair;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "prsPpuSec")
+    private Collection<Prestation> prestationCollection;
 
-	public PrsPpuSecClair() {
-	}
+    public PrsPpuSecClair() {
+    }
 
-	public PrsPpuSecClair(Integer secNum) {
-		this.secNum = secNum;
-	}
+    public PrsPpuSecClair(Integer secNum) {
+        this.secNum = secNum;
+    }
 
-	public Integer getSecNum() {
-		return secNum;
-	}
+    public Integer getSecNum() {
+        return secNum;
+    }
 
-	public void setSecNum(Integer secNum) {
-		this.secNum = secNum;
-	}
+    public void setSecNum(Integer secNum) {
+        this.secNum = secNum;
+    }
 
-	public String getSecClair() {
-		return secClair;
-	}
+    public String getSecClair() {
+        return secClair;
+    }
 
-	public void setSecClair(int a) {
-            if(a==1){
-		this.secClair = "PUBLIC";
-            }
-            if(a==2){
-		this.secClair = "PRIVE";
-            }
-	}
+    public void setSecClair(String secClair) {
+        this.secClair = secClair;
+    }
 
+    @XmlTransient
+    public Collection<Prestation> getPrestationCollection() {
+        return prestationCollection;
+    }
 
-	@Override
-	public int hashCode() {
-		int hash = 0;
-		hash += (secNum != null ? secNum.hashCode() : 0);
-		return hash;
-	}
+    public void setPrestationCollection(Collection<Prestation> prestationCollection) {
+        this.prestationCollection = prestationCollection;
+    }
 
-	@Override
-	public boolean equals(Object object) {
-		// TODO: Warning - this method won't work in the case the id fields are not set
-		if (!(object instanceof PrsPpuSecClair)) {
-			return false;
-		}
-		PrsPpuSecClair other = (PrsPpuSecClair) object;
-		if ((this.secNum == null && other.secNum != null) || (this.secNum != null && !this.secNum.equals(other.secNum))) {
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (secNum != null ? secNum.hashCode() : 0);
+        return hash;
+    }
 
-	@Override
-	public String toString() {
-		return "entity.PrsPpuSecClair[ secNum=" + secNum + " ]";
-	}
-	
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof PrsPpuSecClair)) {
+            return false;
+        }
+        PrsPpuSecClair other = (PrsPpuSecClair) object;
+        if ((this.secNum == null && other.secNum != null) || (this.secNum != null && !this.secNum.equals(other.secNum))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "entity.PrsPpuSecClair[ secNum=" + secNum + " ]";
+    }
+    
 }

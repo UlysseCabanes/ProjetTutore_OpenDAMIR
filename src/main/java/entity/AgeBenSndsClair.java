@@ -6,9 +6,7 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.AbstractList;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author rbastide
+ * @author Alex
  */
 @Entity
 @Table(name = "AGE_BEN_SNDS_CLAIR")
@@ -45,6 +43,8 @@ public class AgeBenSndsClair implements Serializable {
     @Size(max = 200)
     @Column(name = "AGE_CLAIR")
     private String ageClair;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ageBenSnds")
+    private Collection<Beneficiaire> beneficiaireCollection;
 
     public AgeBenSndsClair() {
     }
@@ -65,36 +65,18 @@ public class AgeBenSndsClair implements Serializable {
         return ageClair;
     }
 
-    public void setAgeClair(int a) {
-        if (a == 0) {
-            this.ageClair = "0 - 19 ANS";
-        }
-        if (a == 20) {
-            this.ageClair = "20 - 29 ANS";
-        }
-        if (a == 30) {
-            this.ageClair = "30 - 39 ANS";
-        }
-        if (a == 40) {
-            this.ageClair = "40 - 49 ANS";
-        }
-        if (a == 50) {
-            this.ageClair = "50 - 59 ANS";
-        }
-        if (a == 60) {
-            this.ageClair = "60 - 69 ANS";
-        }
-        if (a == 70) {
-            this.ageClair = "70 - 79 ANS";
-        }
-        if (a == 80) {
-            this.ageClair = "80 ANS ET +";
-        }
-        if (a == 99) {
-            this.ageClair = "AGE INCONNU";
-        }
+    public void setAgeClair(String ageClair) {
+        this.ageClair = ageClair;
     }
 
+    @XmlTransient
+    public Collection<Beneficiaire> getBeneficiaireCollection() {
+        return beneficiaireCollection;
+    }
+
+    public void setBeneficiaireCollection(Collection<Beneficiaire> beneficiaireCollection) {
+        this.beneficiaireCollection = beneficiaireCollection;
+    }
 
     @Override
     public int hashCode() {
@@ -118,9 +100,7 @@ public class AgeBenSndsClair implements Serializable {
 
     @Override
     public String toString() {
-        return "AgeBenSndsClair{" + "ageNum=" + ageNum + ", ageClair=" + ageClair + ", beneficiaireList="  + '}';
+        return "entity.AgeBenSndsClair[ ageNum=" + ageNum + " ]";
     }
-
-   
-
+    
 }

@@ -215,34 +215,11 @@ public class RequetesController {
                     int id = reader.getLineNumber();
                     //on ajoute chaque ligne sous forme de int[] à j
                     String[] processLine = processLine(reader.getLineNumber(), line);
-
-                    //Création de AgeBenSnds correspondante à la ligne
-                    AgeBenSndsClair ageBenSndsClair = new AgeBenSndsClair();
-                    ageBenSndsClair.setAgeNum(Integer.parseInt(processLine[2]));
-                    ageBenSndsClair.setAgeClair(Integer.parseInt(processLine[2]));
-                    //Création de BenResReg correspondante à la ligne
-                    BenResRegClair benResRegClair = new BenResRegClair();
-                    benResRegClair.setRegNum(Integer.parseInt(processLine[3]));
-                    benResRegClair.setRegClair(Integer.parseInt(processLine[3]));
-                    //Création de PrsNat correspondante à la ligne
-                    PrsNatClair prsNatClair = new PrsNatClair();
-                    prsNatClair.setNatNum(Integer.parseInt(processLine[39]));
-                    prsNatClair.setNatClair(Integer.parseInt(processLine[39]));
-                    //Création de PrsPpuSec correspondante à la ligne
-                    PrsPpuSecClair prsPpuSecClair = new PrsPpuSecClair();
-                    prsPpuSecClair.setSecNum(Integer.parseInt(processLine[40]));
-                    prsPpuSecClair.setSecClair(Integer.parseInt(processLine[40]));
-                    //Création de PseSpeSnds correspondante à la ligne
-                    PseSpeSndsClair pseSpeSndsClair = new PseSpeSndsClair();
-                    pseSpeSndsClair.setSpeNum(Integer.parseInt(processLine[47]));
-                    pseSpeSndsClair.setSpeClair(Integer.parseInt(processLine[47]));
-                    
-                    
                     
                     //Création de Benficiaire correspondante à la ligne
                     Beneficiaire beneficiaire = new Beneficiaire(id);
-                    beneficiaire.setAgeBenSnds(ageBenSndsClair);
-                    beneficiaire.setBenResReg(benResRegClair);
+                    beneficiaire.setAgeBenSnds(ageBenSndsClairFacade.find(processLine[2]));
+                    beneficiaire.setBenResReg(benResRegClairFacade.find(processLine[3]));
                     
                     //Création de DateTraitement correspondante à la ligne
                     DateTraitement dateTraitement = new DateTraitement(id);
@@ -250,7 +227,7 @@ public class RequetesController {
                     
                     //Création de Executant correspondante à la ligne
                     Executant executant = new Executant(id);
-                    executant.setPseSpeSnds(pseSpeSndsClair);
+                    executant.setPseSpeSnds(pseSpeSndsClairFacade.find(processLine[47]));
                     //Création de Indicateurs correspondante à la ligne
                     Indicateurs indicateurs = new Indicateurs(id);
                     indicateurs.setPrsPaiMnt(Double.parseDouble(processLine[20]));
@@ -261,8 +238,8 @@ public class RequetesController {
                     prestation.setDateTraitement(dateTraitement);
                     prestation.setExecutant(executant);
                     prestation.setIndicateurs(indicateurs);
-                    prestation.setPrsNat(prsNatClair);
-                    prestation.setPrsPpuSec(prsPpuSecClair);
+                    prestation.setPrsNat(prsNatClairFacade.find(processLine[39]));
+                    prestation.setPrsPpuSec(prsPpuSecClairFacade.find(processLine[40]));
                     
                     //prestation relié a chaque objet
                     beneficiaire.setPrestation(prestation);
@@ -271,19 +248,12 @@ public class RequetesController {
                     indicateurs.setPrestation(prestation);
                     
                     System.out.println("Test ok");
-                    
-                    System.out.println(ageBenSndsClair);
-                    ageBenSndsClairFacade.create(ageBenSndsClair);
-                    System.out.println("Test 3");
-                    benResRegClairFacade.create(benResRegClair);
+                    //Création des entités dans bdd
                     beneficiaireFacade.create(beneficiaire);
                     dateTraitementFacade.create(dateTraitement);
                     executantFacade.create(executant);
                     indicateursFacade.create(indicateurs);
-                    prestationFacade.create();
-                    prsNatClairFacade.create(prsNatClair);
-                    prsPpuSecClairFacade.create(prsPpuSecClair);
-                    pseSpeSndsClairFacade.create(pseSpeSndsClair);
+                    prestationFacade.create(prestation);
                     System.out.println("ok"+"\n");                                    
                 }
             }

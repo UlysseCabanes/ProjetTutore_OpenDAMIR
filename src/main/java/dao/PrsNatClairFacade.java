@@ -12,21 +12,21 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author rbastide
+ * @author Alex
  */
 @Stateless
 public class PrsNatClairFacade extends AbstractFacade<PrsNatClair> {
 
-	@PersistenceContext(unitName = "damir")
-	private EntityManager em;
+    @PersistenceContext(unitName = "damir")
+    private EntityManager em;
 
-	@Override
-	protected EntityManager getEntityManager() {
-		return em;
-	}
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
 
-	public PrsNatClairFacade() {
-		super(PrsNatClair.class);
-	}
-	
+    public PrsNatClairFacade() {
+        super(PrsNatClair.class);
+    }
+    
 }
