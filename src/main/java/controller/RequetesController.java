@@ -17,16 +17,11 @@ import dao.PrestationFacade;
 import dao.PrsNatClairFacade;
 import dao.PrsPpuSecClairFacade;
 import dao.PseSpeSndsClairFacade;
-import entity.AgeBenSndsClair;
-import entity.BenResRegClair;
 import entity.Beneficiaire;
 import entity.DateTraitement;
 import entity.Executant;
 import entity.Indicateurs;
 import entity.Prestation;
-import entity.PrsNatClair;
-import entity.PrsPpuSecClair;
-import entity.PseSpeSndsClair;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -52,18 +47,26 @@ import javax.ws.rs.QueryParam;
 @View("requetes.jsp")
 public class RequetesController {
     
-    // Les DAO générés par netBeans
-    @Inject 
-    FichiersdamirFacade Fichiersdamir;
-
-    @Inject 
-    PrestationFacade prestation;
+    @Inject
+    Models models;
+    
+    @Inject
+    FichiersdamirFacade fichiersDamirFacade;
     
     @Inject
     AgeBenSndsClairFacade ageBenSndsClairFacade;
     
     @Inject
     BenResRegClairFacade benResRegClairFacade;
+    
+    @Inject
+    PseSpeSndsClairFacade pseSpeSndsClairFacade;
+    
+    @Inject
+    PrsNatClairFacade prsNatClairFacade;
+    
+    @Inject
+    PrsPpuSecClairFacade prsPpuSecClairFacade;
     
     @Inject
     BeneficiaireFacade beneficiaireFacade;
@@ -75,43 +78,29 @@ public class RequetesController {
     ExecutantFacade executantFacade;
     
     @Inject
-    FichiersdamirFacade fichiersdamirFacade;
-    
-    @Inject
     IndicateursFacade indicateursFacade;
     
     @Inject
     PrestationFacade prestationFacade;
-    
-    @Inject
-    PrsNatClairFacade prsNatClairFacade;
-    
-    @Inject
-    PrsPpuSecClairFacade prsPpuSecClairFacade;
-    
-    @Inject
-    PseSpeSndsClairFacade pseSpeSndsClairFacade;
-    
-    
-    
-    
-    @Inject
-    Models models;
-    
+    /*
+    public void show() {
+        models.put("dateMin", dateTraitementFacade.datePlusAncienne());
+        models.put("dateMax", dateTraitementFacade.datePlusRecente());
+    }
+    */
     @GET
     public void periode(@QueryParam("periodeChoisie") String periodeChoisie, 
     @QueryParam("moisChoisis") String moisChoisis, 
-    @QueryParam("anneesChoisies") String anneesChoisies) throws Exception{
-        //Attribuer la période choisie à la variable de session
-        Fichiersdamir.setPeriodeChoisie(periodeChoisie);
+    @QueryParam("anneesChoisies") String anneesChoisies) throws Exception {
+        models.put("dateMin", dateTraitementFacade.datePlusAncienne());
+        models.put("dateMax", dateTraitementFacade.datePlusRecente());
         //Envoyer la période choisie à la vue
-        models.put("periodeChoisie", Fichiersdamir.getPeriodeChoisie());
+        models.put("periodeChoisie", periodeChoisie);
         //Convertir les String années et mois choisis en tableaux de String en utilisant la virgule comme séparateur 
         String[] annees = anneesChoisies.split("\\,");
         String[] mois = moisChoisis.split("\\,");
-        //Vider la variable de session des clés des fichiers
-        ArrayList<String> a = new ArrayList<>();
-        Fichiersdamir.setClesFichiers(a);
+
+        ArrayList<String> clesFichiers = new ArrayList<>();
         //Parcourir chaque période
         for (int i = 0; i < annees.length; i++) {
             String nbMois = "";
@@ -158,28 +147,24 @@ public class RequetesController {
                     break;
             }
             //Créer la clé correspondante et l'ajouter à la variable de session
-            Fichiersdamir.getClesFichiers().add("DAMIR_" + annees[i] + nbMois + "_SMALL");
+            clesFichiers.add("DAMIR_" + annees[i] + nbMois + "_SMALL");
         }
         //Envoyer la liste des clés à la vue
-        models.put("clesFichiers", Fichiersdamir.getClesFichiers());
-        //Vider la variable de session des url des fichiers
-        ArrayList<String> b = new ArrayList<>();
-        Fichiersdamir.setUrlFichiers(b);
+        models.put("clesFichiers", clesFichiers);
+
+        ArrayList<String> urlFichiers = new ArrayList<>();
         //Pour chaque clé de la variable de session
-        for (String cle : Fichiersdamir.getClesFichiers()) {
+        for (String cle : clesFichiers) {
             //Récupérer l'url du fichier correspondant à la clé
-            String url = Fichiersdamir.find(cle).getUrlfichier();
-            System.out.println(url);
-            //Ajouter l'url à la variable de session
-            Fichiersdamir.getUrlFichiers().add(url);
+            String url = fichiersDamirFacade.find(cle).getUrlfichier();
+            urlFichiers.add(url);
         }
-        //Afficher les url
-        System.out.println(Fichiersdamir.getUrlFichiers());
+
         //Parcourir chaque url
-        for (String url : Fichiersdamir.getUrlFichiers()) {
+        for (String url : urlFichiers) {
             Gzip downloader = new Gzip();
             //Créer les entités correspondantes dans la BDD
-                this.readGzipURL(url);
+            this.readGzipURL(url);
         } 
     }
     //Requêtes
@@ -196,7 +181,6 @@ public class RequetesController {
         }  
     }
     
-    
     public void readGzipURL(String gzipURL) throws MalformedURLException, IOException, Exception {
         //convertit l'url (String) saisi en un objet (URL)
         URL url = new URL(gzipURL);
@@ -207,7 +191,7 @@ public class RequetesController {
                 GZIPInputStream gzipIn = new GZIPInputStream(in);
                 LineNumberReader reader = new LineNumberReader(new InputStreamReader(gzipIn));) {
             String line;
-            ArrayList<float[]> j = new ArrayList<float[]>();
+            ArrayList<float[]> j = new ArrayList<>();
             //Pour chaque ligne du fichier, 
             while ((line = reader.readLine()) != null) {
                 //on ajoute chaque ligne sous forme de int[] à j
@@ -278,7 +262,6 @@ public class RequetesController {
         }
         //System.out.printf("Ligne n° %d : %n %s %n", lineNumber, chaine);
         return chaine;
-
     }
 
 }
