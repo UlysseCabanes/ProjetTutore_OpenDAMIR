@@ -37,15 +37,14 @@ import javax.mvc.View;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
-
 /**
  *
  * @author ulyss
  */
 @Controller
 @Path("importation")
-@View("importationFichiers.jsp")
-public class RequetesController {
+@View("index.jsp")
+public class ImportationFichiersController {
     
     @Inject
     Models models;
@@ -88,12 +87,13 @@ public class RequetesController {
         models.put("dateMax", dateTraitementFacade.datePlusRecente());
     }
     */
+    
     @GET
     public void periode(@QueryParam("periodeChoisie") String periodeChoisie, 
     @QueryParam("moisChoisis") String moisChoisis, 
     @QueryParam("anneesChoisies") String anneesChoisies) throws Exception {
-        models.put("dateMin", dateTraitementFacade.datePlusAncienne());
-        models.put("dateMax", dateTraitementFacade.datePlusRecente());
+        //models.put("dateMin", dateTraitementFacade.datePlusAncienne());
+        //models.put("dateMax", dateTraitementFacade.datePlusRecente());
         //Envoyer la période choisie à la vue
         models.put("periodeChoisie", periodeChoisie);
         //Convertir les String années et mois choisis en tableaux de String en utilisant la virgule comme séparateur 
@@ -159,26 +159,13 @@ public class RequetesController {
             String url = fichiersDamirFacade.find(cle).getUrlfichier();
             urlFichiers.add(url);
         }
-
+        
         //Parcourir chaque url
         for (String url : urlFichiers) {
             Gzip downloader = new Gzip();
             //Créer les entités correspondantes dans la BDD
             this.readGzipURL(url);
         } 
-    }
-    //Requêtes
-    @GET
-    @Path("stats")
-    public void stats(@QueryParam("colonnes") String colonnes) throws Exception {
-        //Convertir les colonnes (String) en entiers en utilisant la virgule comme séparateur 
-        String[] colonnesTab = colonnes.split("\\,");
-       
-        int[] nbColonnes = new int[colonnesTab.length];
-        
-        for (int i = 0; i < nbColonnes.length; i++) {
-            nbColonnes[i] = Integer.parseInt(colonnesTab[i]);
-        }  
     }
     
     public void readGzipURL(String gzipURL) throws MalformedURLException, IOException, Exception {
@@ -263,5 +250,4 @@ public class RequetesController {
         //System.out.printf("Ligne n° %d : %n %s %n", lineNumber, chaine);
         return chaine;
     }
-
 }
