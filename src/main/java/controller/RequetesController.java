@@ -43,8 +43,8 @@ import javax.ws.rs.QueryParam;
  * @author ulyss
  */
 @Controller
-@Path("requetes")
-@View("requetes.jsp")
+@Path("importation")
+@View("importationFichiers.jsp")
 public class RequetesController {
     
     @Inject

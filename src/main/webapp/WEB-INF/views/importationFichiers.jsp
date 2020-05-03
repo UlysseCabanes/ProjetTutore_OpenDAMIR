@@ -1,19 +1,26 @@
+<%-- 
+    Document   : requetes
+    Created on : 8 avr. 2020, 15:35:40
+    Author     : ulyss
+--%>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Page d'accueil</title>
-    <link rel="stylesheet" type="text/css" href="CSS/accueil.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/importationFichiers.css">
 </head>
 <header>
-    <img src="images/logoAM.jpg" alt="Logo Assurance Maladie" id="logoAM">
+    <img src="${pageContext.request.contextPath}/images/logoAM.jpg" alt="Logo Assurance Maladie" id="logoAM">
     <h1>OpenDAMIR Explorer</h1>
-    <img src="images/logoMarianne.jpg" alt="Logo République Française" id="logoMarianne">
+    <img src="${pageContext.request.contextPath}/images/logoMarianne.jpg" alt="Logo République Française" id="logoMarianne">
 </header>
 <body>
     <h2>- Accueil</h2>
-    <br>
-    Exemple : <a href="damir/prsnat">Liste PRS Nat</a>
     <p>Choisissez une periode à étudier :</p>
     <form id="formPeriode" onsubmit="return false">
         <select id="periode" name="periode">
@@ -52,6 +59,6 @@
             <input type="submit" id="okButton" value="OK">
         </div>
     </form>
-    <script type="text/javascript" src="js/accueil.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/importationFichiers.js"></script>
 </body>
 </html>

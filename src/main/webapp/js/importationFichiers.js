@@ -191,7 +191,7 @@ function periodeChoisie() {
     document.getElementById("anneesChoisies").value = tabAnnees;
     //Modifier les paramètres du form pour qu'il soit envoyé
     //au controller avec les valeurs mises à jour
-    document.getElementById("formPeriode").action="damir/requetes";
+    document.getElementById("formPeriode").action="damir/importation";
     document.getElementById("formPeriode").method="GET";
     document.getElementById("formPeriode").submit();
 }
