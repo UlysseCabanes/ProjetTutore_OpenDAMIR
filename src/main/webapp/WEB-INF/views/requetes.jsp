@@ -12,6 +12,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Page des requetes</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/requetes.css">
+    <!-- On charge JQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<!-- On charge l'API Google -->
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	
 </head>
 <header>
     <img src="${pageContext.request.contextPath}/images/logoAM.jpg" alt="Logo Assurance Maladie" id="logoAM">
@@ -25,8 +31,9 @@
     <a href="${pageContext.request.contextPath}/importationFichiers.html">Importer des fichiers OpenDAMIR</a>
     <br><br>
     <div id="requetes">
-        <form id="formRequetes" onsubmit="return false">
-            <input type="hidden" id="colonnes" name="colonnes">
+        <form id="formRequetes" action="doAjax()">
+            <label>Choisissez une requete à effectuer :</label> 
+            <br><br>
             <select name="requete">
                 <option value="requete1">Montant total des remboursements par région</option>
                 <option value="requete2">Tranche d'âge la plus remboursée par région + montant</option>
@@ -79,6 +86,8 @@
             <input type="submit" value="OK">
         </form>
     </div>
+    <!-- Le graphique apparaît ici -->
+    <div id="affichage" style="width: 1000px; height: 500px;"></div>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/requetes.js"></script>
 </body>
 </html>
