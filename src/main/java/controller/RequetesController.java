@@ -32,6 +32,6 @@ public class RequetesController {
         @QueryParam("moisFin") String moisFin,
         @QueryParam("anneeFin") String anneeFin) {
         
-        
+
     }
 }
