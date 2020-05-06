@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Page des requetes</title>
+        <title>Page d'accueil</title>
         <link rel="stylesheet" type="text/css" href="CSS/requetes.css">
     </head>
     <header>
@@ -11,22 +11,10 @@
         <img src="images/logoMarianne.jpg" alt="Logo République Française" id="logoMarianne">
     </header>
     <body>
-        <h2>- Remboursements de l'Assurance Maladie</h2>
+        <h1>Accueil</h1>
+        <a href="requetes.jsp">Effectuer des requêtes</a>
+        <br>
         <a href="importationFichiers.html">Importer des fichiers OpenDAMIR</a>
-        <br><br>
-        <a>Choisissez une requête à effectuer :</a>
-        <br><br>
-        <div id="requetes">
-            <form id="formRequetes" onsubmit="return false">
-                <input type="hidden" id="colonnes" name="colonnes">
-                <input type="submit" id="requete1" value="Montant total des remboursements par région">
-                <input type="submit" id="requete2" value="Tranche d'âge la plus remboursée par région + montant">
-                <input type="submit" id="requete3" value="Nature de la prestation la plus remboursée par tranche d'âge">
-                <input type="submit" id="requete4" value="Montant des dépenses dans les secteurs privé/public par tranche d'âge">
-                <input type="submit" id="requete5" value="Montant moyen de la dépense par spécialité du médecin exécutant">
-                <input type="submit" id="requete6" value="Montant moyen des remboursements par spécialité du médecin exécutant">
-            </form>
-        </div>
         <script type="text/javascript" src="js/requetes.js"></script>
     </body>
 </html>
