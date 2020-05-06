@@ -183,7 +183,7 @@ public class ImportationFichiersController {
                 //on ajoute chaque ligne sous forme de int[] à j
                 if (reader.getLineNumber() > 1) {
                     
-                    int id = reader.getLineNumber()+prestationFacade.findAll().size()-1;
+                    int id = reader.getLineNumber()+prestationFacade.findAll().size();
                     //on ajoute chaque ligne sous forme de int[] à j
                     String[] processLine = processLine(reader.getLineNumber(), line);
 
