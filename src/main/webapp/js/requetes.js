@@ -1,10 +1,10 @@
-// cf. https://developers.google.com/chart/interactive/docs/gallery/piechart
-google.charts.load('current', {'packages': ['map']});
+// cf. https://developers.google.com/chart/interactive/docs/gallery/geochart
+google.charts.load('current', {'packages': ['geochart']});
 
 let requete = document.getelementById("requete").value;
 let enTeteData = new Array();
 let pushData = new Array();
-let titleData = new Array();
+let titleData;
 
 if (requete === "requete1") {
     enTeteData = ["Region", "Montant"];
@@ -33,23 +33,23 @@ if (requete === "requete5") {
 }
 
 
-function drawMap(result) {
+function drawGeoChart(result) {
     // On met le résultat au format attendu par google
     var data = [[enTeteData]];
     result.forEach( ligne => data.push([pushData.forEach(p => ligne.pushData[p])]));
     var dataTable = google.visualization.arrayToDataTable(data);
 
-    var map = new google.visualization.Map(document.getElementById('affichage'));
+    var geochart = new google.visualization.GeoChart(document.getElementById('affichage'));
     var options = {title: titleData};
     chart.draw(dataTable, options);
 }
 
-// Afficher les unités vendues pour la catégorie choisie
+// A
 function doAjax() {
     //On change l'url en fonction de la requete choisie
-    let url = requete;
+    let url = "service/" + requete;
     let moisDebut = document.getelementById("moisDebut").value;
-    let anneeDebut = document.getelementById("anneeDebut").value;
+    lefficher les unités vendues pour la catégorie choisiet anneeDebut = document.getelementById("anneeDebut").value;
     let moisFin = document.getelementById("moisFin").value;
     let anneeFin = document.getelementById("anneeFin").value;
     $.ajax({
@@ -57,8 +57,8 @@ function doAjax() {
         // Les données saisies dans le formlaire
         data : $('#formulaireCategorie').serialize(),
         dataType: "json",
-        success: drawPiechart, // La fonction qui traite les résultats
-        error: showError
+        success: drawGeoChart, // En cas de succès, on crée la GeoChart
+        error: showError //En cas d'erreur, on affiche le message d'erreur
     });
 }
 
