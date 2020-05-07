@@ -13,20 +13,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class StatsResult {
 
-	public StatsResult(String libelle, Long unites) {
-		this.libelle = libelle;
-                this.unites = unites;
+	public StatsResult(String region, float montant) {
+		this.region = region;
+                this.montant = montant;
 	}
 	
 	public StatsResult() {
-		this("Inconnu", 0l);
+		this("Inconnu", 0);
 	}
 	
 	// Pas utile de mettre des "getter" ici (final)
 	@XmlElement
-	public final Long unites;
+	public final String region;
 
 	@XmlElement
-	public final String libelle;
+	public final float montant;
 	
 }
