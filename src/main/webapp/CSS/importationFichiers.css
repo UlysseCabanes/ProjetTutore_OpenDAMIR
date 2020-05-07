@@ -27,7 +27,7 @@ body{
 	align-items: center;
 }
 
-a{
+.boutons{
     text-decoration: none;
     background-color: #E0E0E0;
     border: solid black 1px;
