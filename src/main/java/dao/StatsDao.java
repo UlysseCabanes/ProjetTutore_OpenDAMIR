@@ -24,6 +24,7 @@ public class StatsDao {
         + "FROM Indicateurs I, Beneficiaire B, Prestation P"
         + "WHERE I.idIndicateurs = P.idPrestation"
         + "AND P.idPrestation = B.idBeneficiaire"
+        + "AND FLX_ANN_MOI between :minDate and :maxDate"
         + "GROUP BY B.BEN_RES_REG";
     
     //Tranche d'âge la plus remboursée par région
@@ -32,6 +33,7 @@ public class StatsDao {
         + "FROM Indicateurs I, Beneficiaire B, Prestation P"
         + "WHERE I.idIndicateurs = P.idPrestation"
         + "AND P.idPrestation = B.idBeneficiaire"
+        + "AND FLX_ANN_MOI between :minDate and :maxDate"
         + "GROUP BY B.AGE_BEN_SNDS, B.BEN_RES_REG"
         + "HAVING SUM(I.PRS_REM_MNT) =( "
             + "SELECT MAX(montanRem)"
@@ -48,6 +50,7 @@ public class StatsDao {
         + "FROM Beneficiaire B, Prestation P"
         + "WHERE P.idPrestation = B.idBeneficiair"
         + "GROUP BY P.PRES_NAT, B.AGE_BEN_SNDS"
+        + "AND FLX_ANN_MOI between :minDate and :maxDate"
         + "HAVING COUNT(IdPrestation) =("
             + "SELECT MAX(nbPrestation)"
             + "FROM ("
@@ -62,6 +65,7 @@ public class StatsDao {
         + "FROM  Indicateurs I, Beneficiaire B, Prestation P"
         + "WHERE I.idIndicateurs = P.idPrestation"
         + "AND P.idPrestation = B.idBeneficiaire"
+        + "AND FLX_ANN_MOI between :minDate and :maxDate"
         + "GROUP BY B.AGE_BEN_SNDS, P.PRS_PPU_SEC;";
     
     //Montant moyen des dépenses et remboursement par spécialité du médecin exécutant
@@ -70,6 +74,7 @@ public class StatsDao {
         + "FROM Indicateurs I, Executant E, Prestation P"
         + "WHERE I.idIndicateurs = P.idPrestation"
         + "AND P.idPrestation = E.idExecutant"
+        + "AND FLX_ANN_MOI between :minDate and :maxDate"
         + "GROUP BY E.PSE_SPE_SNDS;";
     
     @PersistenceContext(unitName = "damir")
@@ -77,30 +82,40 @@ public class StatsDao {
     
     public List montantRemboursementsParRegion() {
         Query query = em.createQuery(MONTANT_REMBOURSEMENT_PAR_REGION);
+            .setParameter("minDate", minDate)
+            .setParameter("maxDate", maxDate)
         List results = query.getResultList();
         return results;
     }
     
     public List trancheAgePlusRembourseeParRegion() {
         Query query = em.createQuery(TRANCHE_AGE_PLUS_REMBOURSEE_REGION);
+            .setParameter("minDate", minDate)
+            .setParameter("maxDate", maxDate)
         List results = query.getResultList();
         return results;
     }
     
     public List naturePrestationPlusRembourseeParTrancheAge() {
         Query query = em.createQuery(NATURE_PRESTATION_PLUS_REMBOURSEE_PAR_TRANCHE_AGE);
+            .setParameter("minDate", minDate)
+            .setParameter("maxDate", maxDate)
         List results = query.getResultList();
         return results;
     }
     
     public List montantDepensesParSecteurPrivePublicParTrancheAge() {
         Query query = em.createQuery(MONTANT_DEPENSE_PAR_SECTEUR_PRIVE_PUBLIC_PAR_TRANCHE_AGE);
+            .setParameter("minDate", minDate)
+            .setParameter("maxDate", maxDate)
         List results = query.getResultList();
         return results;
     }
 
     public List montantMoyenDepensesRemboursementParSpecialiteMedecinExecutant() {
         Query query = em.createQuery(MONTANT_MOYEN_DEPENSE_ET_REMBOURSEMENTS_PAR_SPECIALITE_MEDECIN_EXECUTANT);
+            .setParameter("minDate", minDate)
+            .setParameter("maxDate", maxDate)
         List results = query.getResultList();
         return results;
     }
