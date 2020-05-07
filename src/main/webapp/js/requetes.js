@@ -44,12 +44,11 @@ function drawGeoChart(result) {
     chart.draw(dataTable, options);
 }
 
-// A
 function doAjax() {
     //On change l'url en fonction de la requete choisie
     let url = "service/" + requete;
     let moisDebut = document.getelementById("moisDebut").value;
-    lefficher les unités vendues pour la catégorie choisiet anneeDebut = document.getelementById("anneeDebut").value;
+    let anneeDebut = document.getelementById("anneeDebut").value;
     let moisFin = document.getelementById("moisFin").value;
     let anneeFin = document.getelementById("anneeFin").value;
     $.ajax({
