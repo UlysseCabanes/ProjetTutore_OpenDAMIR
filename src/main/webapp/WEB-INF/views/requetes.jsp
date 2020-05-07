@@ -25,11 +25,11 @@
     <img src="${pageContext.request.contextPath}/images/logoMarianne.jpg" alt="Logo République Française" id="logoMarianne">
 </header>
 <body>
-    <h2>- Remboursements de l'Assurance Maladie </h2>
+    <br>
      <a href="${pageContext.request.contextPath}/">Accueil</a>
      <br><br>
     <a href="${pageContext.request.contextPath}/importationFichiers.html">Importer des fichiers OpenDAMIR</a>
-    <br><br>
+    <h2>- Remboursements de l'Assurance Maladie </h2>
     <div id="requetes">
         <form id="formRequetes" action="doAjax()">
             <label>Choisissez une requete à effectuer :</label> 

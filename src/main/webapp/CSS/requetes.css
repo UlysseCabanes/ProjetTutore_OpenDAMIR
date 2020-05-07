@@ -23,7 +23,7 @@ header{
 	border: solid #81C135;
 }
 
-div{
+#requetes{
 	display: inline-grid;
 }
 
@@ -35,4 +35,12 @@ div{
 input{
 	margin-bottom: 10px;
 	text-align: left;
+}
+
+a{
+    text-decoration: none;
+    background-color: #E0E0E0;
+    border: solid black 1px;
+    color: black;
+    padding: 2px;
 }
