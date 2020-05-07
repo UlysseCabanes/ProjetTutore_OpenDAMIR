@@ -1,7 +1,7 @@
 // cf. https://developers.google.com/chart/interactive/docs/gallery/geochart
 google.charts.load('current', {'packages': ['geochart']});
 
-let requete = document.getelementById("requete").value;
+let requete = document.getElementById("requete").value;
 let enTeteData = new Array();
 let pushData = new Array();
 let titleData;
@@ -47,10 +47,10 @@ function drawGeoChart(result) {
 function doAjax() {
     //On change l'url en fonction de la requete choisie
     let url = "service/" + requete;
-    let moisDebut = document.getelementById("moisDebut").value;
-    let anneeDebut = document.getelementById("anneeDebut").value;
-    let moisFin = document.getelementById("moisFin").value;
-    let anneeFin = document.getelementById("anneeFin").value;
+    let moisDebut = document.getElementById("moisDebut").value;
+    let anneeDebut = document.getElementById("anneeDebut").value;
+    let moisFin = document.getElementById("moisFin").value;
+    let anneeFin = document.getElementById("anneeFin").value;
     $.ajax({
         url: url,
         // Les données saisies dans le formlaire

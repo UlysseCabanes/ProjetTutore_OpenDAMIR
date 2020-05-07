@@ -34,7 +34,7 @@
         <form id="formRequetes" action="doAjax()">
             <label>Choisissez une requete à effectuer :</label> 
             <br><br>
-            <select name="requete">
+            <select id="requete">
                 <option value="requete1">Montant total des remboursements par région</option>
                 <option value="requete2">Tranche d'âge la plus remboursée par région + montant</option>
                 <option value="requete3">Nature de la prestation la plus remboursée par tranche d'âge</option>
