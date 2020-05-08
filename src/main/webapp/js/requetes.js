@@ -1,8 +1,11 @@
 //Doc Google Charts https://developers.google.com/chart/interactive/docs/gallery/geochart
 
 //Importer chaque type de Google Chart
+//Requetês 1 et 2 => Carte de France (régions)
 google.charts.load('current', {'packages': ['geochart']});
+//Requête 3 => Tableau
 google.charts.load('current', {'packages': ['corechart']});
+//Requêtes 4 et 5 => Histogramme
 google.charts.load('current', {'packages': ['barchart']});
 
 //Savoir quelle requête doit être effectuée
@@ -28,7 +31,7 @@ function drawChart(result) {
         //On met le résultat au format attendu par google
         var data = [["Région","Tranche d'âge"]];
         //Ajouter au tableau de données les résultats du DTO
-        result.forEach( ligne => data.push([ligne.region, ligne.trancheAge]));
+        result.forEach( ligne => data.push([ligne.libelle, ligne.trancheAge]));
         //Convertir le tableau de données en table de données
         var dataTable = google.visualization.arrayToDataTable(data);
         //Créer un affichage dans le div d'id "affichage"
@@ -42,7 +45,7 @@ function drawChart(result) {
         //On met le résultat au format attendu par google
         var data = [["Nature de la prestation","Tranche d'âge"]];
         //Ajouter au tableau de données les résultats du DTO
-        result.forEach( ligne => data.push([ligne.nature, ligne.trancheAge]));
+        result.forEach( ligne => data.push([ligne.libelle, ligne.trancheAge]));
         //Convertir le tableau de données en table de données
         var dataTable = google.visualization.arrayToDataTable(data);
         //Créer un affichage dans le div d'id "affichage"
@@ -61,15 +64,15 @@ function drawChart(result) {
         var view = new google.visualization.DataView(data);
         
         //Définir les colonnes
-        view.setColumns([0, 1,
+        view.setColumns([0, 1, 2,
             { calc: "stringify",
               sourceColumn: 1,
               type: "string",
-              role: "annotation" },
-            2]);
+              role: "annotation" }
+        ]);
         
         var options = {
-            title: "Montant des dépenses par secteur privé/public par tranche d'âge)",
+            title: "Montant des dépenses des secteurs privé et public par tranche d'âge",
             width: 600,
             height: 400,
             bar: {groupWidth: "95%"},
