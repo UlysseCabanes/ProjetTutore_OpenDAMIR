@@ -8,8 +8,6 @@ package controller;
 import dao.DateTraitementFacade;
 import entity.DateTraitement;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.TreeSet;
@@ -36,24 +34,27 @@ public class AccueilController {
 
     @GET
     public void showMoisPresent() {
-        TreeSet<Date> toutesLesDates = new TreeSet<Date>();
-        ArrayList<String> dates=new ArrayList<>();
-
+        TreeSet<Date> toutesLesDates = new TreeSet<>();
+        ArrayList<String> dates = new ArrayList<>();
+        
+        //Parcourir toutes les entités "date de traitemet" de la BDD
         for (DateTraitement d : dateTraitementFacade.findAll()) {
             Date dateD = d.getFlxAnnMoi();
+            //Vérifier que la date n'a pas déjà été prise en compte
             if (!toutesLesDates.contains(dateD)) {
+                //Ajouter la date à la liste
                 toutesLesDates.add(dateD);
             }
         }
-       
-
-        for (Date g : toutesLesDates) {
-            
+        //Parcourir la liste des dates différentes
+        for (Date d : toutesLesDates) {
+            //Convertir la date au format adéquat
             SimpleDateFormat formatter = new SimpleDateFormat("MMMM yyyy");
-            String strDate = formatter.format(g);
+            String strDate = formatter.format(d);
+            //Ajouter la date convertie à la liste
             dates.add(strDate);
         }
-
+        //Envoyer la liste à la vue
         models.put("toutesLesDates", dates);
     }
 

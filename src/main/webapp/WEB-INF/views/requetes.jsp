@@ -14,11 +14,10 @@
     <title>Page des requetes</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/requetes.css">
     <!-- On charge JQuery -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<!-- On charge l'API Google -->
-	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- On charge l'API Google -->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <header>
     <img src="${pageContext.request.contextPath}/images/logoAM.jpg" alt="Logo Assurance Maladie" id="logoAM">
@@ -27,12 +26,12 @@
 </header>
 <body>
     <br>
-     <a href="${pageContext.request.contextPath}/">Accueil</a>
+     <a href="${pageContext.request.contextPath}/damir/accueil">Accueil</a>
      <br><br>
     <a href="${pageContext.request.contextPath}/importationFichiers.html">Importer des fichiers OpenDAMIR</a>
-    <h2>- Statistiques sur les remboursements de l'Assurance Maladie ${dateMin} ${dateMax}</h2>
+    <h2>- Statistiques sur les remboursements de l'Assurance Maladie</h2>
     <div id="requetes">
-        <form id="formRequetes" action="doAjax()">
+        <form id="formRequetes" onsubmit="doAjax()">
             <label>Choisissez une requete à effectuer :</label> 
             <br><br>
             <select id="requete">
@@ -43,28 +42,11 @@
                 <option value="requete5">Montant moyen de la dépense et du remboursement par spécialité du médecin exécutant</option>
             </select>  
             <label>de</label> 
-            <select id="moisDebutListe" onchange="dates()">
-                <option value='Janvier'>Janvier</option>
-                <option value='Février'>Février</option>
-                <option value='Mars'>Mars</option>
-                <option value='Avril'>Avril</option>
-                <option value='Mai'>Mai</option>
-                <option value='Juin'>Juin</option>
-                <option value='Juillet'>Juillet</option>
-                <option value='Août'>Août</option>
-                <option value='Septembre'>Septembre</option>
-                <option value='Octobre'>Octobre</option>
-                <option value='Novembre'>Novembre</option>
-                <option value='Décembre'>Décembre</option>
-            </select>
-            <select id="anneeDebutListe" onchange="dates()">
-                <option value='2015'>2015</option>
-                <option value='2016'>2016</option>
-                <option value='2017'>2017</option>
-                <option value='2018'>2018</option>
-            </select>
+            <input id="dateMin" name="dateMin" type="date" min="2015-01-01" max="2018-12-31">
             <label>à</label> 
-            <select id="moisFinListe" onchange="dates()">
+            <input id="dateMax" name="dateMax" type="date" min="2015-01-01" max="2018-12-31">
+            <input type="submit" value="OK">
+            <select id="moisDebut" onchange="dates()">
                 <option value='Janvier'>Janvier</option>
                 <option value='Février'>Février</option>
                 <option value='Mars'>Mars</option>
@@ -78,19 +60,32 @@
                 <option value='Novembre'>Novembre</option>
                 <option value='Décembre'>Décembre</option>
             </select>
-            <select id="anneeFinListe" onchange="dates()">
+            <select id="anneeDebut" onchange="dates()">
                 <option value='2015'>2015</option>
                 <option value='2016'>2016</option>
                 <option value='2017'>2017</option>
                 <option value='2018'>2018</option>
             </select>
-            <input type="submit" value="OK">
-        </form>
-        <form id="formDates" action="${pageContext.request.contextPath}/damir/requetes/dates" method="GET">
-            <input type="hidden" id="moisDebut" name="moisDebut">
-            <input type="hidden" id="anneeDebut" name="anneeDebut">
-            <input type="hidden" id="moisFin" name="moisFin">
-            <input type="hidden" id="anneeFin" name="anneeFin">
+            <select id="moisFin" onchange="dates()">
+                <option value='Janvier'>Janvier</option>
+                <option value='Février'>Février</option>
+                <option value='Mars'>Mars</option>
+                <option value='Avril'>Avril</option>
+                <option value='Mai'>Mai</option>
+                <option value='Juin'>Juin</option>
+                <option value='Juillet'>Juillet</option>
+                <option value='Août'>Août</option>
+                <option value='Septembre'>Septembre</option>
+                <option value='Octobre'>Octobre</option>
+                <option value='Novembre'>Novembre</option>
+                <option value='Décembre'>Décembre</option>
+            </select>
+            <select id="anneeFin" onchange="dates()">
+                <option value='2015'>2015</option>
+                <option value='2016'>2016</option>
+                <option value='2017'>2017</option>
+                <option value='2018'>2018</option>
+            </select>
         </form>
     </div>
     <!-- Le graphique apparaît ici -->

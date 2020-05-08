@@ -1,3 +1,5 @@
+/* global google, Intl */
+
 //Doc Google Charts https://developers.google.com/chart/interactive/docs/gallery/geochart
 
 //Importer chaque type de Google Chart
@@ -103,7 +105,7 @@ function drawChart(result) {
             width: 600,
             height: 400,
             bar: {groupWidth: "95%"},
-            legend: { position: "none" },
+            legend: { position: "none" }
         };
         //Créer un affichage dans le div d'id "affichage"
         var barchart = new google.visualization.BarChart(document.getElementById("affichage"));
@@ -129,13 +131,4 @@ function doAjax() {
 // Fonction qui traite les erreurs de la requête
 function showError(xhr, status, message) {
     alert("Erreur: " + status + " : " + message);
-}
-
-function dates() {
-    document.getElementById("moisDebut").value = document.getElementById("moisDebutListe").value;
-    document.getElementById("anneeDebut").value = document.getElementById("anneeDebutListe").value;
-    document.getElementById("moisFin").value = document.getElementById("moisFinListe").value;
-    document.getElementById("anneeFin").value = document.getElementById("anneeFinListe").value;
-    
-    document.getElementById("formDates").submit();
 }
