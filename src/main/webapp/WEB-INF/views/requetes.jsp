@@ -29,16 +29,16 @@
      <a href="${pageContext.request.contextPath}/">Accueil</a>
      <br><br>
     <a href="${pageContext.request.contextPath}/importationFichiers.html">Importer des fichiers OpenDAMIR</a>
-    <h2>- Remboursements de l'Assurance Maladie </h2>
+    <h2>- Statistiques sur les remboursements de l'Assurance Maladie </h2>
     <div id="requetes">
         <form id="formRequetes" action="doAjax()">
             <label>Choisissez une requete à effectuer :</label> 
             <br><br>
             <select id="requete">
                 <option value="requete1">Montant total des remboursements par région</option>
-                <option value="requete2">Tranche d'âge la plus remboursée par région + montant</option>
+                <option value="requete2">Tranche d'âge la plus remboursée par région (avec montant)</option>
                 <option value="requete3">Nature de la prestation la plus remboursée par tranche d'âge</option>
-                <option value="requete4">Montant des dépenses dans les secteurs privé/public par tranche d'âge</option>
+                <option value="requete4">Montant des dépenses dans les secteurs privé et public par tranche d'âge</option>
                 <option value="requete5">Montant moyen de la dépense et du remboursement par spécialité du médecin exécutant</option>
             </select>
             <label>de</label> 

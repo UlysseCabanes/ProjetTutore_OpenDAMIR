@@ -1,0 +1,58 @@
+#logoAM{
+	max-width: 25%;
+	height: auto;
+	border-right: solid #81C135;
+}
+
+h1{
+	color: #2059A6;
+	margin-left: 10px;
+	margin: auto;
+}
+
+#logoMarianne{
+	max-width: 25%;
+	height: auto;
+	border-left: solid #81C135;
+	float: right;
+	padding: 10px;
+}
+
+header{
+	display: flex;
+	border: solid #81C135;
+}
+
+#requetes{
+	display: inline-grid;
+}
+
+#afficherFichiers{
+	padding-right: 25px;
+	border: solid;
+}
+
+input{
+	margin-bottom: 10px;
+	text-align: left;
+}
+
+a{
+    text-decoration: none;
+    background-color: #E0E0E0;
+    border: solid black 1px;
+    color: black;
+    padding: 2px;
+}
+
+table,
+td{
+    border: solid black 1px;
+    padding: 2px;
+}
+thead,
+tfoot{
+    border: solid black 1px;
+    background-color: #68A1E7;
+    color: white;
+}

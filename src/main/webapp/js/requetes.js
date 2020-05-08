@@ -1,7 +1,7 @@
 //Doc Google Charts https://developers.google.com/chart/interactive/docs/gallery/geochart
 
 //Importer chaque type de Google Chart
-//Requetês 1 et 2 => Carte de France (régions)
+//Requêtes 1 et 2 => Carte de France (régions)
 google.charts.load('current', {'packages': ['geochart']});
 //Requête 3 => Tableau
 google.charts.load('current', {'packages': ['corechart']});
@@ -111,6 +111,7 @@ function drawChart(result) {
         barchart.draw(view, options);
     }
 }
+
 //Fonction appelée au "submit" du formulaire "formulaireRequetes"
 function doAjax() {
     //On définit l'url en fonction de la requete choisie
