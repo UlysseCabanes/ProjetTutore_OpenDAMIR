@@ -1,6 +1,10 @@
  package service;
 
 import dao.StatsDao;
+import dto.StatsResult_1;
+import dto.StatsResult_2_3;
+import dto.StatsResult_4;
+import dto.StatsResult_5;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -20,7 +24,7 @@ public class StatisticsService {
 	@GET
 	@Path("requete1")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public List montantRemboursementsParRegion(
+	public List<StatsResult_1> montantRemboursementsParRegion(
             @QueryParam("minDate") HtmlSqlDate minDate,
             @QueryParam("maxDate") HtmlSqlDate maxDate) {
                 return dao.montantRemboursementsParRegion(minDate, maxDate);
@@ -29,7 +33,7 @@ public class StatisticsService {
         @GET
 	@Path("requete2")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public List trancheAgePlusRembourseeParRegion(
+	public List<StatsResult_2_3> trancheAgePlusRembourseeParRegion(
             @QueryParam("minDate") HtmlSqlDate minDate,
             @QueryParam("maxDate") HtmlSqlDate maxDate) {
 		return dao.trancheAgePlusRembourseeParRegion(minDate, maxDate);
@@ -38,7 +42,7 @@ public class StatisticsService {
 	@GET
 	@Path("requete3")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public List naturePrestationPlusRembourseeParTrancheAge(
+	public List<StatsResult_2_3> naturePrestationPlusRembourseeParTrancheAge(
             @QueryParam("minDate") HtmlSqlDate minDate,
             @QueryParam("maxDate") HtmlSqlDate maxDate) {
 		return dao.naturePrestationPlusRembourseeParTrancheAge(minDate, maxDate);
@@ -47,7 +51,7 @@ public class StatisticsService {
         @GET
 	@Path("requete4")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public List montantDepensesParSecteurPrivePublicParTrancheAge(
+	public List<StatsResult_4> montantDepensesParSecteurPrivePublicParTrancheAge(
             @QueryParam("minDate") HtmlSqlDate minDate,
             @QueryParam("maxDate") HtmlSqlDate maxDate) {
 		return dao.montantDepensesParSecteurPrivePublicParTrancheAge(minDate, maxDate);
@@ -56,7 +60,7 @@ public class StatisticsService {
         @GET
 	@Path("requete5")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public List montantMoyenDepensesRemboursementParSpecialiteMedecinExecutant(
+	public List<StatsResult_5> montantMoyenDepensesRemboursementParSpecialiteMedecinExecutant(
             @QueryParam("minDate") HtmlSqlDate minDate,
             @QueryParam("maxDate") HtmlSqlDate maxDate) {
 		return dao.montantMoyenDepensesRemboursementParSpecialiteMedecinExecutant(minDate, maxDate);

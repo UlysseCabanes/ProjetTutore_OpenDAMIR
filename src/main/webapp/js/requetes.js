@@ -110,9 +110,10 @@ function drawChart(result) {
         //Ajouter le piechart avec son titre
         barchart.draw(view, options);
     }
-
+}
+//Fonction appelée au "submit" du formulaire "formulaireRequetes"
 function doAjax() {
-    //On change l'url en fonction de la requete choisie
+    //On définit l'url en fonction de la requete choisie
     let url = "service/" + requete;
     $.ajax({
         url: url,
@@ -127,5 +128,4 @@ function doAjax() {
 // Fonction qui traite les erreurs de la requête
 function showError(xhr, status, message) {
     alert("Erreur: " + status + " : " + message);
-}
 }

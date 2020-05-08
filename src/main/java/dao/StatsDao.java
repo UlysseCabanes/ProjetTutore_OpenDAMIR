@@ -5,6 +5,11 @@
  */
 package dao;
 
+import dto.StatsResult_1;
+import dto.StatsResult_2_3;
+import dto.StatsResult_4;
+import dto.StatsResult_5;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -18,18 +23,22 @@ import javax.persistence.Query;
 @Stateless
 public class StatsDao {
     
+    //Requête n°1
     //Montant des remboursements par région
     private static final String MONTANT_REMBOURSEMENT_PAR_REGION
-        = "SELECT dto.StatsResult (B.BEN_RES_REG, SUM(I.PRS_REM_MNT))"
+        = "SELECT new dto.StatsResult_1"
+        + "(B.BEN_RES_REG, SUM(I.PRS_REM_MNT))"
         + "FROM Indicateurs I, Beneficiaire B, Prestation P"
         + "WHERE I.idIndicateurs = P.idPrestation"
         + "AND P.idPrestation = B.idBeneficiaire"
         + "AND FLX_ANN_MOI between :minDate and :maxDate"
         + "GROUP BY B.BEN_RES_REG";
     
+    //Requête n°2
     //Tranche d'âge la plus remboursée par région
     private static final String TRANCHE_AGE_PLUS_REMBOURSEE_REGION
-        ="SELECT B.AGE_BEN_SNDS, SUM(I.PRS_REM_MNT) AS montanRem, B.BEN_RES_REG"
+        ="SELECT new dto.StatsResult_2_3"
+        + "(B.AGE_BEN_SNDS, SUM(I.PRS_REM_MNT) AS montanRem, B.BEN_RES_REG)"
         + "FROM Indicateurs I, Beneficiaire B, Prestation P"
         + "WHERE I.idIndicateurs = P.idPrestation"
         + "AND P.idPrestation = B.idBeneficiaire"
@@ -44,9 +53,11 @@ public class StatsDao {
             + "AND P.idPrestation = B.idBeneficiaire;"
             + "GROUP BY B.AGE_BEN_SNDS, B.BEN_RES_REG));";
     
+    //Requête n°3
     //Nature de la prestation la plus remboursée par tranche d'âge
     private static final String NATURE_PRESTATION_PLUS_REMBOURSEE_PAR_TRANCHE_AGE
-        ="SELECT B.AGE_BEN_SNDS, P.PRES_NAT, COUNT(IdPrestation) AS nbPrestation"
+        ="SELECT new dto.StatsResult_2_3"
+        + "(B.AGE_BEN_SNDS, P.PRES_NAT, COUNT(IdPrestation) AS nbPrestation)"
         + "FROM Beneficiaire B, Prestation P"
         + "WHERE P.idPrestation = B.idBeneficiair"
         + "GROUP BY P.PRES_NAT, B.AGE_BEN_SNDS"
@@ -59,18 +70,22 @@ public class StatsDao {
             + "WHERE P.idPrestation = B.idBeneficiair"
             + "GROUP BY B.AGE_BEN_SNDS, P.PRES_NAT));";
     
+    //Requête n°4
     //Montant des dépenses par secteur privé/public par tranche d'âge
     private static final String MONTANT_DEPENSE_PAR_SECTEUR_PRIVE_PUBLIC_PAR_TRANCHE_AGE
-        ="SELECT P.PRS_PPU_SEC, B.AGE_BEN_SNDS, SUM(I.PRS_PAI_MNT)"
+        ="SELECT new dto.StatsResult_4"
+        + "(P.PRS_PPU_SEC, B.AGE_BEN_SNDS, SUM(I.PRS_PAI_MNT))"
         + "FROM  Indicateurs I, Beneficiaire B, Prestation P"
         + "WHERE I.idIndicateurs = P.idPrestation"
         + "AND P.idPrestation = B.idBeneficiaire"
         + "AND FLX_ANN_MOI between :minDate and :maxDate"
         + "GROUP BY B.AGE_BEN_SNDS, P.PRS_PPU_SEC;";
     
+    //Requête n°5
     //Montant moyen des dépenses et remboursement par spécialité du médecin exécutant
     private static final String MONTANT_MOYEN_DEPENSE_ET_REMBOURSEMENTS_PAR_SPECIALITE_MEDECIN_EXECUTANT
-        ="SELECT E.PSE_SPE_SNDS, AVG(I.PRS_PAI_MNT), AVG(I.PRS_REM_MNT)"
+        ="SELECT new dto.StatsResult_5"
+        + "(E.PSE_SPE_SNDS, AVG(I.PRS_PAI_MNT), AVG(I.PRS_REM_MNT))"
         + "FROM Indicateurs I, Executant E, Prestation P"
         + "WHERE I.idIndicateurs = P.idPrestation"
         + "AND P.idPrestation = E.idExecutant"
@@ -80,43 +95,44 @@ public class StatsDao {
     @PersistenceContext(unitName = "damir")
     private EntityManager em;
     
-    public List montantRemboursementsParRegion() {
-        Query query = em.createQuery(MONTANT_REMBOURSEMENT_PAR_REGION);
+    //Requête n°1
+    public List<StatsResult_1> montantRemboursementsParRegion(Date minDate, Date maxDate) {
+        Query query = em.createQuery(MONTANT_REMBOURSEMENT_PAR_REGION, StatsResult_1.class)
             .setParameter("minDate", minDate)
-            .setParameter("maxDate", maxDate)
-        List results = query.getResultList();
+            .setParameter("maxDate", maxDate);
+        List<StatsResult_1> results = query.getResultList();
         return results;
     }
-    
-    public List trancheAgePlusRembourseeParRegion() {
-        Query query = em.createQuery(TRANCHE_AGE_PLUS_REMBOURSEE_REGION);
+    //Requête n°2
+    public List<StatsResult_2_3> trancheAgePlusRembourseeParRegion(Date minDate, Date maxDate) {
+        Query query = em.createQuery(TRANCHE_AGE_PLUS_REMBOURSEE_REGION, StatsResult_2_3.class)
             .setParameter("minDate", minDate)
-            .setParameter("maxDate", maxDate)
-        List results = query.getResultList();
+            .setParameter("maxDate", maxDate);
+        List<StatsResult_2_3> results = query.getResultList();
         return results;
     }
-    
-    public List naturePrestationPlusRembourseeParTrancheAge() {
-        Query query = em.createQuery(NATURE_PRESTATION_PLUS_REMBOURSEE_PAR_TRANCHE_AGE);
+    //Requête n°3
+    public List<StatsResult_2_3> naturePrestationPlusRembourseeParTrancheAge(Date minDate, Date maxDate) {
+        Query query = em.createQuery(NATURE_PRESTATION_PLUS_REMBOURSEE_PAR_TRANCHE_AGE, StatsResult_2_3.class)
             .setParameter("minDate", minDate)
-            .setParameter("maxDate", maxDate)
-        List results = query.getResultList();
+            .setParameter("maxDate", maxDate);
+        List<StatsResult_2_3> results = query.getResultList();
         return results;
     }
-    
-    public List montantDepensesParSecteurPrivePublicParTrancheAge() {
-        Query query = em.createQuery(MONTANT_DEPENSE_PAR_SECTEUR_PRIVE_PUBLIC_PAR_TRANCHE_AGE);
+    //Requête n°4
+    public List<StatsResult_4> montantDepensesParSecteurPrivePublicParTrancheAge(Date minDate, Date maxDate) {
+        Query query = em.createQuery(MONTANT_DEPENSE_PAR_SECTEUR_PRIVE_PUBLIC_PAR_TRANCHE_AGE, StatsResult_4.class)
             .setParameter("minDate", minDate)
-            .setParameter("maxDate", maxDate)
-        List results = query.getResultList();
+            .setParameter("maxDate", maxDate);
+        List<StatsResult_4> results = query.getResultList();
         return results;
     }
-
-    public List montantMoyenDepensesRemboursementParSpecialiteMedecinExecutant() {
-        Query query = em.createQuery(MONTANT_MOYEN_DEPENSE_ET_REMBOURSEMENTS_PAR_SPECIALITE_MEDECIN_EXECUTANT);
+    //Requête n°5
+    public List<StatsResult_5> montantMoyenDepensesRemboursementParSpecialiteMedecinExecutant(Date minDate, Date maxDate) {
+        Query query = em.createQuery(MONTANT_MOYEN_DEPENSE_ET_REMBOURSEMENTS_PAR_SPECIALITE_MEDECIN_EXECUTANT, StatsResult_5.class)
             .setParameter("minDate", minDate)
-            .setParameter("maxDate", maxDate)
-        List results = query.getResultList();
+            .setParameter("maxDate", maxDate);
+        List<StatsResult_5> results = query.getResultList();
         return results;
     }
 }
