@@ -6,6 +6,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,12 +16,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Alex
+ * @author ulyss
  */
 @Entity
 @Table(name = "DATE_TRAITEMENT")
@@ -38,7 +41,8 @@ public class DateTraitement implements Serializable {
     @Column(name = "IDDATE")
     private Integer iddate;
     @Column(name = "FLX_ANN_MOI")
-    private Integer flxAnnMoi;
+    @Temporal(TemporalType.DATE)
+    private Date flxAnnMoi;
     @JoinColumn(name = "IDDATE", referencedColumnName = "IDPRESTATION", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Prestation prestation;
@@ -58,11 +62,11 @@ public class DateTraitement implements Serializable {
         this.iddate = iddate;
     }
 
-    public Integer getFlxAnnMoi() {
+    public Date getFlxAnnMoi() {
         return flxAnnMoi;
     }
 
-    public void setFlxAnnMoi(Integer flxAnnMoi) {
+    public void setFlxAnnMoi(Date flxAnnMoi) {
         this.flxAnnMoi = flxAnnMoi;
     }
 

@@ -28,7 +28,10 @@ import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.util.zip.GZIPInputStream;
 import javax.inject.Inject;
 import javax.mvc.Controller;
@@ -167,7 +170,7 @@ public class ImportationFichiersController {
         } 
     }
     
-     public void readGzipURL(String gzipURL) throws MalformedURLException, IOException, Exception {
+    public void readGzipURL(String gzipURL) throws MalformedURLException, IOException, Exception {
         //convertit l'url (String) saisi en un objet (URL)
         System.out.println("controller.testDAOController.readGzipURL() demarre.............");
         URL url = new URL(gzipURL);
@@ -193,7 +196,10 @@ public class ImportationFichiersController {
                     beneficiaire.setBenResReg(benResRegClairFacade.find(Integer.parseInt(processLine[3])));
                     //Création de DateTraitement correspondante à la ligne
                     DateTraitement dateTraitement = new DateTraitement(id);
-                    dateTraitement.setFlxAnnMoi(Integer.parseInt(processLine[0]));
+                    //Transfomrer la date de type int en type date
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.FRENCH);
+                    Date date = formatter.parse(processLine[0]+"01");
+                    dateTraitement.setFlxAnnMoi(date);
 
                     //Création de Executant correspondante à la ligne
                     Executant executant = new Executant(id);

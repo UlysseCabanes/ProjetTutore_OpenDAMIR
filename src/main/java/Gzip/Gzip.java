@@ -31,9 +31,12 @@ import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
@@ -118,6 +121,7 @@ public class Gzip {
     }*/
     public void readGzipURL(String gzipURL) throws MalformedURLException, IOException, Exception {
         //convertit l'url (String) saisi en un objet (URL)
+        System.out.println("controller.testDAOController.readGzipURL() demarre.............");
         URL url = new URL(gzipURL);
         //Lit le fichier ligne par ligne
         try (
@@ -126,54 +130,58 @@ public class Gzip {
                 GZIPInputStream gzipIn = new GZIPInputStream(in);
                 LineNumberReader reader = new LineNumberReader(new InputStreamReader(gzipIn));) {
             String line;
-            ArrayList<float[]> j = new ArrayList<float[]>();
             //Pour chaque ligne du fichier, 
             while ((line = reader.readLine()) != null) {
                 //on ajoute chaque ligne sous forme de int[] à j
                 if (reader.getLineNumber() > 1) {
-                    int id = reader.getLineNumber();
+                    
+                    int id = reader.getLineNumber()+prestationFacade.findAll().size();
                     //on ajoute chaque ligne sous forme de int[] à j
                     String[] processLine = processLine(reader.getLineNumber(), line);
-                    
+
                     //Création de Benficiaire correspondante à la ligne
                     Beneficiaire beneficiaire = new Beneficiaire(id);
-                    beneficiaire.setAgeBenSnds(ageBenSndsClairFacade.find(processLine[2]));
-                    beneficiaire.setBenResReg(benResRegClairFacade.find(processLine[3]));
-                    
+                    beneficiaire.setAgeBenSnds(ageBenSndsClairFacade.find(Integer.parseInt(processLine[2])));
+                    beneficiaire.setBenResReg(benResRegClairFacade.find(Integer.parseInt(processLine[3])));
                     //Création de DateTraitement correspondante à la ligne
                     DateTraitement dateTraitement = new DateTraitement(id);
-                    dateTraitement.setFlxAnnMoi(Integer.parseInt(processLine[0]));
-                    
+                    //Transfomrer la date de type int en type date
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.FRENCH);
+                    Date date = formatter.parse(processLine[0]+"01");
+                    dateTraitement.setFlxAnnMoi(date);
+
                     //Création de Executant correspondante à la ligne
                     Executant executant = new Executant(id);
-                    executant.setPseSpeSnds(pseSpeSndsClairFacade.find(processLine[47]));
+                    executant.setPseSpeSnds(pseSpeSndsClairFacade.find(Integer.parseInt(processLine[47])));
                     //Création de Indicateurs correspondante à la ligne
                     Indicateurs indicateurs = new Indicateurs(id);
                     indicateurs.setPrsPaiMnt(Double.parseDouble(processLine[20]));
                     indicateurs.setPrsRemMnt(Double.parseDouble(processLine[22]));
                     //Création de Prestation correspondante à la ligne
                     Prestation prestation = new Prestation(id);
-                    prestation.setBeneficiaire(beneficiaire);
-                    prestation.setDateTraitement(dateTraitement);
-                    prestation.setExecutant(executant);
-                    prestation.setIndicateurs(indicateurs);
-                    prestation.setPrsNat(prsNatClairFacade.find(processLine[39]));
-                    prestation.setPrsPpuSec(prsPpuSecClairFacade.find(processLine[40]));
-                    
+//                    prestation.setBeneficiaire(beneficiaire);
+//                    prestation.setDateTraitement(dateTraitement);
+//                    prestation.setExecutant(executant);
+//                    prestation.setIndicateurs(indicateurs);
+                    prestation.setPrsNat(prsNatClairFacade.find(Integer.parseInt(processLine[39])));
+                    prestation.setPrsPpuSec(prsPpuSecClairFacade.find(Integer.parseInt(processLine[40])));
+
                     //prestation relié a chaque objet
                     beneficiaire.setPrestation(prestation);
                     dateTraitement.setPrestation(prestation);
                     executant.setPrestation(prestation);
                     indicateurs.setPrestation(prestation);
-                    
-                    System.out.println("Test ok");
+
+                   
                     //Création des entités dans bdd
+                    prestationFacade.create(prestation);
                     beneficiaireFacade.create(beneficiaire);
                     dateTraitementFacade.create(dateTraitement);
                     executantFacade.create(executant);
                     indicateursFacade.create(indicateurs);
-                    prestationFacade.create(prestation);
-                    System.out.println("ok"+"\n");                                    
+                    
+                    
+                    System.out.println("une ligne lue" + "\n");
                 }
             }
         }
