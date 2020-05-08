@@ -28,12 +28,10 @@ import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 import java.util.zip.GZIPInputStream;
 import javax.inject.Inject;
 import javax.mvc.Controller;
@@ -42,6 +40,7 @@ import javax.mvc.View;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
+import util.MoisNombre;
 /**
  *
  * @author ulyss
@@ -86,19 +85,11 @@ public class ImportationFichiersController {
     
     @Inject
     PrestationFacade prestationFacade;
-    /*
-    public void show() {
-        models.put("dateMin", dateTraitementFacade.datePlusAncienne());
-        models.put("dateMax", dateTraitementFacade.datePlusRecente());
-    }
-    */
-    
+
     @GET
     public void periode(@QueryParam("periodeChoisie") String periodeChoisie, 
     @QueryParam("moisChoisis") String moisChoisis, 
     @QueryParam("anneesChoisies") String anneesChoisies) throws Exception {
-        //models.put("dateMin", dateTraitementFacade.datePlusAncienne());
-        //models.put("dateMax", dateTraitementFacade.datePlusRecente());
         //Envoyer la période choisie à la vue
         models.put("periodeChoisie", periodeChoisie);
         //Convertir les String années et mois choisis en tableaux de String en utilisant la virgule comme séparateur 
@@ -108,49 +99,8 @@ public class ImportationFichiersController {
         ArrayList<String> clesFichiers = new ArrayList<>();
         //Parcourir chaque période
         for (int i = 0; i < annees.length; i++) {
-            String nbMois = "";
             //Convertir le mois en toutes lettres en mois en nombre
-            switch(mois[i]) {
-                case "Janvier" :
-                    nbMois = "01";
-                    break;
-                case "Février" :
-                    nbMois = "02";
-                    break;
-                case "Mars" :
-                    nbMois = "03";
-                    break;
-                case "Avril" :
-                    nbMois = "04";
-                    break;
-                case "Mai" :
-                    nbMois = "05";
-                    break;
-                case "Juin" :
-                    nbMois = "06";
-                    break;
-                case "Juillet" :
-                    nbMois = "07";
-                    break;
-                case "Août" :
-                    nbMois = "08";
-                    break;
-                case "Septembre" :
-                    nbMois = "09";
-                    break;
-                case "Octobre" :
-                    nbMois = "10";
-                    break;
-                case "Novembre" :
-                    nbMois = "11";
-                    break;
-                case "Décembre" :
-                    nbMois = "12";
-                    break;
-                case "null" :
-                    nbMois = "";
-                    break;
-            }
+            String nbMois = MoisNombre.monthToNumber(mois[i]);
             //Créer la clé correspondante et l'ajouter à la variable de session
             clesFichiers.add("DAMIR_" + annees[i] + nbMois + "_SMALL");
         }

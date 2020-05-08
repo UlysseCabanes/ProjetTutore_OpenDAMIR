@@ -119,7 +119,7 @@ function doAjax() {
     $.ajax({
         url: url,
         // Les données saisies dans le formlaire
-        data : $('#formulaireRequetes').serialize(),
+        data : $('#formRequetes').serialize(),
         dataType: "json",
         success: drawChart, // En cas de succès, on crée la GeoChart
         error: showError //En cas d'erreur, on affiche le message d'erreur
@@ -129,4 +129,13 @@ function doAjax() {
 // Fonction qui traite les erreurs de la requête
 function showError(xhr, status, message) {
     alert("Erreur: " + status + " : " + message);
+}
+
+function dates() {
+    document.getElementById("moisDebut").value = document.getElementById("moisDebutListe").value;
+    document.getElementById("anneeDebut").value = document.getElementById("anneeDebutListe").value;
+    document.getElementById("moisFin").value = document.getElementById("moisFinListe").value;
+    document.getElementById("anneeFin").value = document.getElementById("anneeFinListe").value;
+    
+    document.getElementById("formDates").submit();
 }

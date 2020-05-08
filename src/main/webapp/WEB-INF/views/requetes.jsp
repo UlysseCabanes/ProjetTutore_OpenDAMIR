@@ -4,6 +4,7 @@
     Author     : ulyss
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -29,7 +30,7 @@
      <a href="${pageContext.request.contextPath}/">Accueil</a>
      <br><br>
     <a href="${pageContext.request.contextPath}/importationFichiers.html">Importer des fichiers OpenDAMIR</a>
-    <h2>- Statistiques sur les remboursements de l'Assurance Maladie </h2>
+    <h2>- Statistiques sur les remboursements de l'Assurance Maladie ${dateMin} ${dateMax}</h2>
     <div id="requetes">
         <form id="formRequetes" action="doAjax()">
             <label>Choisissez une requete à effectuer :</label> 
@@ -40,9 +41,9 @@
                 <option value="requete3">Nature de la prestation la plus remboursée par tranche d'âge</option>
                 <option value="requete4">Montant des dépenses dans les secteurs privé et public par tranche d'âge</option>
                 <option value="requete5">Montant moyen de la dépense et du remboursement par spécialité du médecin exécutant</option>
-            </select>
+            </select>  
             <label>de</label> 
-            <select name="moisDebut">
+            <select id="moisDebutListe" onchange="dates()">
                 <option value='Janvier'>Janvier</option>
                 <option value='Février'>Février</option>
                 <option value='Mars'>Mars</option>
@@ -56,14 +57,14 @@
                 <option value='Novembre'>Novembre</option>
                 <option value='Décembre'>Décembre</option>
             </select>
-            <select name="anneeDebut">
+            <select id="anneeDebutListe" onchange="dates()">
                 <option value='2015'>2015</option>
                 <option value='2016'>2016</option>
                 <option value='2017'>2017</option>
                 <option value='2018'>2018</option>
             </select>
             <label>à</label> 
-            <select name="moisFin">
+            <select id="moisFinListe" onchange="dates()">
                 <option value='Janvier'>Janvier</option>
                 <option value='Février'>Février</option>
                 <option value='Mars'>Mars</option>
@@ -77,13 +78,19 @@
                 <option value='Novembre'>Novembre</option>
                 <option value='Décembre'>Décembre</option>
             </select>
-            <select name="anneeFin">
+            <select id="anneeFinListe" onchange="dates()">
                 <option value='2015'>2015</option>
                 <option value='2016'>2016</option>
                 <option value='2017'>2017</option>
                 <option value='2018'>2018</option>
             </select>
             <input type="submit" value="OK">
+        </form>
+        <form id="formDates" action="${pageContext.request.contextPath}/damir/requetes/dates" method="GET">
+            <input type="hidden" id="moisDebut" name="moisDebut">
+            <input type="hidden" id="anneeDebut" name="anneeDebut">
+            <input type="hidden" id="moisFin" name="moisFin">
+            <input type="hidden" id="anneeFin" name="anneeFin">
         </form>
     </div>
     <!-- Le graphique apparaît ici -->
