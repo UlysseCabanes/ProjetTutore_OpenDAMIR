@@ -29,6 +29,8 @@ import java.io.LineNumberReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
@@ -157,6 +159,7 @@ public class ImportationFichiersController {
 
         ArrayList<String> urlFichiers = new ArrayList<>();
         //Pour chaque clé de la variable de session
+        /*
         for (String cle : clesFichiers) {
             //Récupérer l'url du fichier correspondant à la clé
             String url = fichiersDamirFacade.find(cle).getUrlfichier();
@@ -168,6 +171,8 @@ public class ImportationFichiersController {
             //Créer les entités correspondantes dans la BDD
             this.readGzipURL(url);
         } 
+*/
+        //readGzipURL("file:\\C:\\Users\\ulyss\\Desktop\\A201812_small.csv.gz");
     }
     
     public void readGzipURL(String gzipURL) throws MalformedURLException, IOException, Exception {
@@ -197,8 +202,8 @@ public class ImportationFichiersController {
                     //Création de DateTraitement correspondante à la ligne
                     DateTraitement dateTraitement = new DateTraitement(id);
                     //Transfomrer la date de type int en type date
-                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.FRENCH);
-                    Date date = formatter.parse(processLine[0]+"01");
+                    LocalDate localdate = LocalDate.parse(processLine[0]+"01", DateTimeFormatter.BASIC_ISO_DATE);
+                    Date date = java.sql.Date.valueOf(localdate); 
                     dateTraitement.setFlxAnnMoi(date);
 
                     //Création de Executant correspondante à la ligne
