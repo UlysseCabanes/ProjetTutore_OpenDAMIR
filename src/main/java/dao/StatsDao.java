@@ -20,7 +20,7 @@ public class StatsDao {
     
     //Montant des remboursements par région
     private static final String MONTANT_REMBOURSEMENT_PAR_REGION
-        = "SELECT B.BEN_RES_REG, SUM(I.PRS_REM_MNT)"
+        = "SELECT dto.StatsResult (B.BEN_RES_REG, SUM(I.PRS_REM_MNT))"
         + "FROM Indicateurs I, Beneficiaire B, Prestation P"
         + "WHERE I.idIndicateurs = P.idPrestation"
         + "AND P.idPrestation = B.idBeneficiaire"

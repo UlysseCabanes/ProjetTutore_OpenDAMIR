@@ -11,22 +11,21 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class StatsResult {
+public class StatsResult_2_3 {
 
-	public StatsResult(String region, float montant) {
-		this.region = region;
-                this.montant = montant;
+	public StatsResult_2_3(String libelle, String trancheAge) {
+		this.libelle = libelle;
+                this.trancheAge = trancheAge;
 	}
 	
-	public StatsResult() {
-		this("Inconnu", 0);
+	public StatsResult_2_3() {
+		this("Inconnu", "Inconnu");
 	}
-	
-	// Pas utile de mettre des "getter" ici (final)
-	@XmlElement
-	public final String region;
 
 	@XmlElement
-	public final float montant;
+	public final String libelle;
+
+	@XmlElement
+	public final String trancheAge;
 	
 }
