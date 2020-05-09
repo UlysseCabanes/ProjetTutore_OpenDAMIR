@@ -5,6 +5,7 @@ import dto.StatsResult_1;
 import dto.StatsResult_2_3;
 import dto.StatsResult_4;
 import dto.StatsResult_5;
+import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -43,8 +44,8 @@ public class StatisticsService {
 	@Path("requete3")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public List<StatsResult_2_3> naturePrestationPlusRembourseeParTrancheAge(
-            @QueryParam("minDate") HtmlSqlDate minDate,
-            @QueryParam("maxDate") HtmlSqlDate maxDate) {
+            @QueryParam("minDate") Date minDate,
+            @QueryParam("maxDate") Date maxDate) {
 		return dao.naturePrestationPlusRembourseeParTrancheAge(minDate, maxDate);
 	}
         

@@ -42,9 +42,9 @@
                 <option value="requete5">Montant moyen de la dépense et du remboursement par spécialité du médecin exécutant</option>
             </select>  
             <label>de</label> 
-            <input id="dateMin" name="dateMin" type="date" min="2015-01-01" max="2018-12-31">
+            <input id="minDate" name="minDate" type="date" min="2015-01-01" max="2018-12-31">
             <label>à</label> 
-            <input id="dateMax" name="dateMax" type="date" min="2015-01-01" max="2018-12-31">
+            <input id="maxDate" name="maxDate" type="date" min="2015-01-01" max="2018-12-31">
             <input type="submit" value="OK">
             <select id="moisDebut" onchange="dates()">
                 <option value='Janvier'>Janvier</option>

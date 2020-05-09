@@ -1,4 +1,4 @@
-/* global google, Intl */
+/* global google */
 
 //Doc Google Charts https://developers.google.com/chart/interactive/docs/gallery/geochart
 
@@ -78,7 +78,7 @@ function drawChart(result) {
             width: 600,
             height: 400,
             bar: {groupWidth: "95%"},
-            legend: { position: "none" },
+            legend: { position: "none" }
         };
         //Créer un affichage dans le div d'id "affichage"
         var barchart = new google.visualization.BarChart(document.getElementById("affichage"));
@@ -116,6 +116,7 @@ function drawChart(result) {
 
 //Fonction appelée au "submit" du formulaire "formulaireRequetes"
 function doAjax() {
+    console.log("TEST");
     //On définit l'url en fonction de la requete choisie
     let url = "service/" + requete;
     $.ajax({
