@@ -20,11 +20,11 @@
     </header>
     <body>
         <h2>- Accueil</h2>
-        <a href="${pageContext.request.contextPath}/damir/requetes">Effectuer des requêtes</a>
+        <a href="${pageContext.request.contextPath}/damir/requetes">Statistiques sur l'Assurance Maladie</a>
         <br><br>
-        <a href="${pageContext.request.contextPath}/gestionFichiers.html">Importer des fichiers OpenDAMIR</a>
+        <a href="${pageContext.request.contextPath}/gestionFichiers.html">Gérer les fichiers Open DAMIR</a>
         <br>
-        <p>La base de données contient le(s) fichier(s) OpenDAMIR pour les dates suivante(s) :</p>
+        <p>La base de données contient le(s) fichier(s) Open DAMIR pour les dates suivante(s) :</p>
         <table id="fichiers">
             <thead>
                 <tr>
