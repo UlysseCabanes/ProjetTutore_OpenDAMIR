@@ -38,10 +38,12 @@ import javax.inject.Inject;
 import javax.mvc.Controller;
 import javax.mvc.Models;
 import javax.mvc.View;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import util.MoisNombre;
+
 /**
  *
  * @author ulyss
@@ -50,49 +52,50 @@ import util.MoisNombre;
 @Path("importation")
 @View("index.jsp")
 public class ImportationFichiersController {
+
     @Inject
     MoisPresentsDansBDD moisPresentsDansBDD;
-    
+
     @Inject
     Models models;
-    
+
     @Inject
     FichiersdamirFacade fichiersDamirFacade;
-    
+
     @Inject
     AgeBenSndsClairFacade ageBenSndsClairFacade;
-    
+
     @Inject
     BenResRegClairFacade benResRegClairFacade;
-    
+
     @Inject
     PseSpeSndsClairFacade pseSpeSndsClairFacade;
-    
+
     @Inject
     PrsNatClairFacade prsNatClairFacade;
-    
+
     @Inject
     PrsPpuSecClairFacade prsPpuSecClairFacade;
-    
+
     @Inject
     BeneficiaireFacade beneficiaireFacade;
-    
+
     @Inject
     DateTraitementFacade dateTraitementFacade;
-    
+
     @Inject
     ExecutantFacade executantFacade;
-    
+
     @Inject
     IndicateursFacade indicateursFacade;
-    
+
     @Inject
     PrestationFacade prestationFacade;
 
     @GET
-    public void periode(@QueryParam("periodeChoisie") String periodeChoisie, 
-    @QueryParam("moisChoisis") String moisChoisis, 
-    @QueryParam("anneesChoisies") String anneesChoisies) throws Exception {
+    public void periode(@QueryParam("periodeChoisie") String periodeChoisie,
+            @QueryParam("moisChoisis") String moisChoisis,
+            @QueryParam("anneesChoisies") String anneesChoisies) throws Exception {
         //Envoyer la période choisie à la vue
         models.put("periodeChoisie", periodeChoisie);
         //Convertir les String années et mois choisis en tableaux de String en utilisant la virgule comme séparateur 
@@ -124,10 +127,10 @@ public class ImportationFichiersController {
             //Créer les entités correspondantes dans la BDD
             this.readGzipURL(url);
         } 
-*/
+         */
         //readGzipURL("file:\\C:\\Users\\ulyss\\Desktop\\A201812_small.csv.gz");
     }
-    
+
     public void readGzipURL(String gzipURL) throws MalformedURLException, IOException, Exception {
         //convertit l'url (String) saisi en un objet (URL)
         System.out.println("controller.testDAOController.readGzipURL() demarre.............");
@@ -143,8 +146,8 @@ public class ImportationFichiersController {
             while ((line = reader.readLine()) != null) {
                 //on ajoute chaque ligne sous forme de int[] à j
                 if (reader.getLineNumber() > 1) {
-                    
-                    int id = reader.getLineNumber()+prestationFacade.findAll().size();
+
+                    int id = reader.getLineNumber() + prestationFacade.findAll().size();
                     //on ajoute chaque ligne sous forme de int[] à j
                     String[] processLine = processLine(reader.getLineNumber(), line);
 
@@ -155,8 +158,8 @@ public class ImportationFichiersController {
                     //Création de DateTraitement correspondante à la ligne
                     DateTraitement dateTraitement = new DateTraitement(id);
                     //Transfomrer la date de type int en type date
-                    LocalDate localdate = LocalDate.parse(processLine[0]+"01", DateTimeFormatter.BASIC_ISO_DATE);
-                    Date date = java.sql.Date.valueOf(localdate); 
+                    LocalDate localdate = LocalDate.parse(processLine[0] + "01", DateTimeFormatter.BASIC_ISO_DATE);
+                    Date date = java.sql.Date.valueOf(localdate);
                     dateTraitement.setFlxAnnMoi(date);
 
                     //Création de Executant correspondante à la ligne
@@ -181,21 +184,21 @@ public class ImportationFichiersController {
                     executant.setPrestation(prestation);
                     indicateurs.setPrestation(prestation);
 
-                   
                     //Création des entités dans bdd
                     prestationFacade.create(prestation);
                     beneficiaireFacade.create(beneficiaire);
                     dateTraitementFacade.create(dateTraitement);
                     executantFacade.create(executant);
                     indicateursFacade.create(indicateurs);
-                    
-                    
+
                     System.out.println("une ligne lue" + "\n");
                 }
             }
         }
+        //on remet à jour la variable de session
         moisPresentsDansBDD.setMoisPresent(dateTraitementFacade.findAll());
     }
+
     protected String[] processLine(int lineNumber, String line) {
         //définit le séparateur des éléments de la ligne
         String SEPARATEUR = ";";
@@ -215,5 +218,29 @@ public class ImportationFichiersController {
         }
         //System.out.printf("Ligne n° %d : %n %s %n", lineNumber, chaine);
         return chaine;
+
     }
+
+    public void supprimerLigneParDate(@FormParam("dateASupprimer") Date dateASupprimer) {
+        //Créer une list des id des entités à supprimer
+        ArrayList<Integer> lesId = new ArrayList<>();
+        //On ajoute à la liste d'id, les id qui correspondent aux entités à la date voulue
+        for (DateTraitement t : dateTraitementFacade.findAll()) {
+            if (t.getFlxAnnMoi().equals(dateASupprimer)) {
+                lesId.add(t.getIddate());
+            }
+        }
+        //Pour chaque id on supprime les entités correspondantes
+        for (int y : lesId) {
+            prestationFacade.remove(prestationFacade.find(y));
+            beneficiaireFacade.remove(beneficiaireFacade.find(y));
+            dateTraitementFacade.remove(dateTraitementFacade.find(y));
+            executantFacade.remove(executantFacade.find(y));
+            indicateursFacade.remove(indicateursFacade.find(y));
+
+        }
+        //on remet à jour la variable de session
+        moisPresentsDansBDD.setMoisPresent(dateTraitementFacade.findAll());
+    }
+
 }
