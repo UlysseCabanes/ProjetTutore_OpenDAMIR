@@ -31,7 +31,7 @@
     <a href="${pageContext.request.contextPath}/importationFichiers.html">Importer des fichiers OpenDAMIR</a>
     <h2>- Statistiques sur les remboursements de l'Assurance Maladie</h2>
     <div id="requetes">
-        <form id="formRequetes" onsubmit="doAjax()">
+        <form id="formRequetes" onsubmit="return false">
             <label>Choisissez une requete à effectuer :</label> 
             <br><br>
             <select id="requete">
@@ -42,50 +42,10 @@
                 <option value="requete5">Montant moyen de la dépense et du remboursement par spécialité du médecin exécutant</option>
             </select>  
             <label>de</label> 
-            <input id="minDate" name="minDate" type="date" min="2015-01-01" max="2018-12-31">
+            <input type="date" id="minDate" name="minDate" value="this.htmlValue" min="2015-01-01" max="2018-12-31">
             <label>à</label> 
-            <input id="maxDate" name="maxDate" type="date" min="2015-01-01" max="2018-12-31">
+            <input type="date" id="maxDate" name="maxDate" value="this.htmlValue" min="2015-01-01" max="2018-12-31">
             <input type="submit" value="OK">
-            <select id="moisDebut" onchange="dates()">
-                <option value='Janvier'>Janvier</option>
-                <option value='Février'>Février</option>
-                <option value='Mars'>Mars</option>
-                <option value='Avril'>Avril</option>
-                <option value='Mai'>Mai</option>
-                <option value='Juin'>Juin</option>
-                <option value='Juillet'>Juillet</option>
-                <option value='Août'>Août</option>
-                <option value='Septembre'>Septembre</option>
-                <option value='Octobre'>Octobre</option>
-                <option value='Novembre'>Novembre</option>
-                <option value='Décembre'>Décembre</option>
-            </select>
-            <select id="anneeDebut" onchange="dates()">
-                <option value='2015'>2015</option>
-                <option value='2016'>2016</option>
-                <option value='2017'>2017</option>
-                <option value='2018'>2018</option>
-            </select>
-            <select id="moisFin" onchange="dates()">
-                <option value='Janvier'>Janvier</option>
-                <option value='Février'>Février</option>
-                <option value='Mars'>Mars</option>
-                <option value='Avril'>Avril</option>
-                <option value='Mai'>Mai</option>
-                <option value='Juin'>Juin</option>
-                <option value='Juillet'>Juillet</option>
-                <option value='Août'>Août</option>
-                <option value='Septembre'>Septembre</option>
-                <option value='Octobre'>Octobre</option>
-                <option value='Novembre'>Novembre</option>
-                <option value='Décembre'>Décembre</option>
-            </select>
-            <select id="anneeFin" onchange="dates()">
-                <option value='2015'>2015</option>
-                <option value='2016'>2016</option>
-                <option value='2017'>2017</option>
-                <option value='2018'>2018</option>
-            </select>
         </form>
     </div>
     <!-- Le graphique apparaît ici -->

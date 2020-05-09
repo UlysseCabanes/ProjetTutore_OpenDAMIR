@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class StatsResult_1 {
 
-	public StatsResult_1(String region, float montant) {
+	public StatsResult_1(String region, double montant) {
 		this.region = region;
                 this.montant = montant;
 	}
@@ -26,6 +26,6 @@ public class StatsResult_1 {
 	public final String region;
 
 	@XmlElement
-	public final float montant;
+	public final double montant;
 	
 }

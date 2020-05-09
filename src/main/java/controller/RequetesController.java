@@ -26,6 +26,6 @@ public class RequetesController {
     
     @GET
     public void show() {
-        
+    
     }
 }

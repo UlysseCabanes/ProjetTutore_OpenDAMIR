@@ -27,14 +27,14 @@ public class StatsDao {
     //Montant des remboursements par région
     private static final String MONTANT_REMBOURSEMENT_PAR_REGION
         = "SELECT new dto.StatsResult_1"
-        + "(Reg.regClair, SUM(I.prsRemMnt))"
-        + "FROM BenResRegClair Reg"
-        + "JOIN Reg.beneficiaireCollection B"
-        + "JOIN B.prestation P"
-        + "JOIN P.dateTraitement D"
-        + "JOIN P.indicateurs I"
-        + "WHERE D.flxAnnMoi between :minDate and :maxDate"
-        + "GROUP BY Reg.regClair;";
+        + "(Reg.regClair, SUM(I.prsRemMnt)) "
+        + "FROM BenResRegClair Reg "
+        + "JOIN Reg.beneficiaireCollection B "
+        + "JOIN B.prestation P "
+        + "JOIN P.dateTraitement D "
+        + "JOIN P.indicateurs I "
+        + "WHERE D.flxAnnMoi between :minDate and :maxDate "
+        + "GROUP BY Reg.regClair";
 
     
     //Requête n°2
@@ -54,7 +54,7 @@ public class StatsDao {
             + "FROM Indicateurs I, Beneficiaire B, Prestation P"
             + "WHERE I.idIndicateurs = P.idPrestation"
             + "AND P.idPrestation = B.idBeneficiaire;"
-            + "GROUP BY B.AGE_BEN_SNDS, B.BEN_RES_REG));";
+            + "GROUP BY B.AGE_BEN_SNDS, B.BEN_RES_REG))";
     
     //Requête n°3
     //Nature de la prestation la plus remboursée par tranche d'âge
@@ -71,7 +71,7 @@ public class StatsDao {
             + "SELECT COUNT (IdPrestation) AS nbPrestation"
             + "FROM Beneficiaire B, Prestation P"
             + "WHERE P.idPrestation = B.idBeneficiair"
-            + "GROUP BY B.AGE_BEN_SNDS, P.PRES_NAT));";
+            + "GROUP BY B.AGE_BEN_SNDS, P.PRES_NAT))";
     
     //Requête n°4
     //Montant des dépenses par secteur privé/public par tranche d'âge
@@ -82,7 +82,7 @@ public class StatsDao {
         + "WHERE I.idIndicateurs = P.idPrestation"
         + "AND P.idPrestation = B.idBeneficiaire"
         + "AND FLX_ANN_MOI between :minDate and :maxDate"
-        + "GROUP BY B.AGE_BEN_SNDS, P.PRS_PPU_SEC;";
+        + "GROUP BY B.AGE_BEN_SNDS, P.PRS_PPU_SEC";
     
     //Requête n°5
     //Montant moyen des dépenses et remboursement par spécialité du médecin exécutant
@@ -93,7 +93,7 @@ public class StatsDao {
         + "WHERE I.idIndicateurs = P.idPrestation"
         + "AND P.idPrestation = E.idExecutant"
         + "AND FLX_ANN_MOI between :minDate and :maxDate"
-        + "GROUP BY E.PSE_SPE_SNDS;";
+        + "GROUP BY E.PSE_SPE_SNDS";
     
     @PersistenceContext(unitName = "damir")
     private EntityManager em;

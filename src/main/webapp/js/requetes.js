@@ -6,7 +6,7 @@
 //Requêtes 1 et 2 => Carte de France (régions)
 google.charts.load('current', {'packages': ['geochart']});
 //Requête 3 => Tableau
-google.charts.load('current', {'packages': ['corechart']});
+google.charts.load('current', {'packages': ['table']});
 //Requêtes 4 et 5 => Histogramme
 google.charts.load('current', {'packages': ['barchart']});
 
@@ -25,7 +25,12 @@ function drawChart(result) {
         //Créer un affichage dans le div d'id "affichage"
         var geochart = new google.visualization.GeoChart(document.getElementById("affichage"));
         //Définir le titre en fonction de la requête effectuée
-        var options = {title: "Montant des remboursements par Région"};
+        var options = {
+            title: "Montant des remboursements par Région",
+            displayMode: 'regions',
+            region: 'FR',
+            resolution: 'provinces'
+        };
         //Ajouter la geochart avec son titre
         geochart.draw(dataTable, options);
     }
@@ -114,9 +119,10 @@ function drawChart(result) {
     }
 }
 
+document.getElementById("formRequetes").addEventListener("submit", doAjax);
 //Fonction appelée au "submit" du formulaire "formulaireRequetes"
 function doAjax() {
-    console.log("TEST");
+    document.getElementById("formRequetes").submit;
     //On définit l'url en fonction de la requete choisie
     let url = "service/" + requete;
     $.ajax({
