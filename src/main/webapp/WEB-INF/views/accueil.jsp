@@ -22,7 +22,7 @@
         <h2>- Accueil</h2>
         <a href="${pageContext.request.contextPath}/damir/requetes">Effectuer des requêtes</a>
         <br><br>
-        <a href="${pageContext.request.contextPath}/importationFichiers.html">Importer des fichiers OpenDAMIR</a>
+        <a href="${pageContext.request.contextPath}/gestionFichiers.html">Importer des fichiers OpenDAMIR</a>
         <br>
         <p>La base de données contient le(s) fichier(s) OpenDAMIR pour les dates suivante(s) :</p>
         <table id="fichiers">

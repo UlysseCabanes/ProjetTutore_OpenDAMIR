@@ -49,9 +49,9 @@ import util.MoisNombre;
  * @author ulyss
  */
 @Controller
-@Path("importation")
-@View("index.jsp")
-public class ImportationFichiersController {
+@Path("gestion")
+@View("gestionFichier.html")
+public class GestionFichiersController {
 
     @Inject
     MoisPresentsDansBDD moisPresentsDansBDD;
@@ -93,7 +93,8 @@ public class ImportationFichiersController {
     PrestationFacade prestationFacade;
 
     @GET
-    public void periode(@QueryParam("periodeChoisie") String periodeChoisie,
+    @Path("importation")
+    public void importation(@QueryParam("periodeChoisie") String periodeChoisie,
             @QueryParam("moisChoisis") String moisChoisis,
             @QueryParam("anneesChoisies") String anneesChoisies) throws Exception {
         //Envoyer la période choisie à la vue
@@ -221,13 +222,15 @@ public class ImportationFichiersController {
 
     }
 
-    public void supprimerLigneParDate(@FormParam("dateASupprimer") Date dateASupprimer) {
+    @GET
+    @Path("suppression")
+    public void suppression(@FormParam("dateASupprimer") Date dateASupprimer) {
         
         //On récupère les id des DateTraitment correspondant à la date rentrée en paramètre
         //Pour chaque id on supprime les entités correspondantes
         for (DateTraitement t : dateTraitementFacade.findAll()) {
             if (t.getFlxAnnMoi().equals(dateASupprimer)) {
-                
+
                 prestationFacade.remove(prestationFacade.find(t.getIddate()));
                 beneficiaireFacade.remove(beneficiaireFacade.find(t.getIddate()));
                 dateTraitementFacade.remove(dateTraitementFacade.find(t.getIddate()));
@@ -235,10 +238,9 @@ public class ImportationFichiersController {
                 indicateursFacade.remove(indicateursFacade.find(t.getIddate()));
             }
         }
-        
-        
+
+
         //on remet à jour la variable de session
         moisPresentsDansBDD.setMoisPresent(dateTraitementFacade.findAll());
     }
-
 }

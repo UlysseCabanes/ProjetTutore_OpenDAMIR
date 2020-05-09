@@ -23,14 +23,24 @@ header{
 	border: solid #81C135;
 }
 
-body{
-	align-items: center;
-}
-
 .boutons{
     text-decoration: none;
     background-color: #E0E0E0;
     border: solid black 1px;
     color: black;
     padding: 2px;
+}
+
+#actions{
+    display: flex;
+}
+
+#importation{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#suppression{
+    margin-left: auto;
+    margin-right: auto;
 }

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Page d'accueil</title>
+    <link rel="stylesheet" type="text/css" href="CSS/gestionFichiers.css">
+</head>
+<header>
+    <img src="images/logoAM.jpg" alt="Logo Assurance Maladie" id="logoAM">
+    <h1>OpenDAMIR Explorer</h1>
+    <img src="images/logoMarianne.jpg" alt="Logo République Française" id="logoMarianne">
+</header>
+<body>
+    <br>
+    <a class="boutons" href="damir/accueil/showAccueil">Accueil</a>
+     <br><br>
+    <a class="boutons" href="damir/requetes">Effectuer des requêtes</a>
+    <h2>- Gestion des fichiers OpenDAMIR</h2>
+    <div id="actions">
+        <!-- Importation des fichiers -->
+        <div id="importation">
+            <p>Choisissez une periode à importer :</p>
+            <form id="formPeriode" onsubmit="return false">
+                <select id="periode" name="periode">
+                    <option value="Un mois" selected>Un mois</option>
+                    <option value="Une année">Une année</option>
+                    <option value="Plusieurs mois">Plusieurs mois</option>
+                </select>
+                <br><br>
+                <div id="divPeriode">
+                    <select id="listeMois" name="listeMois">
+                        <option value='Janvier'>Janvier</option>
+                        <option value='Février'>Février</option>
+                        <option value='Mars'>Mars</option>
+                        <option value='Avril'>Avril</option>
+                        <option value='Mai'>Mai</option>
+                        <option value='Juin'>Juin</option>
+                        <option value='Juillet'>Juillet</option>
+                        <option value='Août'>Août</option>
+                        <option value='Septembre'>Septembre</option>
+                        <option value='Octobre'>Octobre</option>
+                        <option value='Novembre'>Novembre</option>
+                        <option value='Décembre'>Décembre</option>
+                    </select>
+                    <select id="listeAnnee" name="listeAnnee">
+                        <option value='2015'>2015</option>
+                        <option value='2016'>2016</option>
+                        <option value='2017'>2017</option>
+                        <option value='2018'>2018</option>
+                    </select>
+                </div>
+                <br>
+                <input type="hidden" id="periodeChoisie" name="periodeChoisie">
+                <input type="hidden" id="moisChoisis" name="moisChoisis">
+                <input type="hidden" id="anneesChoisies" name="anneesChoisies">
+                <div id="divBouton">
+                    <input type="submit" id="okButton" value="OK">
+                </div>
+            </form>
+        </div>
+        <!-- Suppression des fichiers -->
+        <div id="suppression">
+            <p>Choisissez une periode à supprimer :</p>
+            <form id="formPeriode2" onsubmit="return false">
+                <select id="periode2" name="periode2">
+                    <option value="Un mois" selected>Un mois</option>
+                    <option value="Une année">Une année</option>
+                    <option value="Plusieurs mois">Plusieurs mois</option>
+                </select>
+                <br><br>
+                <div id="divPeriode2">
+                    <select id="listeMois2" name="listeMois2">
+                        <option value='Janvier'>Janvier</option>
+                        <option value='Février'>Février</option>
+                        <option value='Mars'>Mars</option>
+                        <option value='Avril'>Avril</option>
+                        <option value='Mai'>Mai</option>
+                        <option value='Juin'>Juin</option>
+                        <option value='Juillet'>Juillet</option>
+                        <option value='Août'>Août</option>
+                        <option value='Septembre'>Septembre</option>
+                        <option value='Octobre'>Octobre</option>
+                        <option value='Novembre'>Novembre</option>
+                        <option value='Décembre'>Décembre</option>
+                    </select>
+                    <select id="listeAnnee2" name="listeAnnee2">
+                        <option value='2015'>2015</option>
+                        <option value='2016'>2016</option>
+                        <option value='2017'>2017</option>
+                        <option value='2018'>2018</option>
+                    </select>
+                </div>
+                <br>
+                <input type="hidden" id="periodeChoisie2" name="periodeChoisie">
+                <input type="hidden" id="moisChoisis2" name="moisChoisis">
+                <input type="hidden" id="anneesChoisies2" name="anneesChoisies">
+                <div id="divBouton2">
+                    <input type="submit" id="okButton2" value="OK">
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/gestionFichiers.js"></script>
+</body>
+</html>

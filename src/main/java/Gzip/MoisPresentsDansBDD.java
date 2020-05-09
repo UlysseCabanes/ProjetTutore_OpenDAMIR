@@ -13,7 +13,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.TreeSet;
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
