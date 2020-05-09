@@ -27,12 +27,15 @@ public class StatsDao {
     //Montant des remboursements par région
     private static final String MONTANT_REMBOURSEMENT_PAR_REGION
         = "SELECT new dto.StatsResult_1"
-        + "(B.BEN_RES_REG, SUM(I.PRS_REM_MNT))"
-        + "FROM Indicateurs I, Beneficiaire B, Prestation P"
-        + "WHERE I.idIndicateurs = P.idPrestation"
-        + "AND P.idPrestation = B.idBeneficiaire"
-        + "AND FLX_ANN_MOI between :minDate and :maxDate"
-        + "GROUP BY B.BEN_RES_REG";
+        + "(Reg.regClair, SUM(I.prsRemMnt))"
+        + "FROM BenResRegClair Reg"
+        + "JOIN Reg.beneficiaireCollection B"
+        + "JOIN B.prestation P"
+        + "JOIN P.dateTraitement D"
+        + "JOIN P.indicateurs I"
+        + "WHERE D.flxAnnMoi between :minDate and :maxDate"
+        + "GROUP BY Reg.regClair;"
+
     
     //Requête n°2
     //Tranche d'âge la plus remboursée par région
