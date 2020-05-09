@@ -222,23 +222,21 @@ public class ImportationFichiersController {
     }
 
     public void supprimerLigneParDate(@FormParam("dateASupprimer") Date dateASupprimer) {
-        //Créer une list des id des entités à supprimer
-        ArrayList<Integer> lesId = new ArrayList<>();
-        //On ajoute à la liste d'id, les id qui correspondent aux entités à la date voulue
+        
+        //On récupère les id des DateTraitment correspondant à la date rentrée en paramètre
+        //Pour chaque id on supprime les entités correspondantes
         for (DateTraitement t : dateTraitementFacade.findAll()) {
             if (t.getFlxAnnMoi().equals(dateASupprimer)) {
-                lesId.add(t.getIddate());
+                
+                prestationFacade.remove(prestationFacade.find(t.getIddate()));
+                beneficiaireFacade.remove(beneficiaireFacade.find(t.getIddate()));
+                dateTraitementFacade.remove(dateTraitementFacade.find(t.getIddate()));
+                executantFacade.remove(executantFacade.find(t.getIddate()));
+                indicateursFacade.remove(indicateursFacade.find(t.getIddate()));
             }
         }
-        //Pour chaque id on supprime les entités correspondantes
-        for (int y : lesId) {
-            prestationFacade.remove(prestationFacade.find(y));
-            beneficiaireFacade.remove(beneficiaireFacade.find(y));
-            dateTraitementFacade.remove(dateTraitementFacade.find(y));
-            executantFacade.remove(executantFacade.find(y));
-            indicateursFacade.remove(indicateursFacade.find(y));
-
-        }
+        
+        
         //on remet à jour la variable de session
         moisPresentsDansBDD.setMoisPresent(dateTraitementFacade.findAll());
     }
