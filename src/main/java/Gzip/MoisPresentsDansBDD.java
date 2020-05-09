@@ -26,29 +26,6 @@ public class MoisPresentsDansBDD extends DateTraitement implements Serializable{
     TreeSet<Date> toutesLesDates = new TreeSet<>();
     ArrayList<String> dates = new ArrayList<>();
 
-    public void setMoisPresent(List<DateTraitement> toutesLesDateTraitement) {
-
-        //Parcourir toutes les entités "date de traitemet" de la BDD
-        for (DateTraitement d : toutesLesDateTraitement) {
-            Date dateD = d.getFlxAnnMoi();
-            //Vérifier que la date n'a pas déjà été prise en compte
-            if (!toutesLesDates.contains(dateD)) {
-                //Ajouter la date à la liste
-                toutesLesDates.add(dateD);
-            }
-        }
-        //Parcourir la liste des dates différentes
-        for (Date d : toutesLesDates) {
-            //Convertir la date au format adéquat
-            SimpleDateFormat formatter = new SimpleDateFormat("MMMM yyyy");
-            String strDate = formatter.format(d);
-            //Ajouter la date convertie à la liste
-            dates.add(strDate);
-        }
-        //Envoyer la liste à la vue
-
-    }
-
     public MoisPresentsDansBDD() {
     }
 
@@ -67,6 +44,26 @@ public class MoisPresentsDansBDD extends DateTraitement implements Serializable{
     public void setDates(ArrayList<String> dates) {
         this.dates = dates;
     }
-    
+     public void setMoisPresent(List<DateTraitement> toutesLesDateTraitement) {
+
+        //Parcourir toutes les entités "date de traitemet" de la BDD
+        for (DateTraitement d : toutesLesDateTraitement) {
+            Date dateD = d.getFlxAnnMoi();
+            //Vérifier que la date n'a pas déjà été prise en compte
+            if (!toutesLesDates.contains(dateD)) {
+                //Ajouter la date à la liste
+                toutesLesDates.add(dateD);
+                SimpleDateFormat formatter = new SimpleDateFormat("MMMM yyyy");
+                String strDate = formatter.format(dateD);
+            //Ajouter la date convertie à la liste
+                dates.add(strDate);
+            }
+        }
+        
+        
+       
+
+    }
+
     
 }
