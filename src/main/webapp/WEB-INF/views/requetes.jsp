@@ -26,7 +26,7 @@
 </header>
 <body>
     <br>
-     <a href="${pageContext.request.contextPath}/damir/accueil">Accueil</a>
+     <a href="${pageContext.request.contextPath}/damir/accueil/showAccueil">Accueil</a>
      <br><br>
     <a href="${pageContext.request.contextPath}/importationFichiers.html">Importer des fichiers OpenDAMIR</a>
     <h2>- Statistiques sur les remboursements de l'Assurance Maladie</h2>

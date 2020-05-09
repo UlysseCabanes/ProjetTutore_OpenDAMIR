@@ -3,8 +3,7 @@
 import dao.StatsDao;
 import dto.StatsResult_1;
 import dto.StatsResult_2_3;
-import dto.StatsResult_4;
-import dto.StatsResult_5;
+import dto.StatsResult_4_5;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -51,7 +50,7 @@ public class StatisticsService {
         @GET
 	@Path("requete4")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public List<StatsResult_4> montantDepensesParSecteurPrivePublicParTrancheAge(
+	public List<StatsResult_4_5> montantDepensesParSecteurPrivePublicParTrancheAge(
             @QueryParam("minDate") HtmlSqlDate minDate,
             @QueryParam("maxDate") HtmlSqlDate maxDate) {
 		return dao.montantDepensesParSecteurPrivePublicParTrancheAge(minDate, maxDate);
@@ -60,7 +59,7 @@ public class StatisticsService {
         @GET
 	@Path("requete5")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public List<StatsResult_5> montantMoyenDepensesRemboursementParSpecialiteMedecinExecutant(
+	public List<StatsResult_4_5> montantMoyenDepensesRemboursementParSpecialiteMedecinExecutant(
             @QueryParam("minDate") HtmlSqlDate minDate,
             @QueryParam("maxDate") HtmlSqlDate maxDate) {
 		return dao.montantMoyenDepensesRemboursementParSpecialiteMedecinExecutant(minDate, maxDate);

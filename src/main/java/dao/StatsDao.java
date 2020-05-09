@@ -7,8 +7,7 @@ package dao;
 
 import dto.StatsResult_1;
 import dto.StatsResult_2_3;
-import dto.StatsResult_4;
-import dto.StatsResult_5;
+import dto.StatsResult_4_5;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -36,7 +35,6 @@ public class StatsDao {
         + "WHERE D.flxAnnMoi between :minDate and :maxDate "
         + "GROUP BY Reg.regClair";
 
-    
     //Requête n°2
     //Tranche d'âge la plus remboursée par région
     private static final String TRANCHE_AGE_PLUS_REMBOURSEE_REGION
@@ -76,13 +74,16 @@ public class StatsDao {
     //Requête n°4
     //Montant des dépenses par secteur privé/public par tranche d'âge
     private static final String MONTANT_DEPENSE_PAR_SECTEUR_PRIVE_PUBLIC_PAR_TRANCHE_AGE
-        ="SELECT new dto.StatsResult_4"
-        + "(P.PRS_PPU_SEC, B.AGE_BEN_SNDS, SUM(I.PRS_PAI_MNT))"
-        + "FROM  Indicateurs I, Beneficiaire B, Prestation P"
-        + "WHERE I.idIndicateurs = P.idPrestation"
-        + "AND P.idPrestation = B.idBeneficiaire"
-        + "AND FLX_ANN_MOI between :minDate and :maxDate"
-        + "GROUP BY B.AGE_BEN_SNDS, P.PRS_PPU_SEC";
+        = "SELECT new dto.StatsResult_4"
+        + "(Sec.secClair, Age.ageClair, SUM(I.prsPaiMnt)) " 
+        + "FROM AgeBenSndsClair Age "
+        + "JOIN Age.beneficiaireCollection B "
+        + "JOIN B.prestation P "
+        + "JOIN P.indicateurs I "
+        + "JOIN P.prsPpuSec Sec "
+        + "JOIN P.dateTraitement D "
+        + "WHERE D.flxAnnMoi between :minDate and :maxDate "
+        + "GROUP BY Sec.secClair, Age.ageClair";
     
     //Requête n°5
     //Montant moyen des dépenses et remboursement par spécialité du médecin exécutant
@@ -123,19 +124,19 @@ public class StatsDao {
         return results;
     }
     //Requête n°4
-    public List<StatsResult_4> montantDepensesParSecteurPrivePublicParTrancheAge(Date minDate, Date maxDate) {
-        Query query = em.createQuery(MONTANT_DEPENSE_PAR_SECTEUR_PRIVE_PUBLIC_PAR_TRANCHE_AGE, StatsResult_4.class)
+    public List<StatsResult_4_5> montantDepensesParSecteurPrivePublicParTrancheAge(Date minDate, Date maxDate) {
+        Query query = em.createQuery(MONTANT_DEPENSE_PAR_SECTEUR_PRIVE_PUBLIC_PAR_TRANCHE_AGE, StatsResult_4_5.class)
             .setParameter("minDate", minDate)
             .setParameter("maxDate", maxDate);
-        List<StatsResult_4> results = query.getResultList();
+        List<StatsResult_4_5> results = query.getResultList();
         return results;
     }
     //Requête n°5
-    public List<StatsResult_5> montantMoyenDepensesRemboursementParSpecialiteMedecinExecutant(Date minDate, Date maxDate) {
-        Query query = em.createQuery(MONTANT_MOYEN_DEPENSE_ET_REMBOURSEMENTS_PAR_SPECIALITE_MEDECIN_EXECUTANT, StatsResult_5.class)
+    public List<StatsResult_4_5> montantMoyenDepensesRemboursementParSpecialiteMedecinExecutant(Date minDate, Date maxDate) {
+        Query query = em.createQuery(MONTANT_MOYEN_DEPENSE_ET_REMBOURSEMENTS_PAR_SPECIALITE_MEDECIN_EXECUTANT, StatsResult_4_5.class)
             .setParameter("minDate", minDate)
             .setParameter("maxDate", maxDate);
-        List<StatsResult_5> results = query.getResultList();
+        List<StatsResult_4_5> results = query.getResultList();
         return results;
     }
 }

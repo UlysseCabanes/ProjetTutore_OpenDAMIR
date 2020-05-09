@@ -11,25 +11,25 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class StatsResult_5 {
+public class StatsResult_4_5 {
 
-	public StatsResult_5(float depense, float remboursement, String specialite) {
-                this.depense = depense;
-                this.remboursement = remboursement;
-                this.specialite = specialite;
+	public StatsResult_4_5(String libelle, double montant1, double montant2) {
+                this.libelle = libelle;
+                this.montant1 = montant1;
+                this.montant2 = montant2;
 	}
 	
-	public StatsResult_5() {
-		this(0, 0, "Inconnu");
+	public StatsResult_4_5() {
+		this("Inconnu", 0, 0);
 	}
 
 	@XmlElement
-	public final float depense;
+	public final String libelle;
         
         @XmlElement
-	public final float remboursement;
+	public final double montant1;
         
         @XmlElement
-	public final String specialite;
+	public final double montant2;
 	
 }

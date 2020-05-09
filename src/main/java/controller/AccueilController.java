@@ -36,14 +36,15 @@ public class AccueilController {
     MoisPresentsDansBDD moisPresentsDansBDD;
 
     @GET
+    @Path("showAccueil")
     public void show() {
         models.put("toutesLesDates", moisPresentsDansBDD.getDatesEnString());
     }
-//    @Path("setMoisPresents")
-//    public void voirLesMoisDejaPresents() {
-//        moisPresentsDansBDD.setMoisPresent(dateTraitementFacade.findAll());
-//        models.put("toutesLesDates", moisPresentsDansBDD.getDatesEnString());
-//        
-//    }
-
+    
+    @GET
+    @Path("setMoisPresents")
+    public void voirLesMoisDejaPresents() {
+        moisPresentsDansBDD.setMoisPresent(dateTraitementFacade.findAll());
+        models.put("toutesLesDates", moisPresentsDansBDD.getDatesEnString());
+    }
 }

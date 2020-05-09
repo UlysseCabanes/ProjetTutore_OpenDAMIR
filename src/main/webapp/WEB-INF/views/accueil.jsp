@@ -28,7 +28,7 @@
         <table id="fichiers">
             <thead>
                 <tr>
-                    <th>Mois déja présent</th>
+                    <th>Mois</th>
                 </tr>
             </thead>
             <tbody>
