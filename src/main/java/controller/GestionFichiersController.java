@@ -40,6 +40,7 @@ import javax.mvc.Models;
 import javax.mvc.View;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import util.MoisNombre;
@@ -143,12 +144,13 @@ public class GestionFichiersController {
                 GZIPInputStream gzipIn = new GZIPInputStream(in);
                 LineNumberReader reader = new LineNumberReader(new InputStreamReader(gzipIn));) {
             String line;
+            int o = prestationFacade.findAll().size();
             //Pour chaque ligne du fichier, 
             while ((line = reader.readLine()) != null) {
                 //on ajoute chaque ligne sous forme de int[] à j
                 if (reader.getLineNumber() > 1) {
 
-                    int id = reader.getLineNumber() + prestationFacade.findAll().size();
+                    int id = reader.getLineNumber() + o;
                     //on ajoute chaque ligne sous forme de int[] à j
                     String[] processLine = processLine(reader.getLineNumber(), line);
 
@@ -224,8 +226,17 @@ public class GestionFichiersController {
 
     @GET
     @Path("suppression")
-    public void suppression(@FormParam("dateASupprimer") Date dateASupprimer) {
-        
+    public void suppression(@QueryParam("periodeChoisie") String periodeChoisie,
+            @QueryParam("moisChoisis") String moisChoisis,
+            @QueryParam("anneesChoisies") String anneesChoisies) {
+        //on recupere le nombre du mois
+        String nbMois = MoisNombre.monthToNumber(moisChoisis);
+        //on crée la date sous forme de string (ex:20181101)
+        String futurDate = anneesChoisies + nbMois + "01";
+        //on convertit ce String en Date 
+        LocalDate localdate = LocalDate.parse(futurDate, DateTimeFormatter.BASIC_ISO_DATE);
+        Date dateASupprimer = java.sql.Date.valueOf(localdate);
+
         //On récupère les id des DateTraitment correspondant à la date rentrée en paramètre
         //Pour chaque id on supprime les entités correspondantes
         for (DateTraitement t : dateTraitementFacade.findAll()) {
@@ -238,7 +249,6 @@ public class GestionFichiersController {
                 indicateursFacade.remove(indicateursFacade.find(t.getIddate()));
             }
         }
-
 
         //on remet à jour la variable de session
         moisPresentsDansBDD.setMoisPresent(dateTraitementFacade.findAll());
