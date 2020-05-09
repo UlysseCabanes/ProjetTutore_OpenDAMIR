@@ -74,7 +74,7 @@ public class StatsDao {
     //Requête n°4
     //Montant des dépenses par secteur privé/public par tranche d'âge
     private static final String MONTANT_DEPENSE_PAR_SECTEUR_PRIVE_PUBLIC_PAR_TRANCHE_AGE
-        = "SELECT new dto.StatsResult_4"
+        = "SELECT new dto.StatsResult_4_5"
         + "(Sec.secClair, Age.ageClair, SUM(I.prsPaiMnt)) " 
         + "FROM AgeBenSndsClair Age "
         + "JOIN Age.beneficiaireCollection B "
@@ -88,13 +88,16 @@ public class StatsDao {
     //Requête n°5
     //Montant moyen des dépenses et remboursement par spécialité du médecin exécutant
     private static final String MONTANT_MOYEN_DEPENSE_ET_REMBOURSEMENTS_PAR_SPECIALITE_MEDECIN_EXECUTANT
-        ="SELECT new dto.StatsResult_5"
-        + "(E.PSE_SPE_SNDS, AVG(I.PRS_PAI_MNT), AVG(I.PRS_REM_MNT))"
-        + "FROM Indicateurs I, Executant E, Prestation P"
-        + "WHERE I.idIndicateurs = P.idPrestation"
-        + "AND P.idPrestation = E.idExecutant"
-        + "AND FLX_ANN_MOI between :minDate and :maxDate"
-        + "GROUP BY E.PSE_SPE_SNDS";
+        ="SELECT new dto.StatsResult_4_5"
+        + "(Spe.speClair, AVG(I.prsPaiMnt), AVG(I.prsRemMnt)) "
+        + "FROM Prestation P "
+        + "JOIN P.indicateurs I "
+        + "JOIN P.Executant E "
+        + "JOIN P.dateTraitement D "
+        + "JOIN E.pseSpeSnds Spe "
+        + "WHERE D.flxAnnMoi between :minDate and :maxDate "
+        + "GROUP BY Spe.speClair";
+
     
     @PersistenceContext(unitName = "damir")
     private EntityManager em;
