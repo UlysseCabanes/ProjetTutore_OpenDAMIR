@@ -34,7 +34,7 @@ public class StatsDao {
         + "JOIN P.dateTraitement D"
         + "JOIN P.indicateurs I"
         + "WHERE D.flxAnnMoi between :minDate and :maxDate"
-        + "GROUP BY Reg.regClair;"
+        + "GROUP BY Reg.regClair;";
 
     
     //Requête n°2
