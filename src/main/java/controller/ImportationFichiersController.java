@@ -6,6 +6,7 @@
 package controller;
 
 import Gzip.Gzip;
+import Gzip.MoisPresentsDansBDD;
 import dao.AgeBenSndsClairFacade;
 import dao.BenResRegClairFacade;
 import dao.BeneficiaireFacade;
@@ -49,6 +50,8 @@ import util.MoisNombre;
 @Path("importation")
 @View("index.jsp")
 public class ImportationFichiersController {
+    @Inject
+    MoisPresentsDansBDD moisPresentsDansBDD;
     
     @Inject
     Models models;
@@ -191,6 +194,7 @@ public class ImportationFichiersController {
                 }
             }
         }
+        moisPresentsDansBDD.setMoisPresent(dateTraitementFacade.findAll());
     }
     protected String[] processLine(int lineNumber, String line) {
         //définit le séparateur des éléments de la ligne
