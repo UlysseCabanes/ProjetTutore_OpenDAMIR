@@ -11,7 +11,7 @@
 		<properties>
 			<!-- optional -->
 			<property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.DerbyPlatform"/>
-			<!--Initialisation du schéma et des données à partir de scripts SQL 
+			<!--Initialisation du schéma et des données à partir de scripts SQL
                         
 			<property name="javax.persistence.schema-generation.database.action" value="create"/>
 			<property name="javax.persistence.schema-generation.create-source" value="script"/>

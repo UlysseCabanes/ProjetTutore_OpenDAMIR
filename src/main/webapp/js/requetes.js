@@ -29,7 +29,7 @@ function drawChart(result) {
             title: "Montant des remboursements par Région",
             displayMode: 'regions',
             region: 'FR',
-            resolution: 'provinces'
+            resolution: 'provinces',
         };
         //Ajouter la geochart avec son titre
         geochart.draw(dataTable, options);
