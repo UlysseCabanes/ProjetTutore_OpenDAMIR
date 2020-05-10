@@ -90,11 +90,11 @@ public class StatsDao {
     private static final String MONTANT_MOYEN_DEPENSE_ET_REMBOURSEMENTS_PAR_SPECIALITE_MEDECIN_EXECUTANT
         ="SELECT new dto.StatsResult_4_5"
         + "(Spe.speClair, AVG(I.prsPaiMnt), AVG(I.prsRemMnt)) "
-        + "FROM Prestation P "
-        + "JOIN P.indicateurs I "
-        + "JOIN P.Executant E "
+        + "FROM pseSpeSndsClair Spe "
+        + "JOIN Spe.executantCollection E "
+        + "JOIN E.prestation P "
         + "JOIN P.dateTraitement D "
-        + "JOIN E.pseSpeSnds Spe "
+        + "JOIN P.indicateurs I "
         + "WHERE D.flxAnnMoi between :minDate and :maxDate "
         + "GROUP BY Spe.speClair";
 
