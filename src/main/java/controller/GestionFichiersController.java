@@ -242,11 +242,12 @@ public class GestionFichiersController {
         for (DateTraitement t : dateTraitementFacade.findAll()) {
             if (t.getFlxAnnMoi().equals(dateASupprimer)) {
 
-                prestationFacade.remove(prestationFacade.find(t.getIddate()));
+               
                 beneficiaireFacade.remove(beneficiaireFacade.find(t.getIddate()));
                 dateTraitementFacade.remove(dateTraitementFacade.find(t.getIddate()));
                 executantFacade.remove(executantFacade.find(t.getIddate()));
                 indicateursFacade.remove(indicateursFacade.find(t.getIddate()));
+                prestationFacade.remove(prestationFacade.find(t.getIddate()));
             }
         }
 
