@@ -8,7 +8,7 @@ google.charts.load('current', {'packages': ['geochart']});
 //Requête 3 => Tableau
 google.charts.load('current', {'packages': ['table']});
 //Requêtes 4 et 5 => Histogramme
-google.charts.load('current', {'packages': ['corechart', 'bar']});
+google.charts.load('current', {'packages': ['corechart']});
 
 //Savoir quelle requête doit être effectuée
 let requete;
@@ -97,31 +97,31 @@ function drawChart(result) {
     }
     if (requete === "requete5") {
         // On met le résultat au format attendu par google
-        let data = [["Spécialité du médecin exécutant", "Dépense", "Remboursement"]];
+        let data = [["Spécialité du médecin exécutant", "Dépense moyenne", "Remboursement moyen"]];
         //Ajouter au tableau de données les résultats du DTO
         result.forEach( ligne => data.push([ligne.libelle, ligne.montant1, ligne.montant2]));
         //Convertir le tableau de données en table de données
         let dataTable = google.visualization.arrayToDataTable(data);
         //Définir les options
-        let materialOptions = {
-            width: 900,
-            chart: {
-                title: "Montant moyen de la dépense et du remboursement par spécialité du médecin exécutant"
-            },
-            series: {
-                0: { axis: "Dépense"},
-                1: { axis: "Remboursement"}
-            },
-            axes: {
-                y: {
-                    montant: {side: "left", label: "Montant(€)"}
-                }
-            }
-        };
+        var view = new google.visualization.DataView(dataTable);
+        view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+        var options = {
+        title: "Montant moyen de la dépense et du remboursement par spécialité du médecin exécutant",
+        width: 1200,
+        height: 2700,
+        bar: {groupWidth: "75%"},
+        legend: { position: "none" },
+      };
         //Créer un affichage dans le div d'id "affichage"
-        let columnchart = new google.charts.Bar(document.getElementById("affichage"));
+        let barchart = new google.visualization.BarChart(document.getElementById("affichage"));
         //Ajouter le piechart avec son titre
-        columnchart.draw(dataTable, google.charts.Bar.convertOptions(materialOptions));
+        barchart.draw(view, options);
     }
 }
 

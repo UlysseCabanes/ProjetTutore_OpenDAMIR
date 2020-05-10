@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Alex
+ * @author ulyss
  */
 @Stateless
 public class IndicateursFacade extends AbstractFacade<Indicateurs> {

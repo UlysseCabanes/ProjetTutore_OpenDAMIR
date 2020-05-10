@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Alex
+ * @author ulyss
  */
 @Entity
 @Table(name = "PRS_PPU_SEC_CLAIR")

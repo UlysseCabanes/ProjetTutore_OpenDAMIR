@@ -6,15 +6,13 @@
 package dao;
 
 import entity.DateTraitement;
-import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import util.HtmlSqlDate;
 
 /**
  *
- * @author Alex
+ * @author ulyss
  */
 @Stateless
 public class DateTraitementFacade extends AbstractFacade<DateTraitement> {
@@ -31,15 +29,4 @@ public class DateTraitementFacade extends AbstractFacade<DateTraitement> {
         super(DateTraitement.class);
     }
     
-    public HtmlSqlDate datePlusRecente() {
-		Date result = em.createQuery("select max(c.flxAnnMoi) from DateTraitement c", Date.class)
-			.getSingleResult();
-		return new HtmlSqlDate(result);
-	}
-
-	public Date datePlusAncienne() {
-		Date result = em.createQuery("select min(c.flxAnnMoi) from DateTraitement c", Date.class)
-			.getSingleResult();
-		return new HtmlSqlDate(result);
-	}
 }

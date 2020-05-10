@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Alex
+ * @author ulyss
  */
 @Entity
 @Table(name = "BEN_RES_REG_CLAIR")
@@ -31,7 +31,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "BenResRegClair.findAll", query = "SELECT b FROM BenResRegClair b"),
     @NamedQuery(name = "BenResRegClair.findByRegNum", query = "SELECT b FROM BenResRegClair b WHERE b.regNum = :regNum"),
-    @NamedQuery(name = "BenResRegClair.findByRegClair", query = "SELECT b FROM BenResRegClair b WHERE b.regClair = :regClair")})
+    @NamedQuery(name = "BenResRegClair.findByRegClair", query = "SELECT b FROM BenResRegClair b WHERE b.regClair = :regClair"),
+    @NamedQuery(name = "BenResRegClair.findByCodeGeo", query = "SELECT b FROM BenResRegClair b WHERE b.codeGeo = :codeGeo")})
 public class BenResRegClair implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,6 +44,9 @@ public class BenResRegClair implements Serializable {
     @Size(max = 200)
     @Column(name = "REG_CLAIR")
     private String regClair;
+    @Size(max = 4)
+    @Column(name = "CODE_GEO")
+    private String codeGeo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "benResReg")
     private Collection<Beneficiaire> beneficiaireCollection;
 
@@ -67,6 +71,14 @@ public class BenResRegClair implements Serializable {
 
     public void setRegClair(String regClair) {
         this.regClair = regClair;
+    }
+
+    public String getCodeGeo() {
+        return codeGeo;
+    }
+
+    public void setCodeGeo(String codeGeo) {
+        this.codeGeo = codeGeo;
     }
 
     @XmlTransient

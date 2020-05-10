@@ -26,14 +26,14 @@ public class StatsDao {
     //Montant des remboursements par région
     private static final String MONTANT_REMBOURSEMENT_PAR_REGION
         = "SELECT new dto.StatsResult_1"
-        + "(Reg.regClair, SUM(I.prsRemMnt)) "
+        + "(Reg.codeGeo, SUM(I.prsRemMnt)) "
         + "FROM BenResRegClair Reg "
         + "JOIN Reg.beneficiaireCollection B "
         + "JOIN B.prestation P "
         + "JOIN P.dateTraitement D "
         + "JOIN P.indicateurs I "
         + "WHERE D.flxAnnMoi between :minDate and :maxDate "
-        + "GROUP BY Reg.regClair";
+        + "GROUP BY Reg.codeGeo";
 
     //Requête n°2
     //Tranche d'âge la plus remboursée par région
@@ -90,7 +90,7 @@ public class StatsDao {
     private static final String MONTANT_MOYEN_DEPENSE_ET_REMBOURSEMENTS_PAR_SPECIALITE_MEDECIN_EXECUTANT
         ="SELECT new dto.StatsResult_4_5"
         + "(Spe.speClair, AVG(I.prsPaiMnt), AVG(I.prsRemMnt)) "
-        + "FROM pseSpeSndsClair Spe "
+        + "FROM PseSpeSndsClair Spe "
         + "JOIN Spe.executantCollection E "
         + "JOIN E.prestation P "
         + "JOIN P.dateTraitement D "

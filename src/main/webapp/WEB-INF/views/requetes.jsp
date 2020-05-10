@@ -49,7 +49,7 @@
         </form>
     </div>
     <!-- Le graphique apparaît ici -->
-    <div id="affichage" style="width: 1000px; height: 500px;"></div>
+    <div id="affichage"></div>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/requetes.js"></script>
 </body>
 </html>
