@@ -39,36 +39,36 @@ public class StatsDao {
     //Tranche d'âge la plus remboursée par région
     private static final String TRANCHE_AGE_PLUS_REMBOURSEE_REGION
         ="SELECT new dto.StatsResult_2_3"
-        + "(B.AGE_BEN_SNDS, SUM(I.PRS_REM_MNT) AS montanRem, B.BEN_RES_REG)"
-        + "FROM Indicateurs I, Beneficiaire B, Prestation P"
-        + "WHERE I.idIndicateurs = P.idPrestation"
-        + "AND P.idPrestation = B.idBeneficiaire"
-        + "AND FLX_ANN_MOI between :minDate and :maxDate"
+        + "(B.AGE_BEN_SNDS, SUM(I.PRS_REM_MNT) AS montanRem, B.BEN_RES_REG) "
+        + "FROM Indicateurs I, Beneficiaire B, Prestation P "
+        + "WHERE I.idIndicateurs = P.idPrestation "
+        + "AND P.idPrestation = B.idBeneficiaire "
+        + "AND FLX_ANN_MOI between :minDate and :maxDate "
         + "GROUP BY B.AGE_BEN_SNDS, B.BEN_RES_REG"
         + "HAVING SUM(I.PRS_REM_MNT) =( "
-            + "SELECT MAX(montanRem)"
-            + "FROM ("
-            + "SELECT SUM(I.PRS_REM_MNT) AS montanRem"
-            + "FROM Indicateurs I, Beneficiaire B, Prestation P"
-            + "WHERE I.idIndicateurs = P.idPrestation"
-            + "AND P.idPrestation = B.idBeneficiaire;"
+            + "SELECT MAX(montanRem) "
+            + "FROM ( "
+            + "SELECT SUM(I.PRS_REM_MNT) AS montanRem "
+            + "FROM Indicateurs I, Beneficiaire B, Prestation P "
+            + "WHERE I.idIndicateurs = P.idPrestation "
+            + "AND P.idPrestation = B.idBeneficiaire "
             + "GROUP BY B.AGE_BEN_SNDS, B.BEN_RES_REG))";
     
     //Requête n°3
     //Nature de la prestation la plus remboursée par tranche d'âge
     private static final String NATURE_PRESTATION_PLUS_REMBOURSEE_PAR_TRANCHE_AGE
         ="SELECT new dto.StatsResult_2_3"
-        + "(B.AGE_BEN_SNDS, P.PRES_NAT, COUNT(IdPrestation) AS nbPrestation)"
-        + "FROM Beneficiaire B, Prestation P"
-        + "WHERE P.idPrestation = B.idBeneficiair"
-        + "GROUP BY P.PRES_NAT, B.AGE_BEN_SNDS"
-        + "AND FLX_ANN_MOI between :minDate and :maxDate"
-        + "HAVING COUNT(IdPrestation) =("
-            + "SELECT MAX(nbPrestation)"
-            + "FROM ("
-            + "SELECT COUNT (IdPrestation) AS nbPrestation"
-            + "FROM Beneficiaire B, Prestation P"
-            + "WHERE P.idPrestation = B.idBeneficiair"
+        + "(B.AGE_BEN_SNDS, P.PRES_NAT, COUNT(P.IdPrestation) AS nbPrestation) "
+        + "FROM Beneficiaire B, Prestation P "
+        + "WHERE P.idPrestation = B.idBeneficiair "
+        + "GROUP BY P.PRES_NAT, B.AGE_BEN_SNDS "
+        + "AND FLX_ANN_MOI between :minDate and :maxDate "
+        + "HAVING COUNT(IdPrestation) =( "
+            + "SELECT MAX(nbPrestation) "
+            + "FROM ( "
+            + "SELECT COUNT (IdPrestation) AS nbPrestation "
+            + "FROM Beneficiaire B, Prestation P "
+            + "WHERE P.idPrestation = B.idBeneficiair "
             + "GROUP BY B.AGE_BEN_SNDS, P.PRES_NAT))";
     
     //Requête n°4

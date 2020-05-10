@@ -97,7 +97,7 @@ function drawChart(result) {
     }
     if (requete === "requete5") {
         // On met le résultat au format attendu par google
-        let data = [["Dépense", "Remboursement", "Spécialité du médecin exécutant"]];
+        let data = [["Spécialité du médecin exécutant", "Dépense", "Remboursement"]];
         //Ajouter au tableau de données les résultats du DTO
         result.forEach( ligne => data.push([ligne.libelle, ligne.montant1, ligne.montant2]));
         //Convertir le tableau de données en table de données
