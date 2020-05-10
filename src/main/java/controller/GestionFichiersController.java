@@ -129,8 +129,8 @@ public class GestionFichiersController {
             //Créer les entités correspondantes dans la BDD
             this.readGzipURL(url);
         } 
-         */
-        readGzipURL("file:\\C:\\Users\\ulyss\\Desktop\\A201812_small.csv.gz");
+        */ 
+        //readGzipURL("file:\\C:\\Users\\ulyss\\Desktop\\A201812_small.csv.gz");
     }
 
     public void readGzipURL(String gzipURL) throws MalformedURLException, IOException, Exception {
